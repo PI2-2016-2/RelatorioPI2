@@ -17,6 +17,15 @@ Fazendo uma comparação com outros materiais verificou-se que a cantoneira é a
 	As molas que serão utilizadas terão a composição formada por dois batentes de borracha intermediários. Foram devidamente projetadas para garantir uma grande eficácia na eliminação das vibrações para a estrutura, sendo capazes de reduzir em até 95\% a propagação da vibração da superfície vibratória para a estrutura \cite{mola_catalogo}.
     
     A bancada terá 4 pés, de borracha e ferro, para que as vibrações fiquem mais distribuídas e não sobrecarreguem apenas uma aresta. Outro fator importante é que os 4 pés juntos suportam ate 100 kg, o que atende as exigências relacionadas a massa estipulada no projeto \cite{ferramentas_kennedy}.
+    
+    Um desenho técnico do pé da mesa é apresentado na Figura \ref{fig:pe_bancada}.
+    
+    \begin{figure}[!ht]
+      \centering
+      \includegraphics[scale=0.5]{figuras/amortecedor.png}
+      \caption{Desenho técnico do pé da bancada. Fonte: \cite{mola_catalogo}}
+      \label{fig:pe_bancada}
+      \end{figure}
 
 
 \subsubsection*{\textbf{Faixas de Atuação}}
@@ -39,11 +48,11 @@ A faixa de frequência que a mesa poderá vibrar será de 50 a 100 Hz que equiva
 
 Um dos pontos mais importantes da construção de um sistema de vibração mecânica é a região de apoio dos corpos a seres estudados. No caso de uma mesa vibratória é o superfície do tampo. Ele deve ser modelado e construído de forma que permita que a frequência de vibração que foi solicitada de fato seja a que esteja ocorrendo na base do corpo, ou seja, no tampo da mesa.
 
-	Uma análise foi feita nesse sentido para gerar um primeiro parâmetro de escolha do material e da geometria do tampo da mesa. Dentre as decisões de projeto que foram feitas estaca a que a geometria da mesa atenderia alguns requisito de mercado. Um deles era que a superfície da mesas possuísse geometria de 800mm de comprimento por 500mm de profundidade gerando uma área útil de , compatível com concorrentes já existentes. Com isso restou apenas uma última variável a ser decidida, a espessura do tampo.
+	Uma análise foi feita nesse sentido para gerar um primeiro parâmetro de escolha do material e da geometria do tampo da mesa. Dentre as decisões de projeto que foram feitas estaca a que a geometria da mesa atenderia alguns requisito de mercado. Um deles era que a superfície da mesas possuísse geometria de 800mm de comprimento por 500mm de profundidade gerando uma área útil de 40000 \[mm^2\], compatível com concorrentes já existentes. Com isso restou apenas uma última variável a ser decidida, a espessura do tampo.
     
-	A decisão do tamanho dessa espessura levou em conta duas questões, também decisões de projeto: faixa de vibração entre 50Hz e 100Hz e uso de materiais metálicos para o tampo. Com isso em mente foram feitos análises modais no software de análises Ansys\footnote{www.ansys.com/}, levando em consideração o valor do primeiro modo de vibração. Esse deveria ser, no mínimo, maior que a frequência máxima proposta pela faixa, 100Hz.
+	A decisão do tamanho dessa espessura levou em conta duas questões, também decisões de projeto: faixa de vibração entre 50Hz e 100Hz e uso de materiais metálicos para o tampo. Com isso em mente foram feitas análises modais no software de análises Ansys\footnote{www.ansys.com/}, levando em consideração o valor do primeiro modo de vibração. Esse deveria ser, no mínimo, maior que a frequência máxima proposta pela faixa, 100Hz.
     
-	A análise modal experimental (AME) consiste em extrair os chamados parâmetros modais de um sistema mecânico. Os parâmetros modais são parâmetros característicos do sistema e são compostos por frequências naturais, fatores de amortecimento e modos de vibrar. Se forem corretamente obtidos é possível descrever o comportamento de um sistema vibratório sem necessitar de um modelo matemático \cite{humberto}.
+	A análise modal experimental (AME) consiste em extrair os chamados parâmetros modais de um sistema mecânico. Os parâmetros modais são parâmetros característicos do sistema e são compostos por frequências naturais, fatores de amortecimento e modos de vibrar. Se forem corretamente obtidos é possível descrever o comportamento de um sistema vibratório sem necessitar de um modelo matemático \cite{evandro}.
     
 	Uma análise modal inicial leva em conta somente características físicas do material; rigidez e massa. O que pode ser feito tendo como base a biblioteca de materiais do próprio software. 
     
@@ -52,7 +61,7 @@ Um dos pontos mais importantes da construção de um sistema de vibração mecâ
 \begin{table}[!h]
 \centering
 \caption{Características físicas do aço SAE 1010. Fonte: \cite{shigley}}
-\label{my-label}
+\label{tab:caracteristicas_aco}
 \begin{tabular}{|l|l|l|l|}
 \hline
 \multicolumn{1}{|c|}{\textbf{Nº SAE}} & \multicolumn{1}{c|}{\textbf{Processamento}} & \multicolumn{1}{c|}{\textbf{Resistência a tração (Mpa)}} & \multicolumn{1}{c|}{\textbf{Redução de área (\%)}} \\ \hline
@@ -60,7 +69,26 @@ Um dos pontos mais importantes da construção de um sistema de vibração mecâ
 \end{tabular}
 \end{table}
 
+As imagens do teste são apresentadas nas Figuras \ref{fig:analise_1} e \ref{fig:analise_2}. A Figura \ref{fig:analise_1} é relativa ao teste com espessura de 5mm e a Figura \ref{fig:analise_2} com espessura de 10mm. Foi requerido do programa que revolvesse o seis primeiros modos de vibração. Foi somente observado o primeiro. Este deveria ser maior que 100Hz pra evitar ressonância em toda a faixa de uso do equipamento.
 
-As imagens do teste são mostradas a seguir. A primeira imagem é relativa ao teste com espessura de 5mm e o segundo com espessura de 10mm. Foi requerido do programa que revolvesse o seis primeiros modos de vibração. Foi somente observado o primeiro. Este deveria ser maior que 100Hz pra evitar ressonância em toda a faixa de uso do equipamento.
+\begin{figure}[!ht]
+\centering
+% \includegraphics[scale=0.5]{figuras/analise_1.png}
+\caption{Ensaio com aço estrutural de 5mm de espessura}
+\label{fig:analise_1}
+\end{figure}
 
-\pagebreak
+\begin{figure}[!ht]
+\centering
+% \includegraphics[scale=0.5]{figuras/analise_2.png}
+\caption{Ensaio com aço estrutural de 10mm de espessura}
+\label{fig:analise_2}
+\end{figure}
+
+Dos testes realizados foi observado que a segunda espessura é a indicada pois oferece segurança em toda a faixa de uso; de 50Hz até 100Hz. Pois o primeiro modo de vibração está seguramente acima da frequência máxima. Com um fator de segurança de:
+
+    \begin{equation}
+            n = 100 Hz/167,1 Hz = 0,6 
+    \end{equation}
+
+Ainda baixo porém já observa-se uma linearidade entre o comprimento da espessura e o valor do primeiro modo de viação.

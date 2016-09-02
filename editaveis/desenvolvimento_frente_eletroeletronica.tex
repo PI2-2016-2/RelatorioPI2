@@ -21,3 +21,17 @@ Grande parte dos acelerômetros trabalham a partir dos princípios dos efeitos p
   \item Deslocamento: Conhecer o quanto que uma estrutura se desloca enquanto vibra é um parâmetro muito importante em uma analise vibratória. Sabe-se que o deslocamento em função do tempo é dado pela dupla derivada da aceleração no tempo, assim usando o parâmetro de aceleração que o acelerômetro nos da se torna possível analisar o deslocamento da estrutura.
   \item Frequência: É um parâmetro que pode ser difícil de ser analisado pois depende que a vibração com qual a estrutura é excitada seja próxima de constante durante um breve período de tempo, quanto maior esse intervalo de tempo maior sera a precisão dessa medição. A frequência costuma ser obtida atraves de algorítimos de processamento do sinal de aceleração.
 \end{itemize}
+\subsection{Controle de Malha Fechada}
+\subsubsection{Requisito}
+É importante que o sistema seja capaz de garantir que os parâmetros de vibração inseridos pelo usuário em camadas superiores do sistema sejam efetivamente o que acontece fisicamente, para implementar essa funcionalidade será usado um sistema de controle por malha fechada. Esse procedimento pode ser representado pela imagem abaixo: 
+%imagem 1
+O que sistema de controle eletroeletrônico faz é receber um valor de frequência das camadas superiores de interface/processamento e converter essa informação em sinais elétricos. Esses sinais elétricos serviram para controlar o mecanismo vibrador que irá excitar a plataforma vibratória. Na plataforma vibratória existiram sensores que iram informar ao sistema de controle qual a vibração que os sinais elétricos estão provocando. O sistema de controle deverá através desse sinal de retorno avaliar se os sinais elétricos que o mesmo está produzindo estão coerentes com o que o sistema de Interface/Processamento lhe informou anteriormente. O mecanismo vibrador será constituído por um inversor de frequência que controla a velocidade de um motor trifásico que irá através de um sistema mecânico provocar a vibração na mesa. A programação do inversor de frequência e o controle do motor não é realizado pelo sistema eletroeletrônico, o sistema apenas fornece níveis de tensão analógica e sinais digitais para informar o inversor a velocidade com qual o motor deve vibrar.
+\subsubsection{Implementação}
+A figura a seguir ilustra como será o sistema eletrônico planejado para o controle em frequencia. No projeto, existem 2 microcontroladores atuando em conjunto. O primeiro, e principal, é o MCU 1. Ele garante algumas coisas no sistema:
+\begin{enumerate}
+\item Velocidade de amostragem correta
+\item Comunicação com \textit{Raspberry Pi} via \textit{UART}
+\item Comunicação com a interface do motor via \textit{$I_{2} C$}
+\end{enumerate}
+A segunda parte do projeto é a MCU2, responsável pela manutenção do requisito de vibração na mesa. A partir das informações contidas no barramento, a mesma irá aumentar ou diminuir a velocidade dos motores (a partir de uma interface analógica com o motor), atuando como um controlador PI. As informações como frequência almejada, velocidade atual e frequência atual serão enviadas compartilhadas pelo barramento.
+%imagem2
