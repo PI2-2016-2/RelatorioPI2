@@ -1,0 +1,138 @@
+\chapter[Introdução]{Introdução}\label{cap1}
+% 	Essa seção aborda sobre o contexto do projeto, o problema a ser resolvido e a metodologia para desenvolvimento do trabalho. 
+Vibração é conhecida como o movimento oscilatório de um corpo em relação ao um referencial. O número de ciclos vibratórios do movimento por segundo é chamado de frequência, que é medida em Hertz (Hz) \cite[p. 14]{inman}.
+
+A vibração ocorre em todos os corpos, e testes vibratórios são feitos para determinar as frequências naturais de um determinado corpo, afim de evitar ressonância, e, também, para realizar experimentalmente a durabilidade dinâmica de estruturas permitindo obter o comportamento da estrutura perante vibrações \cite[p. 587]{inman}.
+
+	Este trabalho apresenta a proposta de uma bancada para ensaios de vibração mecânica. Assim, neste capítulo são apresentados o problema a ser resolvido, a justificativa e objetivos do projeto. 
+    
+\section{Descrição do Problema}
+	
+    O problema trabalhado neste projeto está representado na Tabela \ref{problem}:
+    
+    \begin{table}[h]
+        \centering
+        \caption{Problema trabalhado no projeto}
+        \label{problem}
+        \begin{tabular}{|l|l|}
+        \hline
+        \textbf{O problema de} & Carência de uma bancada de testes de vibração na FGA. \\ \hline
+        \textbf{Afeta} & Os alunos de Engenharia Automotiva e Aeroespacial e  da FGA. \\ \hline
+        \textbf{Cujo impacto é} & Formação pouco prática. \\ \hline
+        \textbf{Uma boa solução seria} & \begin{tabular}[c]{@{}l@{}}um projeto de uma bancada de testes de vibração genérica\\  para testes de diversas estruturas pelos alunos.\end{tabular} \\ \hline
+        \end{tabular}
+	\end{table}
+
+\section{Justificativa}
+    % Melhorar
+    A Faculdade UnB Gama conta com excelentes profissionais e alunos, porém possui uma deficiência na infraestrutura e suporte para os alunos. Alguns equipamentos
+    necessários para realização de testes faltam no \textit{campus}, o que
+    impacta negativamente a formação dos alunos de Engenharia
+    Automotiva e Aeroespacial, principalmente.
+    
+    Com isso em mente, este projeto foi proposto para suprir a falta de
+    um equipamento de testes de vibração na faculdade, área bastante explorada
+    em disciplinas dos cursos de Engenharia Automotiva e Aeroespacial.
+
+\section{Objetivos}
+
+% 	Projetar e construir uma mesa vibratória, de frequência ajustável, que possa ser usada em projetos ou pesquisas, feitas pelas engenharias da UnB-FGA, que necessitem de uma superfície que vibra. Bem como desenvolver sistema de sensoriamento, aquisição e visualização das frequência resposta geradas em teste.
+    
+    Este trabalho tem por objetivo geral propor o projeto e implementação de uma bancada para ensaios de vibração mecânica para suprir a carência deste equipamento na UnB-FGA, de forma que possa ser utilizado em projetos e pesquisas feitos pelas engenharias do \textit{campus}.
+    
+    % 	A bancada vibratória desse projeto será desenvolvida com o intuito de proporcionar o teste de durabilidade dinâmica de estruturas por meio de vibrações que simulam ambientes críticos, os quais a determinada estrutura terá que enfrentar.
+	
+   \subsection{Objetivos específicos}
+       São objetivos específicos do projeto:
+       \begin{itemize}
+%         \item Desenvolver interface visual de baixo nível que permita ao usuário organizar e acompanhar a variação da frequência e tempo durante o uso da mesa construída.  
+%         \item Projetar e construir sistema eletromecânico que proporcione uma faixa de frequência conhecida ao usuário.
+%         \item Criar conjunto de sensores que possam medir o efeito da vibração gerada pela mesa, em pontos diferentes, de objetos.
+%         \item Criação de protocolo de comunicação para comunicação entre sensores e micro controladores.  
+%         \item Escrever manual de uso digital da interface de controle.
+%         \item Integrar as soluções de cada frente de trabalho.
+        
+        \item Projetar e construir o sistema mecânico/estrutural da bancada;
+        \item Projetar e construir o sistema eletromecânico de funcionamento da bancada;
+        \item Projetar e construir o sistema eletroeletrônico de funcionamento da bancada;
+        \item Projetar e construir o sistema de monitoramento e controle do uso da bancada;
+        \item Integrar as soluções de cada frente de trabalho.
+       \end{itemize}
+       
+       No Apêndice \ref{enaoe} encontra-se uma lista que identifica características do produto proposto, esclarecendo um pouco mais o escopo do projeto.
+       
+%%%%%%%%%%%%%%%%%%%%% SEÇÃO GERENCIAMENTO
+% \input{editaveis/gerenciamento}
+
+\chapter{Gerenciamento do Projeto}
+
+Para o gerenciamento do projeto foram planejados os Custos (Apêndice \ref{plano_de_custos}), Aquisições (Apêndice \ref{plano_de_aquisicoes}), Recursos Humanos (Apêndice \ref{plano_de_rh}) e Riscos (Apêndice \ref{plano_de_riscos}), estes foram documentados de acordo com os planos estabelecidos pelo PMBOK \cite{pmbok}.
+Além disso foram estabelecidas as formas de comunicação, as ferramentas para gestão e documentação do projeto que serão utilizadas, os entregáveis, as atividades, responsáveis e prazos.  
+
+\section*{Comunicação da equipe}
+A equipe possui reuniões presenciais duas vezes pela semana, estabelecidas da seguinte forma:
+\begin{center}
+  \begin{itemize}
+      \item Quartas (16h às 18h)
+      \item Sextas (14h às 18h)
+  \end{itemize}
+\end{center}
+
+Essas reuniões são utilizadas para discussões acerca do andamento do projeto e para tomada de decisões. Nos horários estabelecidos também ocorre a execução das demais atividades do projeto. 
+Para a comunicação a distância é utilizado o aplicativo de mensagens WhatsApp\footnote{https://www.whatsapp.com/}.
+
+\section*{Ferramentas}
+
+\textbf{WhatsApp}: 
+Aplicativo de mensagens para troca de informações que não necessitam de um encontro presencial. 
+
+\textbf{Google Drive\footnote{https://drive.google.com/}}: Serviço de armazenamento de arquivos utilizado para compartilhar todo o material gráfico (documentos, artigos, relatório, \textit{slides}, imagens e etc) utilizados para desenvolvimento do projeto.
+
+\textbf{Trello\footnote{https://trello.com/}}:
+Ferramenta para organização de tarefas do projeto de cada módulo. Também utilizada para gerenciamento dos requisitos do módulo de Interface/Processamento (\textit{Backlog} do Produto).
+
+\textbf{Overleaf\footnote{https://www.overleaf.com/}}:
+Ferramenta online de edição colaborativa de Latex\footnote{https://www.latex-project.org/} utilizada para escrita do relatório do projeto.
+
+\section*{Estrutura Analítica de Projeto}
+
+A EAP apresentada na Figura \ref{eap}, está dividida nas seguintes áreas: Planejamento do Projeto, Interface/Processamento, Eletroeletrônica, Eletromecânica, Estrutura e Encerramento do Projeto. O planejamento e o encerramento contemplam entregáveis relacionados ao projeto propriamente dito, e as demais áreas contemplam os entregáveis relacionados ao produto. As demais áreas foram estabelecidas de acordo com os módulos da bancada. Sendo:
+
+\textbf{Interface/Processamento:} Módulo responsável por tratar da interação com o usuário da bancada, recebendo os parâmetros para controle da bancada e apresentando para o usuário os dados coletados no ensaio. 
+
+\textbf{Eletroeletrônica:} Módulo responsável por obter e tratar os sinais brutos dos sensores, disponibilizando dados para os demais módulos. Também é responsável pelo controle da vibração da mesa e interação com os motores.  
+
+\textbf{Eletromecânica:} Módulo responsável pelo acionamento do sistema por meio de motores de indução trifásicos, bem como controlar as velocidades e torques exigidos usando-se inversores de frequência afim de gerar a vibração na bancada definida pelo usuário.
+
+\textbf{Estrutura:} Módulo responsável pelos cálculos/simulações estruturais, simulações modais, procura/aquisição dos materiais de construção e fabricação da bancada.
+
+Para cada entregável foi colocado uma \textit{tag} indicando em que ponto de controle (entrega intermediária do projeto) deverá ser entregue, na qual: 
+
+\indent \textbf{PC1:} Ponto de Controle 1 - Concepção de Detalhamento da Solução
+
+\indent \textbf{PC2:} Ponto de Controle 2 - Projeto e Construção da Solução
+
+\indent \textbf{PC3:} Ponto de Controle 3 - Integração
+	
+\section*{Cronograma}
+
+A partir dos entregáveis estabelecidos na EAP foram definidas as atividades e os prazos. Estes foram acordados entre os líderes de cada área e considerando prazo total do projeto (19/08 a 02/12) e as entregas intermediárias (02/09, 04/11 e 30/11).
+
+Para a Fase 03 do projeto optou-se por utilizar iterações, como prevista pelo \textit{framework} Scrum\footnote{http://www.scrumguides.org/docs/scrumguide/v1/Scrum-Guide-Portuguese-BR.pdf}. As iterações serão de 1 semana, nas quais as atividades e responsáveis serão planejadas no início da iteração de acordo com a macro-atividade estabelecida no cronograma. 
+O cronograma do projeto de forma macro pode ser visto na Figura \ref{cronograma}. O cronograma detalhado está disponível no Apêndice \ref{cronograma_detalhado}.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.6,angle=90]{figuras/eap.png}
+\caption{EAP do projeto}
+\label{eap}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=1]{figuras/cronograma_macro.png}
+\caption{Cronograma do projeto}
+\label{cronograma}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%% FIM SEÇÃO GERENCIAMENTO
