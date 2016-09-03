@@ -19,7 +19,7 @@ Quanto à camada de alto nível, para o corrente projeto da bancada de vibraçõ
 Roy Fielding, um dos idealizadores do estilo REST,  afirma que o estilo REST enfatiza a escalabilidade das interações entre componentes e componentes intermediários para reduzir a latência da interação.
 
 De uma forma geral, vale notar que tudo na Web (páginas, imagens, entre outros) são a essência de um recurso [1]. O fato de o REST  possuir a  característica de contar com recursos nomeados em vez de mensagens facilita o fraco acoplamento no design da aplicação.
-    
+
 Logo abaixo, é possível contemplar uma figura esquemática da arquitetura geral do sistema.
 
 \begin{figure}[!ht]
@@ -31,7 +31,7 @@ Logo abaixo, é possível contemplar uma figura esquemática da arquitetura gera
 
 Para a realização dos testes na bancada, o usuário poderá determinar a frequência de vibração e o tempo de funcionamento da bancada por meio da interação com uma aplicação web. Durante e após a execução dos testes, o usuário poderá visualizar os dados coletados pelos sensores.
 
-A aplicação web fará requisições, através de uma rotina, para um servidor que provê serviços REST. Este servidor será disponibilizado por uma Raspberry Pi. É valido ressaltar que a comunicação entre aplicação web e o Raspberry PI funcione é necessário que o mesmo esteja com acesso a internet para que ele possa receber e enviar as requisições para a aplicação web. 
+A aplicação web fará requisições, através de uma rotina, para um servidor que provê serviços REST. Este servidor será disponibilizado por uma Raspberry Pi. É valido ressaltar que a comunicação entre aplicação web e o Raspberry PI funcione é necessário que o mesmo esteja com acesso a internet para que ele possa receber e enviar as requisições para a aplicação web.
 
 Adicionalmente, os serviços REST consultarão os dados coletados e persistidos em uma base de dados SQLite , que também será hospedado na Raspberry Pi.
 
@@ -57,54 +57,53 @@ Adicionalmente, dentre as opções de linguagens de programação disponíveis p
 A linguagem de programação Python possui uma excelente performance, especialmente considerando que o hardware a ser utilizado para disponibilizar o servidor REST possui recursos de processamento bem limitados. Além disso, a linguagem de programação Python possui uma alta produtividade associada.
 
 Outro aspecto vantajoso da linguagem é vasta disponibilidade de bibliotecas para tratamento de informações, especialmente cálculos matemáticos, que serão amplamente utilizados no sistema para uso integrado com a bancada de vibrações.
-
+\newpage
 \subsubsection*{\textbf{Requisitos Levantados}}
 A partir do escopo definido no projeto foram elicitados alguns requisitos de forma macro, estes podem ser vistos na Figura \ref{backlog_produto} que representa os \textit{Backlogs} do Produto para as duas aplicações.
 
-\begin{figure}[!h]    
+\begin{figure}[H]
 \centering
-\label{backlog_produto}	
-% \includegraphics[keepaspectratio=true,scale=0.55]	{figuras/backlog_produto.png}
+\label{backlog_produto}
+\includegraphics[keepaspectratio=true,scale=0.55]	{figuras/backlog_produto.png}
 \caption{\textit{Backlogs} das aplicações do projeto}
-\end{figure} 
+\end{figure}
 
 \subsubsection*{\textbf{Protótipo da Solução Web}}
 
 Com o intuito de visualizar a solução Web foi desenhado um protótipo de alta fidelidade da aplicação Web. As telas podem ser vistas nas Figuras \ref{fig:tela_login}, \ref{fig:tela_iniciar}, \ref{fig:tela_iniciando}, \ref{fig:tela_resultado_ensaio} e \ref{fig:tela_ensaios}.
 
 
-\begin{figure}[!h]    
+\begin{figure}[H]
 \centering
-\label{fig:tela_login}	
+\label{fig:tela_login}
 \includegraphics[keepaspectratio=true,scale=0.55]	{figuras/tela_login.png}
 \caption{Tela de login da aplicação}
-\end{figure}  
+\end{figure}
 
-\begin{figure}[!h]    
+\begin{figure}[H]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.55]	{figuras/tela_iniciar.png}
-\label{fig:tela_iniciar}	
+\label{fig:tela_iniciar}
 \caption{Tela para inserir os parâmetros do ensaio}
-\end{figure}  
-        
-\begin{figure}[!h]    
+\end{figure}
+
+\begin{figure}[H]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.55]	{figuras/tela_iniciando.png}
 \label{fig:tela_iniciando}
 \caption{Tela referente ao processo de início do ensaio}
-\end{figure}  
-        
-\begin{figure}[!h]    
+\end{figure}
+
+\begin{figure}[H]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.52]	{figuras/tela_resultado_ensaio.png}
-\label{fig:tela_resultado_ensaio}	
+\label{fig:tela_resultado_ensaio}
 \caption{Tela de resultados do ensaio}
 \end{figure}
-        
-\begin{figure}[!h]    
+
+\begin{figure}[H]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.40]{figuras/tela_ensaios.png}
-\label{fig:tela_ensaios}	
+\label{fig:tela_ensaios}
 \caption{Tela dos ensaios realizados}
 \end{figure}
-        
