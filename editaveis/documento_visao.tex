@@ -1,0 +1,135 @@
+\chapter{Documento de Visão do Sistema Web}
+% 	\input{anexos/Documento_de_visao}
+
+%%%%%%%%%%%%%%%%%%%%%%% DOC DE VISÃO
+
+\begin{center}
+ {\large Documento de Visão}\\[0.2cm]
+ {BEViM}\\
+ \end{center}
+ 
+ \section*{Histórico de Alterações}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|p{6cm}|p{5cm}|}
+\hline
+Data & Versão & Descrição & Responsável\\
+\hline                               
+27/08/2016 & 1.0 & Criação do documento. & Ítalo Paiva e Emilie Morais.\\
+\hline
+\end{tabular}
+\end{table}
+
+\section*{Introdução}
+	
+    O objetivo deste documento é estabelecer uma visão geral do BEViM, que é o sistema que será utilizado para controle e visualização dos resultados da bancada para ensaios de vibração mecânica. Dessa forma, este documento apresenta as necessidades macro do usuário, características gerais do software e envolvidos.
+    
+   
+\section*{Descrições dos Envolvidos e dos Usuários}
+	
+    Nesta seção do documento são apresentados os envolvidos, os usuários e suas principais necessidades e o ambiente de uso do sistema.
+    \subsection*{Resumo dos envolvidos}
+		
+        Os envolvidos no projeto seja no desenvolvimento, na aquisição ou no uso da aplicação final são \textit{stakeholders}. Foram considerados envolvidos no projeto todos que tenham algum tipo de interesse e/ou participação, e a Tabela \ref{soft_stakeholders} lista os \textit{stakeholders} identificados.
+
+\vfill
+\pagebreak
+        \begin{table}[h]
+            \centering
+            \caption{Envolvidos do projeto de Software}
+            \label{soft_stakeholders}
+            \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Nome}      & \textbf{Descrição}                                                                            & \textbf{Responsabilidades}                                                                                                              \\ \hline
+            Emilie Morais      & \begin{tabular}[c]{@{}c@{}}Membro do time\\  de desenvolvimento\end{tabular}                  & Desenvolver e manter o sistema                                                                                                          \\ \hline
+            Ítalo Paiva        & \begin{tabular}[c]{@{}c@{}}Membro do time\\  de desenvolvimento\end{tabular}                  & Desenvolver e manter o sistema                                                                                                          \\ \hline
+            Matheus Ferraz     & \begin{tabular}[c]{@{}c@{}}Membro do time\\  de desenvolvimento\end{tabular}                  & Desenvolver e manter o sistema                                                                                                          \\ \hline
+            Paulo Borba        & \begin{tabular}[c]{@{}c@{}}Membro do time\\  de desenvolvimento\end{tabular}                  & Desenvolver e manter o sistema                                                                                                          \\ \hline
+            Demais integrantes & \begin{tabular}[c]{@{}c@{}}Integrantes do grupo de\\  desenvolvimento da bancada\end{tabular} & \begin{tabular}[c]{@{}c@{}}Acompanhar o desenvolvimento \\ e validar a integração do software\\  com os demais subprodutos\end{tabular} \\ \hline
+            Professores de PI2 & Professor da disciplina de PI2                                                                & \begin{tabular}[c]{@{}c@{}}Monitorar o andamento do projeto; \\ Avaliar o projeto e o produto.\end{tabular}                             \\ \hline
+            \begin{tabular}[c]{@{}c@{}}Alunos \\ (Automotiva e/ou Aeroespacial)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Usuário direto\\  do sistema\end{tabular} & \begin{tabular}[c]{@{}c@{}}Realizar testes no equipamento,\\  controlando a bancada.\end{tabular} \\ \hline
+          Técnicos & \begin{tabular}[c]{@{}c@{}}Usuário direto \\ do sistema\end{tabular} & \begin{tabular}[c]{@{}c@{}}Gerenciar e acompanhar \\ o uso do equipamento.\end{tabular} \\ \hline
+          \begin{tabular}[c]{@{}c@{}}Professores \\ (Automotiva e/ou Aeroespacial)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Usuário direto\\ do sistema\end{tabular} & \begin{tabular}[c]{@{}c@{}}Realizar testes no equipamento,\\  controlando a bancada\end{tabular} \\ \hline
+            \end{tabular}
+        \end{table}
+        
+    \subsection*{Resumo dos usuários}\label{resumo_usuarios_secao}
+    
+    	Na tabela \ref{usuarios_resumo} estão listados os usuários do sistema.
+    
+    	\begin{table}[h]
+          \centering
+          \caption{Resumo dos usuários do sistema}
+          \label{usuarios_resumo}
+          \begin{tabular}{|c|c|c|}
+          \hline
+          \textbf{Nome} & \textbf{Descrição} & \textbf{Responsabilidades} \\ \hline
+          \begin{tabular}[c]{@{}c@{}}Alunos \\ (Automotiva e/ou Aeroespacial)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Usuário direto\\  do sistema\end{tabular} & \begin{tabular}[c]{@{}c@{}}Realizar testes no equipamento,\\  controlando a bancada.\end{tabular} \\ \hline
+          Técnicos & \begin{tabular}[c]{@{}c@{}}Usuário direto \\ do sistema\end{tabular} & \begin{tabular}[c]{@{}c@{}}Gerenciar e acompanhar \\ o uso do equipamento.\end{tabular} \\ \hline
+          \begin{tabular}[c]{@{}c@{}}Professores \\ (Automotiva e/ou Aeroespacial)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Usuário direto\\ do sistema\end{tabular} & \begin{tabular}[c]{@{}c@{}}Realizar testes no equipamento,\\  controlando a bancada\end{tabular} \\ \hline
+          \end{tabular}
+    	\end{table}
+    
+     \subsection*{Principais necessidades do usuário}
+     As necessidades, dos alunos e professores, a serem solucionadas pelo sistema são:
+     \begin{itemize}
+		\item Iniciar um ensaio na bancada controlando a frequência e o tempo de vibração;
+        \item Visualizar os dados de amplitude, frequência, tempo na bancada e no objeto testado;
+        \item Obter dados de testes já realizados;
+%         \item Agendar horário de uso da bancada;	
+    \end{itemize}
+    
+%     A necessidade, dos técnicos, a ser solucionada pelo sistema é:
+%      \begin{itemize}
+%         \item Controlar o uso da bancada;
+%     \end{itemize}
+     
+	\subsection*{Ambiente do usuário}
+    	
+        Os usuários principais são os alunos de Engenharia Automotiva e Aeroespacial e os técnicos, que utilizarão o sistema nos laboratórios da FGA. Como o sistema é uma aplicação \textit{Web}, é possível acessá-lo de qualquer lugar com uma conexão com a Internet.
+        
+   
+\section*{Visão geral do produto}
+
+	\subsection*{Perspectiva e Intenção do produto}
+    	Espera-se que o \textit{software} facilite o uso da bancada de ensaios, permitindo um controle mais fácil e uma visualização mais agradável e cômoda dos resultados dos testes, simplificando a vida dos alunos.
+        
+    \subsection*{Funcionalidades do produto}
+    
+    	As funcionalidades são um conjunto de características e comportamentos que o sistema deve conter para resolver o problema e as necessidades do cliente. O software BEViM conta com as seguintes funcionalidades:
+        
+        \begin{itemize}
+          	\item \textbf{Controle da bancada} - Esta funcionalidade permite que o usuário controle a entrada de dados para realizar um ensaio de vibração na bancada.
+            \item \textbf{Visualização dos resultados} - Esta funcionalidade permite que o usuário visualize os resultados dos testes realizados, por meio de gráficos amigáveis.
+        \end{itemize}
+    
+    \subsection*{Requisitos não-funcionais do produto}
+    
+    	Requisitos não-funcionais são regras que, mesmo não sendo funcionalidades, o sistema deve estar de acordo. Para o BeViM os seguintes requisitos não-funcionais foram identificados:
+        
+        \begin{itemize}
+            \item Deve ser possível apenas a execução de um teste por vez, por mesa.
+            \item Os resultados do teste devem ser apresentados de forma amigável, com gráficos inteligíveis para os alunos de Engenharia.
+            \item O sistema deve possuir um sistema de autenticação para a realização do teste.
+
+        \end{itemize}
+        
+        \subsubsection*{Restrições de Design}
+        	
+            \begin{itemize}
+                \item O sistema será desenvolvido na linguagem de programação Python 3.4, utilizando o \textit{framework} de desenvolvimento web Django versão 1.9.
+                \item O sistema deverá ser implementado seguindo a folha de estilos padrão do Python, o \href{https://www.python.org/dev/peps/pep-0008/}{PEP 8}, prezando a manutenibilidade, para que o código possa ser facilmente evoluído por outros alunos.
+                \item O desenvolvimento do sistema deve seguir a metodologia ágil \textit{Scrum}.
+                
+                \item O versionamento do código deverá ser feito via GitHub.
+            \end{itemize}
+    
+\section*{Glossário}
+    
+    \textbf{Ensaio:} Teste realizado pela bancada 
+ 
+    \textbf{Bancada:} Estrutura vibratória criada para a realização dos ensaios 
+    
+    \textbf{Vibração mecânica:} Vibração é conhecida como o movimento oscilatório de um corpo em relação ao um referencial. O número de ciclos vibratórios do movimento por segundo é chamado de frequência que é medido em Hertz (Hz) \cite{inman}.
+    
+%%%%%%%%%%%%%%%%%%%%%%% FIM DO DOC DE VISÃO

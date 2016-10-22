@@ -1,0 +1,193 @@
+\chapter{Termo de Abertura do Projeto}
+	\label{tap}
+% 	\input{anexos/Termo_de_abertura}
+
+%%%%%%%%%%%%%%%%%%%%%%%% INICIO DO TAP
+\begin{center}
+ {\large Termo de abertura}\\[0.2cm]
+ {Bancada para Ensaios de Vibração Mecânica}\\
+ \end{center}
+ 
+ \section*{Histórico de Alterações}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|p{6cm}|p{5cm}|}
+\hline
+Data & Versão & Descrição & Responsável\\
+\hline                               
+26/08/2016 & 1.0 & Criação do documento. & Anderson Tenório, Ítalo Paiva e Paulo Borba .\\
+\hline                               
+27/08/2016 & 1.1 & Reformulação da estrutura do documento. & Ítalo Paiva.\\
+\hline
+\end{tabular}
+\end{table}
+
+\section*{Nome do projeto}
+  Bancada para Ensaios de Vibração Mecânica.
+  
+\section*{Descrição do projeto}
+
+    O projeto visa desenvolver uma bancada para ensaios de vibração mecânica
+    genérica para os alunos dos cursos de Engenharia Automotiva e Aeroespacial
+    da UnB-FGA (Faculdade do Gama) possam realizar testes de diversas estruturas
+    nas disciplinas que os fizerem necessários.
+
+\section*{Objetivos do projeto}
+  
+    Este trabalho tem por objetivo geral propor o projeto e implementação
+    de uma bancada para ensaios de vibração mecânica para suprir a carência
+    deste equipamento na UnB-FGA, que possui uma aplicação mais didática
+    que industrial.
+
+   São objetivos específicos do projeto:
+   \begin{itemize}
+    \item Elaborar o projeto mecânico/estrutural da bancada;
+    \item Elaborar o projeto eletromecânico de funcionamento da bancada;
+    \item Elaborar o projeto eletroeletrônico de funcionamento da bancada;
+    \item Elaborar o projeto do sistema de monitoramento e controle da bancada;
+    \item Integrar as soluções de cada frente de trabalho.
+   \end{itemize}
+  
+\section*{Justificativa do projeto}
+	
+    %%%%%%%%%%%%%% Melhorar isso aqui
+    
+    A Faculdade UnB Gama conta com excelentes profissionais e alunos, porém 
+    a falta de equipamentos especializados e infraestrutura para que os alunos 
+    possam aprender melhor, é um problema antigo. Alguns equipamentos
+    necessários para realização de testes faltam no \textit{campus}, o que
+    acaba impactando negativamente a formação dos alunos de Engenharia
+    Automotiva e Aeroespacial, principalmente.
+    
+    Com isso em mente, este projeto foi proposto para suprir a falta de
+    um equipamento de testes de vibração na faculdade, área bastante explorada
+    em disciplinas dos cursos de Engenharia Automotiva e Aeroespacial.
+    
+    %%%%%%%%%%%%%% Melhorar isso aqui
+
+\section*{Recursos do produto}
+	
+    A solução apresentada conta com os seguintes recursos:
+    
+    \begin{itemize}
+        \item Frequência controlada pelo usuário;
+    	\item Calibração automática da frequência da mesa;
+        \item Sensoreamento livre em dois locais de escolha do usuário;
+        \item Aplicação \textit{web} para controle da bancada e visualização
+        	  dos resultados.
+    \end{itemize}
+    
+    \subsection*{Subprodutos identificados}
+    
+    	O projeto como um todo gerará os seguintes subprodutos:
+        
+        \begin{itemize}
+        	\item \textbf{Estrutura física da bancada vibracional} - Projeto e produto
+            			  da estrutura de sustentação, do mecanismo vibracional e da
+                          estrutura da bancada. A bancada vibracional engloba tanto a
+                          mesa vibratória e sua sustentação quanto os 
+                          sensores acoplados na mesa para controle da frequência e os
+                          sensores livres para o usuário.
+        	\item \textbf{Sistema de Monitoramento e Controle da Bancada} - 
+                          Aplicação \textit{web} responsável por controlar o
+                          funcionamento da bancada, onde o usuário entrará com
+                          os dados de entrada para o teste e visualizará os
+                          resultados do teste. Além da aplicação, será fornecida
+                          também toda a documentação associada.
+        \end{itemize}
+
+\section*{\textit{Stakeholders}}
+
+Os envolvidos no projeto seja no desenvolvimento, na aquisição ou no uso da aplicação final são \textit{stakeholders}. Foram considerados envolvidos no projeto todos que tenham algum tipo de interesse e/ou participação, e a Tabela \ref{stakeholders_projeto} lista os \textit{stakeholders} identificados.
+        
+        \begin{table}[h]
+            \centering
+            \caption{Envolvidos no projeto}
+            \label{stakeholders_projeto}
+            \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Nome}      & \textbf{Descrição}                                                                            & \textbf{Responsabilidades}                                                                                                              \\ \hline
+            Integrantes do grupo & \begin{tabular}[c]{@{}c@{}}Integrantes do grupo de\\  desenvolvimento da bancada\end{tabular} & \begin{tabular}[c]{@{}c@{}}Acompanhar o desenvolvimento \\ e validar a integração do software\\  com os demais subprodutos\end{tabular} \\ \hline
+            Professores de PI2 & Professor da disciplina de PI2                                                                & \begin{tabular}[c]{@{}c@{}}Monitorar o andamento do projeto; \\ Avaliar o projeto e o produto.\end{tabular}                             \\ \hline
+            \begin{tabular}[c]{@{}c@{}}Alunos \\ (Automotiva e/ou \\ Aeroespacial)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Usuário direto\\  do sistema\end{tabular} & \begin{tabular}[c]{@{}c@{}}Realizar testes no equipamento,\\  controlando a bancada.\end{tabular} \\ \hline
+          Técnicos & \begin{tabular}[c]{@{}c@{}}Usuário direto \\ do sistema\end{tabular} & \begin{tabular}[c]{@{}c@{}}Gerenciar e acompanhar \\ o uso do equipamento.\end{tabular} \\ \hline
+          \begin{tabular}[c]{@{}c@{}}Professores \\ (Automotiva e/ou \\ Aeroespacial)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Usuário direto\\ do sistema\end{tabular} & \begin{tabular}[c]{@{}c@{}}Realizar testes no equipamento,\\  controlando a bancada\end{tabular} \\ \hline
+            \end{tabular}
+        \end{table}
+
+
+\section*{Líderes do projeto e suas responsabilidades}
+
+    Cada frente de trabalho possui uma interface de comunicação com o grupo todo.
+    Esta interface é o líder da frente. 
+
+    Então, o líder fica responsável por coordenar e dividir atividades entre a sua
+    frente de trabalho e comunicar à equipe decisões, status de atividades e entre
+    outras informações. Os líderes de cada frente, em conjunto com o grupo, são
+    responsáveis por tomar decisões e representar o grupo como um todo.
+
+    A relação dos líderes de cada frente de trabalho definida se encontra abaixo:
+
+    \begin{itemize}
+        \item \textbf{Frente Estrutural/Mecânica} - João Kaled
+        \item \textbf{Frente Eletromecânica} - Anderson Andrade
+        \item \textbf{Frente Eletroeletrônica} - Pedro Inazawa
+        \item \textbf{Frente de Interface/Processamento} - Matheus Ferraz
+    \end{itemize}
+
+\section*{Cronograma de marcos sumarizado}
+
+	A tabela abaixo apresenta os principais marcos do projeto em que serão responsáveis para realização
+    de avaliações sobre o estado do projeto bem como entregas de protótipos funcionais e produto final,
+    com as devidas datas de acordo com o cronograma.
+
+  \begin{table}[h]
+  \centering
+  \begin{tabular}{|c|p{4.5cm}|p{8cm}|}
+	\hline
+  Data & Marcos & Descrição\\
+  \hline                               
+  19/08-06/08/2016 & Solução inicial & Definição da solução inicial do projeto a partir de ideias integradoras.\\
+  \hline                               
+  09/09/2016 & Ponto de Controle 1 & Apresentação da concepção do projeto com os requisitos bem definidos 
+  									sobre o que será entregue e quais as características serão 												desenvolvidas para o produto a ser entregue.\\
+  \hline                               
+  12/09-03/11/2016 & Construção da solução & Desenvolvimento físico da bancada para ensaios de vibração mecânica.\\
+  \hline                               
+  09/11/2016 & Ponto de Controle 2 & Apresentação de um protótipo funcional e relatório do 
+  									andamento do projeto.\\
+  \hline                               
+  26/10-30/11/2016 & Integração e Homologação & Integração das soluções e homologação da bancada para ensaios de vibração mecânica após realizados todos os testes.\\
+  \hline
+  02/12/2016 & Ponto de Controle 3 e Entrega Final do Produto & Apresentação do produto final, com os módulos 																	de cada engenharia integrados e que 																	estejam de acordo com os requisitos 																	elicitados inicialmente.\\
+  \hline
+  \end{tabular}
+  \end{table}
+
+
+\section*{Investimento preliminar}
+
+	O custo total estimado do projeto é de R\$ 3.253,87.
+
+\section*{Restrições e riscos}
+	
+    Os riscos identificados para o projeto estão listados na Tabela \ref{riscos_projeto_tap}, juntamente com a probabilidade, impacto e prioridade definidos (mais informações sobre os riscos do projeto podem ser obtidos no Plano de Gerenciamento de Riscos, no Apêndice \ref{plano_de_riscos}).
+
+\begin{table}[h]
+\centering
+\caption{Riscos Identificados para o Projeto}
+\label{riscos_projeto_tap}
+\begin{tabular}{|l|l|l|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Risco}} & \multicolumn{1}{c|}{\textbf{Probabilidade}} & \multicolumn{1}{c|}{\textbf{Impacto}} & \textbf{Prioridade} \\ \hline
+Algum membro abandonar a equipe & Baixa & Alto & \cellcolor[HTML]{FCFF2F}\textbf{Média} \\ \hline
+Não houver financiamento suficiente. & Média & Alto & \cellcolor[HTML]{FE0000}\textbf{Alta} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Não conseguir os materiais\\  necessários para o produto por\\  tempo e localização.\end{tabular} & Baixa & Alto & \cellcolor[HTML]{FCFF2F}\textbf{Média} \\ \hline
+Houver atrasos entre as equipes. & Média & Alto & \cellcolor[HTML]{FE0000}\textbf{Alta} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Os horários do galpão não serem\\  suficientes ou aptos.\end{tabular} & Alta & Médio & \cellcolor[HTML]{FE0000}\textbf{Alta} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Requisito entre as equipes serem\\ modificados no decorrer do processo.\end{tabular} & Média & Alto & \cellcolor[HTML]{FE0000}\textbf{Alta} \\ \hline
+Greve & Baixa & Baixo & \cellcolor[HTML]{34FF34}\textbf{Baixa} \\ \hline
+\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%% FIM DO TAP
