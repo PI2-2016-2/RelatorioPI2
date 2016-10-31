@@ -108,6 +108,124 @@ Com o intuito de visualizar a solução Web foi desenhado um protótipo de alta 
 \caption{Tela dos ensaios realizados}
 \end{figure}
 
+\subsection*{\textbf{Mudanças - Rotinas de Comunicação}}
+
+A camada de software na aplicação Web foi desenvolvida em \textit{Python}, bem como a camada de servidor de comunicação com a aplicação na \textit{Raspberry}. Como foi relatado, os membros do grupo naquele momento haviam chegado ao consenso de utilizar a linguagem C para integrar com \textit{Python}, que seria utilizado nas rotinas de comunicação entre \textit{Raspberry} e os microcontroladores da baixa aplicação.
+
+Durante o desenvolvimento das rotinas de comunicação, foi-se percebendo que não havia necessidade de que o mesmo fosse desenvolvida usando tal linguagem, considerando que a linguagem C é uma linguagem de baixo nível normalmente utilizada para ter um maior controle sobre o hardware, que não é o caso. Levando em consideração este fato, foi levantada a hipótese de utilização do módulo de comunicação serial que o próprio \textit{Python} oferece, e para isso foi realizado uma lista de prós e contras a cerca da linguagem no desenvolvimento das rotinas de comunicação.
+
+Utilizando a linguagem C para o desenvolvimento das rotinas de comunicação possui as seguintes vantagens:
+
+\begin{itemize}
+    \item A linguagem C é uma linguagem de baixo nível, ou seja, oferece um maior controle do hardware, e te da possibilidade de manipulações com \textit{bytes} em uma maior flexibilidade do que as outras linguagens com exceção da linguagem \textit{ASSEMBLY}.
+    \item Com a linguagem C é possível desenvolver o sistema de forma a se proteger contra falhas críticas, impedindo de repassar erros de baixo nível para a camada de alto nível.
+    \item A linguagem C realiza processamentos mais velozes em comparação com as outras linguagens como \textit{Python}, dentre outras, se tornando uma excelente ferramenta para manipulação de \textit{bytes}.
+\end{itemize}
+
+Desvantagens da utilização da linguagem C para o desenvolvimento das rotinas de comunicação:
+
+\begin{itemize}
+    \item Por ser uma linguagem de baixo nível com uma alta tipagem, o trabalho de desenvolver uma rotina de comunicação serial usando recursos da camada de hardware se tornam bastante complexos.
+    \item Na arquitetura proposta no primeiro ponto de controle, as rotinas de escrita e leitura de dados funcionariam da seguinte maneira, a escrita iria ler um arquivo, em seguida iria apagá-lo enviaria este dado para o sistema de controle, e no sistema de leitura, seria aberta a porta seria para leitura dos \textit{bytes}, que seriam decodificados e transcritos num arquivo para serem lidos por uma rotina \textit{Python} para escrever no banco de dados. Ou seja, a integração possui uma alta complexidade.
+    \item Apesar da linguagem C ser mais rápida que \textit{Python}, não existe necessidade das rotinas serem desenvolvidas em tal linguagem, pois a diferença de velocidade de escrita e leitura para comunicação serial é bem mínima levando em consideração ao que \textit{Python} também faz.
+\end{itemize}
+
+Vantagens em utilizar \textit{Python} para o desenvolvimento das rotinas de comunicação:
+
+\begin{itemize}
+    \item Python possui uma baixa tipagem.
+    \item Possui uma biblioteca de comunicação serial que realiza a abstração do jeito que o desenvolvedor quiser (seja controlar em baixo nível, ou em alto nível com uma abstração do controle).
+    \item Fácil integração com \textit{RESTful} do \textit{Django} que é realizado em \textit{Python}.
+    \item Elimina necessidade de escrever e ler em arquivos, pois os métodos podem ser carregados pelo \textit{REST} diretamente, assim o \textit{REST} terá o controle total da comunicação.
+    \item Não existe necessidade de manipular leitura e escrita de bytes, devida a abstração da biblioteca.
+    \item \textit{Python} é uma linguagem melhor para manipulação de dados, e permitirá a escrita dos dados recebidos diretamente no banco de dados do servidor da \textit{Raspberry}, que a aplicação irá ler.
+\end{itemize}
+
+Desvantagens da linguagem \textit{Python} para o desenvolvimento das rotinas de comunicação:
+
+\begin{itemize}
+    \item \textit{Python} é uma linguagem interpretada e mais lenta em comparação a linguagem C.
+    \item Não fornece um controle maior em comparação as linguagens de baixo nível.
+\end{itemize}
+
+Com a nova mudança então, a única linguagem de programação que está sendo utilizada neste projeto é a linguagem \textit{Python}, e em virtude desta mudança, a arquitetura mudou um pouco agora sendo nesse novo estilo.
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.7]{figuras/nova_arquitetura.png}
+\label{fig:nova_arquitetura}
+\caption{Nova arquitetura com a mudança da linguagem implementada - Fonte: Autor}
+\end{figure}
+
+\subsection*{\textbf{Protocolo de Comunicação}}
+
+As rotinas de comunicação são as pontes pela qual a frente de software irá se comunicar com a frente de eletroeletrônica e com o resto do sistema. Para que a comunicação seja estabelecida, foi necessário estabelecer um padrão de comunicação de acordo com ambas as frentes, de forma que a comunicação ocorra com sucesso e sem surpresas. Foi definido então um protocolo de comunicação ao qual deverá ser respeitado entre a frente de software e eletrônica, durante a transmissão de dados via serial.
+
+Com a mudança da arquitetura, acabou facilitando a integração das rotinas de comunicação e escrita com parser e com o servidor e nos permitiu formalizar um protocolo bem simples para comunicação entre sistema de controle e sistema da aplicação.
+
+Protocolo de comunicação é descrito da seguinte forma: Ele é dividido em duas partes, em protocolo de controle e protocolo resposta.
+
+\begin{itemize}
+    \item Protocolo de Controle
+    \begin{itemize}
+        \item É definido por \textit{flags} que permitirão que o sistema realize ações pré-definidas.
+    \end{itemize}
+    \item Protocolo de Resposta
+    \begin{itemize}
+        \item É definido a \textit{STRING} de resposta que o sistema de controle enviará para a camada de alto nível no caso a \textit{Raspberry} via comunicação serial.
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.7]{figuras/protocolo_controle.png}
+\label{fig:protocolo_controle}
+\caption{Protocolo de Controle com \textit{flags} já definidas - Fonte: Autor}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.8]{figuras/protocolo_string.png}
+\label{fig:protocolo_string}
+\caption{Protocolo de Resposta e o formato da String que chegará ao sistema - Fonte: Autor}
+\end{figure}
+
+Com esse padrão definido, o usuário definirá um determinado número de \textit{jobs} (cada \textit{job} representa uma frequência com uma duração de tempo, e um conjunto de \textit{jobs} define um ensaio) que serão executados ao longo do ensaio. Ao executar o ensaio, o resultado dos sensores irão ser repassados na escala entre 0 a 1024 em AD (\textit{Analogic Digital}), sendo 0AD igual a 0G e 1024AD igual a 16G, ou seja, com uma regra de três simples, determinará as acelerações dos pontos de acordo com a frequência estabelecida e, por fim, esses dados passarão pelo processamento, para serem salvos no banco de dados da \textit{Raspberry}.
+
+Um dos objetivos ao obter a \textit{timestamp} a qual foi obtido o resultado pelo sensor, será para realizar o mapeamento dos \textit{jobs} de acordo com o ensaio, para ordenar e saber quais dados pertencem a quais \textit{jobs}.
+
+Na imagem \ref{fig:diagrama_sequencia_pc2}, mostra um diagrama de sequência entre usuário, a aplicação web, o servidor da \textit{raspberry}, sobre como é tratado o \textit{input} e o \textit{output} do sistema como um todo entre as frentes da software e eletrônica.
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.5]{figuras/diagrama_sequencia_pc2.png}
+\label{fig:diagrama_sequencia_pc2}
+\caption{Diagrama de sequência - Fonte: Autor}
+\end{figure}
+
+\subsection*{\textbf{Arquitetura das Rotinas de Comunicação e Parser}}
+
+Para realização das rotinas de comunicação e parser, a equipe de software contou com um simulador. O simulador, construído pela frente de eletroeletrônica, consiste em um \textit{Arduino} que simula o comportamento da entrada e saída de dados que o sistema da \textit{Raspberry} terá de comunicar. Com isso então, foi possível realizar o desenvolvimento das rotinas de comunicação em \textit{Python}, bem como iniciar também o \textit{Parser}.
+
+O \textit{Parser} foi construído utilizando a base de dados que o próprio \textit{Django} oferece, que no caso é o \textit{SQLITE3}, foi simulado uma entrada de uma \textit{String} seguindo o protocolo de comunicação e em seguida essa \textit{String} é tratada para que seja guardada no banco de dados da aplicação local. O primeiro passo consiste em conectar no banco de dados, e em seguida realizar o tratamento dos dados em uma lista de forma a averiguar se os dados estão corretos de acordo com a entrada de elementos das tabelas no banco de dados. O próximo passo então insere os dados da lista no banco de dados, usando o método \textit{inserting acceleration} e assim por diante para os outros dados.
+
+É importante ressaltar que o processamento está planejado para o ponto de controle 3, que utilizará essa base de dados local para realizar os cálculos e então inserir os dados de acordo com as tabelas de velocidade, amplitude e frequência, que serão utilizados pela aplicação web.
+
+Com relação as rotinas de entrada e saída de dados, foi utilizado o \textit{Arduino} para fins de teste de comunicação. A frente de eletroeletrônica desenvolveu uma rotina que é executada no \textit{Arduino} que conseguia simular a entrada e saída de dados com o comportamento similar ao esperado. Então utilizado a biblioteca serial que é padrão em \textit{Python}, foi possível construir métodos abstraindo o controle da comunicação serial em baixo nível para um alto nível, e conectá-los as rotinas que guardarão os dados, no caso o \textit{Parser}.
+
+Para comunicação com a malha fechada de controle do sistema, foi desenvolvido o \textit{Pyserial}. Uma classe que abstrai os principais métodos da biblioteca padrão do \textit{Python} chamada serial. Com essa biblioteca foi possível inicializar os valores como \textit{BAUDRATE} (Taxa de transmissão), \textit{Timeout} e a porta serial de entrada e saída dos dados. A classe também conta com um método simples que acumula os resultados de leitura da porta serial em uma grande lista que será utilizada pelo \textit{Parser} para o tratamento dos dados resultantes para que eles possam ser guardados no banco de dados. A classe também conta com um tratamento de exceções para evitar que as exceções subam em nível de usuário.
+
+O \textit{RoutinesUtil}, é uma classe que faz parte da solução em \textit{Django} no pacote de classes e ele é responsável por definir o comportamento da rotina. Nesta classe são definidas as rotinas de leitura de dados resultantes, dos sensores ativos e da escrita de controle do sistema. Ela utiliza as classes \textit{Pyserial} e \textit{Parser} para abrir a porta serial, ler os dados, fechar a porta serial e gravar no banco de dados da aplicação do servidor, que mandará para aplicação Web.
+
+A integração entre eletroeletrônica e software vem com as rotinas que irão se comunicar com a malha fechada de controle do sistema e com a \textit{Raspberry} da aplicação, responsáveis por armazenar os resultados e processá-las para a aplicação web. Na imagem abaixo você poderá verificar o diagrama de classes parcial das rotinas de comunicação em integração com o \textit{Django} da \textit{Raspberry} e seus respectivos métodos.
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.65]{figuras/uml_routines_parser.png}
+\label{fig:uml_routines_parser}
+\caption{Diagrama de Classes Parcial das Rotinas de Comunicação e Parser, integrados ao \textit{Django} - Fonte: Autor}
+\end{figure}
+
 \subsection*{\textbf{Processamento dos Dados}}
 
 A integral é uma das mais importantes ferramentas matemáticas e que aparece com frequência na solução de problemas e no cálculo de grandezas na engenharia e na ciência \cite{metodos_numericos}.
@@ -130,7 +248,7 @@ No {\textbf{Método Trapezoidal Composto}} a integral, ao longo do intervalo [a,
 \centering
 \includegraphics[keepaspectratio=true,scale=0.52]	{figuras/metodo_trapezoidal.png}
 \label{fig:metodo_trapezoidal}
-\caption{Integração numérica por Trapézios Acumulados}
+\caption{Integração numérica por Trapézios Acumulados - Fonte: \citeonline{metodos_numericos}}
 \end{figure}
 
 É importante notar que a fórmula do método trapezoidal composto se aplica precisamente para os casos onde os subintervalos têm uma largura h idêntica. Outro aspecto interessante no uso desse método é que a precisão da resposta pode melhorar a partir da utilização de mais subintervalos.
