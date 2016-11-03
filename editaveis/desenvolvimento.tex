@@ -1,7 +1,12 @@
 \chapter{Desenvolvimento da Solução}
 \label{desenvolvimento}
 
-Este capítulo apresenta as soluções propostas para o problema definido, de acordo com as frentes de trabalho estabelecidas: Frente Mecânica/Estrutural, Eletromecânica, Eletroeletrônica e Processamento e Interface.
+Este capítulo apresenta as soluções propostas para o problema definido, de acordo com as frentes de trabalho estabelecidas: 
+Frente Mecânica/Estrutural, Eletromecânica, Eletroeletrônica e Processamento e Interface. Além disso normas técnicas e de segurança
+foram levadas em consideração no detalhamento da solução e podem ser vistas no 
+\href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}. 
+
+% Colocar figura feita pra apresentação do PC1
 
 \section{Projeto Mecânico/Estrutural}
 
@@ -19,51 +24,57 @@ Este capítulo apresenta as soluções propostas para o problema definido, de ac
 
 \input{editaveis/desenvolvimento_frente_processamento}
 
-\section{Normas Técnicas e de Segurança}
-Para garantir a integridade e segurança do projeto e dos futuros usuários do produto, deve-se atentar a determinadas normas técnicas, que garantem a funcionalidade do projeto. Essas normas ajudam a definir diversas características de um produto, visando uma padronização que ajuda na solução de futuros problemas, assegurando a qualidade, segurança e eficiência desejada. No Brasil, a Agência Brasileira de Normas Técnicas (ABNT) é o órgão responsável pela elaboração das Normas Técnicas Brasileiras (NBR), que servem como instrumento na avaliação de conformidades e certificação de diversas áreas e produtos, garantindo a devida credibilidade. Para o caso da Bancada de Vibração, alguns itens importantes podem ser destacados diante da NBR NM 213, que é uma norma específica voltada para Princípio de Projeto e Segurança de Máquinas e Equipamentos Elétricos
+% \section{Normas Técnicas e de Segurança}
+% Para garantir a integridade e segurança do projeto e dos futuros usuários do produto, deve-se atentar a 
+% determinadas normas técnicas, que garantem a funcionalidade do projeto. Essas normas ajudam a definir diversas 
+% características de um produto, visando uma padronização que ajuda na solução de futuros problemas, assegurando a qualidade, 
+% segurança e eficiência desejada. No Brasil, a Agência Brasileira de Normas Técnicas (ABNT) é o órgão responsável pela elaboração 
+% das Normas Técnicas Brasileiras (NBR), que servem como instrumento na avaliação de conformidades e certificação de diversas áreas 
+% e produtos, garantindo a devida credibilidade. Para o caso da Bancada de Vibração, alguns itens importantes podem ser destacados 
+% diante da NBR NM 213, que é uma norma específica voltada para Princípio de Projeto e Segurança de Máquinas e Equipamentos Elétricos.
 
- \begin{table}[!ht]
-            \begin{center}
-              \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-                \hline
-                \textbf{Item Avaliado} & \textbf{Medida Normativa} & \textbf{O que será feito?}
-                \\ \hline
-                Arestas vivas, ângulos vivos, peças salientes, etc. & Previnir, durante a operação da bancada, o acesso do usuário aos componentes de risco. & Será utilizado um material uniforme como tampo da bancada e serão colocados protetores de quina.
-                \\ \hline
-                Formas e posição de componentes mecânicos. & Previnir, durante a operação da bancada, o acesso do usuário aos componentes de risco. & Durante o projeto da estrutura, os motores e a polia serão dispostos à uma distância segura da posição de operação.
-                \\ \hline
-                Ergonomia & Reduzir as tensões nervosas e o esforço físico do operador & Garantir uma altura da bancada que não sobrecarregue o usuário, fisicamente, na operação da bancada. Partindo de uma altura média esperada pelo usuário.
-                \\ \hline
-                Sistema de Comando & Garantir a fácil intervenção do operador em casos de: Partida inesperada, Velocidade não controlada, Pesos insustentáveis & O sistema da bancada terá “faixas” de frequência e velocidade acessíveis ao usuário, não permitindo que tais valores sejam extrapolados. Uma célula de carga será acoplada para informar se o objeto testado está acima do peso suportado pela estrutura.
-                \\ \hline
-                Perigo Elétrico & Proteções contra: choques elétricos, curtos circuitos, sobrecargas & Haverá um aviso na bancada sobre a fonte de alimentação que deve ser usada e um relé de proteção para preservar a integridade dos motores e dos circuitos. Ao longo da bancada, nos pontos que forem determinados críticos, será utilizado material isolante.
-                \\ \hline
-                Estrutura & Robustez & A estrutura será projetada e testada para que a bancada não fique instável e nem balance, fixando os motores, polias e pés
-                \\ \hline
-                Exigências Gerais, avisos, inscrições. & Deve existir clareza nas informações de operação. & Haverá um determinado número de adesivos na bancada informando sobre procedimentos de operação, instruções técnicas e prevenções de riscos. Tais avisos serão localizados em partes estratégicas da bancada
-                \\ \hline
-              \end{tabular}
-              \caption[Normas versus Itens e ações a serem realizadas]{Normas versus Itens e ações a serem realizadas
-              \protect Fonte: Autor}
-            \label{tabela_normas_1}
-        \end{center}
-    \end{table}
+%  \begin{table}[!ht]
+%             \begin{center}
+%               \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+%                 \hline
+%                 \textbf{Item Avaliado} & \textbf{Medida Normativa} & \textbf{O que será feito?}
+%                 \\ \hline
+%                 Arestas vivas, ângulos vivos, peças salientes, etc. & Previnir, durante a operação da bancada, o acesso do usuário aos componentes de risco. & Será utilizado um material uniforme como tampo da bancada e serão colocados protetores de quina.
+%                 \\ \hline
+%                 Formas e posição de componentes mecânicos. & Previnir, durante a operação da bancada, o acesso do usuário aos componentes de risco. & Durante o projeto da estrutura, os motores e a polia serão dispostos à uma distância segura da posição de operação.
+%                 \\ \hline
+%                 Ergonomia & Reduzir as tensões nervosas e o esforço físico do operador & Garantir uma altura da bancada que não sobrecarregue o usuário, fisicamente, na operação da bancada. Partindo de uma altura média esperada pelo usuário.
+%                 \\ \hline
+%                 Sistema de Comando & Garantir a fácil intervenção do operador em casos de: Partida inesperada, Velocidade não controlada, Pesos insustentáveis & O sistema da bancada terá “faixas” de frequência e velocidade acessíveis ao usuário, não permitindo que tais valores sejam extrapolados. Uma célula de carga será acoplada para informar se o objeto testado está acima do peso suportado pela estrutura.
+%                 \\ \hline
+%                 Perigo Elétrico & Proteções contra: choques elétricos, curtos circuitos, sobrecargas & Haverá um aviso na bancada sobre a fonte de alimentação que deve ser usada e um relé de proteção para preservar a integridade dos motores e dos circuitos. Ao longo da bancada, nos pontos que forem determinados críticos, será utilizado material isolante.
+%                 \\ \hline
+%                 Estrutura & Robustez & A estrutura será projetada e testada para que a bancada não fique instável e nem balance, fixando os motores, polias e pés
+%                 \\ \hline
+%                 Exigências Gerais, avisos, inscrições. & Deve existir clareza nas informações de operação. & Haverá um determinado número de adesivos na bancada informando sobre procedimentos de operação, instruções técnicas e prevenções de riscos. Tais avisos serão localizados em partes estratégicas da bancada
+%                 \\ \hline
+%               \end{tabular}
+%               \caption[Normas versus Itens e ações a serem realizadas]{Normas versus Itens e ações a serem realizadas
+%               \protect Fonte: Autor}
+%             \label{tabela_normas_1}
+%         \end{center}
+%     \end{table}
 
-     \begin{table}[!ht]
-            \begin{center}
-              \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-                \hline
-                \textbf{Item Avaliado} & \textbf{Medida Normativa} & \textbf{O que será feito?}
-                \\ \hline
-                Documento de acompanhamento & Manual de instrução & Será elaborado um manual abordando os itens de segurança, utilização, condição de armazenamento, indicações para a movimentação, dimensões, exigências de espaço físico, regulagens e ajustes, manutenções, situações de emergência, etc.
-                \\ \hline
-                Medidas adicionais & Medidas previstas para situações de emergência & Será implementado um dispositivo de parada de emergência
-                \\ \hline
-                Manutenção & Considerar fatores que facilitem a manutenabilidade do sistema. & A estrutura será projetada atentando ao fácil acesso de partes internas.
-                \\ \hline
-              \end{tabular}
-              \caption[Normas versus Itens e ações a serem realizadas]{Normas versus Itens e ações a serem realizadas
-              \protect Fonte: Autor}
-            \label{tabela_normas_2}
-        \end{center}
-    \end{table}
+%      \begin{table}[!ht]
+%             \begin{center}
+%               \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+%                 \hline
+%                 \textbf{Item Avaliado} & \textbf{Medida Normativa} & \textbf{O que será feito?}
+%                 \\ \hline
+%                 Documento de acompanhamento & Manual de instrução & Será elaborado um manual abordando os itens de segurança, utilização, condição de armazenamento, indicações para a movimentação, dimensões, exigências de espaço físico, regulagens e ajustes, manutenções, situações de emergência, etc.
+%                 \\ \hline
+%                 Medidas adicionais & Medidas previstas para situações de emergência & Será implementado um dispositivo de parada de emergência
+%                 \\ \hline
+%                 Manutenção & Considerar fatores que facilitem a manutenabilidade do sistema. & A estrutura será projetada atentando ao fácil acesso de partes internas.
+%                 \\ \hline
+%               \end{tabular}
+%               \caption[Normas versus Itens e ações a serem realizadas]{Normas versus Itens e ações a serem realizadas
+%               \protect Fonte: Autor}
+%             \label{tabela_normas_2}
+%         \end{center}
+%     \end{table}

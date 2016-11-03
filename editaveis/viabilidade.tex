@@ -1,7 +1,16 @@
 \chapter{Análise de Viabilidade}
 
-Para analisar a viabilidade dois aspectos foram levados em consideração, os custos do projeto e os desafios técnicos identificados. Analisando estes dois pontos foi percebido que a realização do projeto apresentado neste trabalho é viável. Nas seções deste capítulo está detalhada a estimativa de custos e os desafios e alternativas de solução.  
+Para analisar a viabilidade dois aspectos foram levados em consideração, os custos do projeto e os desafios técnicos identificados. 
+Analisando estes dois pontos foi percebido que a realização do projeto apresentado neste trabalho é viável. A análise detalhada destes pontos 
+pode ser vista no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}. 
 
+%%%% AMPLITUDE %%%%%%%%%%
+\section{Variação do escopo}
+Uma variação de amplitude para os ensaios realizados na bancada seria um requisito interessante como escopo deste projeto. Todavia, a
+implementação deste requisito não foi considerada viável considerando os custos do projeto, recursos humanos e o prazo. Desse modo, foi
+realizado apenas um estudo de como seria o projeto com a variação de amplitude além da frequência. 
+
+%%%%%% COLOCAR ESTUDO DAS AMPLITUDES %%%%%%% 
 
 % \begin{figure}[!ht]
 % \centering
@@ -10,75 +19,75 @@ Para analisar a viabilidade dois aspectos foram levados em consideração, os cu
 % \label{fig:planilha_de_custos}
 % \end{figure}
 
-\section{Desafios técnicos}
+% \section{Desafios técnicos}
 
-Considerando a solução proposta foram identificados alguns desafios técnicos para cada área do projeto.
+% Considerando a solução proposta foram identificados alguns desafios técnicos para cada área do projeto.
 
-\subsubsection*{\textbf{Estrutura}}
-\textbf{Desafio:} Garantir que o sistema de engrenamento do motor proporcione a vibração requerida devido ao peso da chapa.
+% \subsubsection*{\textbf{Estrutura}}
+% \textbf{Desafio:} Garantir que o sistema de engrenamento do motor proporcione a vibração requerida devido ao peso da chapa.
 
-\textbf{Alternativa de solução:}
-Escolher outro material para a chapa, ou adquirir uma nova chapa com espessura menor
+% \textbf{Alternativa de solução:}
+% Escolher outro material para a chapa, ou adquirir uma nova chapa com espessura menor
 
-\subsubsection*{\textit{Eletromecânica}}
-\textbf{Desafio:}
-Garantir o bom sincronismo e fixação do motor.
+% \subsubsection*{\textit{Eletromecânica}}
+% \textbf{Desafio:}
+% Garantir o bom sincronismo e fixação do motor.
 
-\textbf{Alternativa de solução:}
-Redimensionar o motor.
+% \textbf{Alternativa de solução:}
+% Redimensionar o motor.
 
-\subsubsection*{\textbf{Eletroeletrônica}}
-\textbf{Desafio:}
-Garantir que a interferência do sistema de corrente alternada não afete o sensoreamento.
+% \subsubsection*{\textbf{Eletroeletrônica}}
+% \textbf{Desafio:}
+% Garantir que a interferência do sistema de corrente alternada não afete o sensoreamento.
 
-\textbf{Alternativa de solução:}
-Projetar filtros ou escolher cabeamento com contra interferência.
+% \textbf{Alternativa de solução:}
+% Projetar filtros ou escolher cabeamento com contra interferência.
 
-\textbf{Desafio:}
- O segundo controlador  dar conta de processar o sinal dos sensores livres.
+% \textbf{Desafio:}
+%  O segundo controlador  dar conta de processar o sinal dos sensores livres.
  
-\textbf{Alternativa de solução:}
-Transferir esse processamento para a Raspberry PI.
+% \textbf{Alternativa de solução:}
+% Transferir esse processamento para a Raspberry PI.
 
-Considerando os desafios supracitados é possível perceber que para todos eles foram pensadas alternativas de solução, caso o desafio não seja superado. Dessa forma, é possível considerar que o projeto é viável. 
+% Considerando os desafios supracitados é possível perceber que para todos eles foram pensadas alternativas de solução, caso o desafio não seja superado. Dessa forma, é possível considerar que o projeto é viável. 
 
-\section{Custos}
+% \section{Custos}
 
-De acordo com a solução proposta na Seção \ref{desenvolvimento}, os itens necessários para construção da bancada foram levantados. Para cada item foi atribuído um valor obtido a partir de pesquisas de mercado realizadas. 
+% De acordo com a solução proposta na Seção \ref{desenvolvimento}, os itens necessários para construção da bancada foram levantados. Para cada item foi atribuído um valor obtido a partir de pesquisas de mercado realizadas. 
 
-% A Figura \ref{fig:planilha_de_custos} apresenta 
-A Tabela \ref{tab:planilha_de_custos} apresenta
-cada item, com a sua área, forma de aquisição, valor unitário, quantidade e valor total. Também são apresentados o custo total estimado e o custo estimado por integrante do grupo. A equipe considerou que estes valores estimados estão dentro do possível orçamento para execução do projeto. 
+% % A Figura \ref{fig:planilha_de_custos} apresenta 
+% A Tabela \ref{tab:planilha_de_custos} apresenta
+% cada item, com a sua área, forma de aquisição, valor unitário, quantidade e valor total. Também são apresentados o custo total estimado e o custo estimado por integrante do grupo. A equipe considerou que estes valores estimados estão dentro do possível orçamento para execução do projeto. 
 
-\begin{table}[!h]
-\centering
-\caption{Itens e Valores Estimados para o Projeto}
-\label{tab:planilha_de_custos}
-\begin{tabular}{|l|l|l|l|l|}
-\hline
-\rowcolor[HTML]{3166FF} 
-\multicolumn{1}{|c|}{\cellcolor[HTML]{3166FF}{\color[HTML]{000000} \textbf{Item}}}         & {\color[HTML]{000000} \textbf{Forma de Aquisição}}                      & {\color[HTML]{000000} \textbf{Valor Unitário}} & {\color[HTML]{000000} \textbf{Qtd.}} & {\color[HTML]{000000} \textbf{Valor total}} \\ \hline
-Hospedagem da aplicação                                                                    & Contrato mensal                                                         & R\$ 0,00                                       & 1                                    & R\$ 0,00                                    \\ \hline
-8 x Multiplexador CD4051                                                                   & Encomenda                                                               & 16                                             & 1                                    & 16                                          \\ \hline
-\begin{tabular}[c]{@{}l@{}}Sensores Acelerômetros \\ i2c ADXL345\end{tabular}              & Compra Imediata                                                         & R\$ 17,00                                      & 6                                    & R\$ 102,00                                  \\ \hline
-MSP430 Launchpad (em USD)                                                                  & Encomenda                                                               & R\$ 9,99                                       & 1                                    & R\$ 32,87                                   \\ \hline
-Raspberry pi                                                                               & Encomenda                                                               & R\$ 300,00                                     & 1                                    & R\$ 300,00                                  \\ \hline
-Sensor para Encoder incremental.                                                           & Compra Imediata                                                         & R\$ 13,00                                      & 2                                    & R\$ 26,00                                   \\ \hline
-Motor Trifásico 0.5cv                                                                      & Empréstimo                                                              & R\$ 0,00                                       & 1                                    & R\$ 0,00                                    \\ \hline
-\begin{tabular}[c]{@{}l@{}}Custo de Fabricação da \\ placa de condicionamento\end{tabular} & Compra Imediata                                                         & R\$ 150,00                                     & 1                                    & R\$ 150,00                                  \\ \hline
-Cabos                                                                                      & Compra Imediata                                                         & R\$ 100,00                                     & 1                                    & R\$ 100,00                                  \\ \hline
-Pés                                                                                        & Encomenda                                                               & R\$ 20,00                                      & 4                                    & R\$ 87,00                                   \\ \hline
-Cantoneira                                                                                 & Compra Imediata                                                         & R\$ 16,67                                      & 12                                   & R\$ 200,00                                  \\ \hline
-Chapa dobrada de aço                                                                       & Compra Imediata                                                         & R\$ 600,00                                     & 1                                    & R\$ 600,00                                  \\ \hline
-Correia                                                                                    & Compra Imediata                                                         & R\$ 20,00                                      & 2                                    & R\$ 40,00                                   \\ \hline
-Mola                                                                                       & \begin{tabular}[c]{@{}l@{}}Encomenda ou \\ Compra imediata\end{tabular} & R\$ 100,00                                     & 4                                    & R\$ 400,00                                  \\ \hline
-Polia                                                                                      & Empréstimo                                                              & R\$ 0,00                                       & 1                                    & R\$ 0,00                                    \\ \hline
-Inversor                                                                                   & \begin{tabular}[c]{@{}l@{}}Encomenda ou \\ Compra Imediata\end{tabular} & R\$ 500,00                                     & 1                                    & R\$ 500,00                                  \\ \hline
-\begin{tabular}[c]{@{}l@{}}Itens do sistema de \\ acesso de força\end{tabular}             & Compra Imediata                                                         & R\$ 150,00                                     & 1                                    & R\$ 150,00                                  \\ \hline
-\begin{tabular}[c]{@{}l@{}}Itens do sistema de\\ segurança elétrica\end{tabular}           & Compra Imediata                                                         & R\$ 150,00                                     & 1                                    & R\$ 150,00                                  \\ \hline
-Serviço de Solda                                                                           & Contrato                                                                & R\$ 400,00                                     & 1                                    & R\$ 400,00                                  \\ \hline
-\multicolumn{2}{|c|}{\textbf{Valor Total}}                                                                                                                           & \multicolumn{3}{r|}{\textbf{R\$ 3.253,87}}                                                                                          \\ \hline
-\multicolumn{2}{|c|}{\textbf{Valor por integrante}}                                                                                                                  & \multicolumn{3}{r|}{\textbf{R\$ 216,92}}                                                                                            \\ \hline
-\end{tabular}
-\end{table}
+% \begin{table}[!h]
+% \centering
+% \caption{Itens e Valores Estimados para o Projeto}
+% \label{tab:planilha_de_custos}
+% \begin{tabular}{|l|l|l|l|l|}
+% \hline
+% \rowcolor[HTML]{3166FF} 
+% \multicolumn{1}{|c|}{\cellcolor[HTML]{3166FF}{\color[HTML]{000000} \textbf{Item}}}         & {\color[HTML]{000000} \textbf{Forma de Aquisição}}                      & {\color[HTML]{000000} \textbf{Valor Unitário}} & {\color[HTML]{000000} \textbf{Qtd.}} & {\color[HTML]{000000} \textbf{Valor total}} \\ \hline
+% Hospedagem da aplicação                                                                    & Contrato mensal                                                         & R\$ 0,00                                       & 1                                    & R\$ 0,00                                    \\ \hline
+% 8 x Multiplexador CD4051                                                                   & Encomenda                                                               & 16                                             & 1                                    & 16                                          \\ \hline
+% \begin{tabular}[c]{@{}l@{}}Sensores Acelerômetros \\ i2c ADXL345\end{tabular}              & Compra Imediata                                                         & R\$ 17,00                                      & 6                                    & R\$ 102,00                                  \\ \hline
+% MSP430 Launchpad (em USD)                                                                  & Encomenda                                                               & R\$ 9,99                                       & 1                                    & R\$ 32,87                                   \\ \hline
+% Raspberry pi                                                                               & Encomenda                                                               & R\$ 300,00                                     & 1                                    & R\$ 300,00                                  \\ \hline
+% Sensor para Encoder incremental.                                                           & Compra Imediata                                                         & R\$ 13,00                                      & 2                                    & R\$ 26,00                                   \\ \hline
+% Motor Trifásico 0.5cv                                                                      & Empréstimo                                                              & R\$ 0,00                                       & 1                                    & R\$ 0,00                                    \\ \hline
+% \begin{tabular}[c]{@{}l@{}}Custo de Fabricação da \\ placa de condicionamento\end{tabular} & Compra Imediata                                                         & R\$ 150,00                                     & 1                                    & R\$ 150,00                                  \\ \hline
+% Cabos                                                                                      & Compra Imediata                                                         & R\$ 100,00                                     & 1                                    & R\$ 100,00                                  \\ \hline
+% Pés                                                                                        & Encomenda                                                               & R\$ 20,00                                      & 4                                    & R\$ 87,00                                   \\ \hline
+% Cantoneira                                                                                 & Compra Imediata                                                         & R\$ 16,67                                      & 12                                   & R\$ 200,00                                  \\ \hline
+% Chapa dobrada de aço                                                                       & Compra Imediata                                                         & R\$ 600,00                                     & 1                                    & R\$ 600,00                                  \\ \hline
+% Correia                                                                                    & Compra Imediata                                                         & R\$ 20,00                                      & 2                                    & R\$ 40,00                                   \\ \hline
+% Mola                                                                                       & \begin{tabular}[c]{@{}l@{}}Encomenda ou \\ Compra imediata\end{tabular} & R\$ 100,00                                     & 4                                    & R\$ 400,00                                  \\ \hline
+% Polia                                                                                      & Empréstimo                                                              & R\$ 0,00                                       & 1                                    & R\$ 0,00                                    \\ \hline
+% Inversor                                                                                   & \begin{tabular}[c]{@{}l@{}}Encomenda ou \\ Compra Imediata\end{tabular} & R\$ 500,00                                     & 1                                    & R\$ 500,00                                  \\ \hline
+% \begin{tabular}[c]{@{}l@{}}Itens do sistema de \\ acesso de força\end{tabular}             & Compra Imediata                                                         & R\$ 150,00                                     & 1                                    & R\$ 150,00                                  \\ \hline
+% \begin{tabular}[c]{@{}l@{}}Itens do sistema de\\ segurança elétrica\end{tabular}           & Compra Imediata                                                         & R\$ 150,00                                     & 1                                    & R\$ 150,00                                  \\ \hline
+% Serviço de Solda                                                                           & Contrato                                                                & R\$ 400,00                                     & 1                                    & R\$ 400,00                                  \\ \hline
+% \multicolumn{2}{|c|}{\textbf{Valor Total}}                                                                                                                           & \multicolumn{3}{r|}{\textbf{R\$ 3.253,87}}                                                                                          \\ \hline
+% \multicolumn{2}{|c|}{\textbf{Valor por integrante}}                                                                                                                  & \multicolumn{3}{r|}{\textbf{R\$ 216,92}}                                                                                            \\ \hline
+% \end{tabular}
+% \end{table}
 
