@@ -12,7 +12,7 @@ Este trabalho apresenta a proposta de uma bancada para ensaios de vibração mec
 
     \begin{table}[h]
         \centering
-        \caption{Problema trabalhado no projeto}
+        \caption{Problema tratado no projeto}
         \label{problem}
         \begin{tabular}{|l|l|}
         \hline
@@ -67,7 +67,7 @@ Este trabalho apresenta a proposta de uma bancada para ensaios de vibração mec
 
 \chapter{Gerenciamento do Projeto}
 
-Para o gerenciamento do projeto, nas Fases de Concepção e Detalhamento da Solução (01 e 02), foram planejados e documentados de acordo com os planos estabelecidos pelo PMBOK \cite{pmbok} nas 
+Para o gerenciamento do projeto, nas Fases de Concepção e Detalhamento da Solução (01 e 02), foram planejados e documentados, de acordo com os planos estabelecidos pelo PMBOK \cite{pmbok}, as 
 áreas de Custos, Aquisições, Recursos Humanos e Riscos. A documentação dos planos podem ser visualizados nos apêndices do 
 \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}. 
 
@@ -106,15 +106,17 @@ Para cada entregável foi colocado uma \textit{tag} indicando em que ponto de co
 
 \section*{Cronograma}
 
-A partir dos entregáveis estabelecidos na EAP foram definidas as atividades e os prazos. Estes foram acordados entre os líderes de cada área e considerando prazo total do projeto (19/08 a 02/12) e as entregas intermediárias (02/09, 04/11 e 30/11).
+A partir dos entregáveis estabelecidos na EAP foram definidas as atividades e os prazos. Estes foram acordados entre os líderes de 
+cada área e considerando prazo total do projeto (19/08 a 02/12) e as entregas intermediárias (02/09, 04/11 e 30/11).
+O cronograma do projeto de forma macro pode ser visto na Figura \ref{cronograma} e o seu detalhamento está disponível
+no Google Drive \href{https://drive.google.com/file/d/0B28JW3Vcm0jLdElSSGNPcU4yVEU/view?usp=sharing}{(Cronograma)}.
 
-Para a Fase 03 (Projeto e Construção da Solução) do projeto optou-se por utilizar iterações, como prevista pelo 
+Para a Fase 03 (Projeto e Construção da Solução) do projeto optou-se por utilizar iterações, como previsto pelo 
 \textit{framework} Scrum \cite{scrum}.
-As iterações tiveram duração de 1 semana, 
-nas quais as atividades e responsáveis foram planejadas no início da iteração de acordo 
-com a macro-atividade estabelecida no cronograma.
-O cronograma do projeto de forma macro pode ser visto na Figura \ref{cronograma}. O cronograma detalhado 
-e as atividades de cada iteração estão disponíveis no Apêndice \ref{cronograma_detalhado}. 
+As iterações tiveram duração aproximada de 1 semana, 
+nas quais as atividades foram planejadas no início da iteração de acordo 
+com a macro-atividade estabelecida no cronograma. O planejamento das iterações pode ser visto nas Tabelas \ref{tab:iteracao1},
+\ref{tab:iteracao2}, \ref{tab:iteracao3}, \ref{tab:iteracao4} e \ref{tab:iteracao5}.
 
 \begin{figure}[!ht]
 \centering
@@ -129,5 +131,85 @@ e as atividades de cada iteração estão disponíveis no Apêndice \ref{cronogr
 \caption{Cronograma do projeto}
 \label{cronograma}
 \end{figure}
+
+\begin{table}[!ht]
+\centering
+\caption{Atividades - Iteração 1}
+\label{tab:iteracao1}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Início da Iteração}} & \multicolumn{1}{c|}{09/09}                                                                                                                                                                                                                                        \\ \hline
+\multicolumn{1}{|c|}{\textbf{Fim da Iteração}}    & \multicolumn{1}{c|}{21/09}                                                                                                                                                                                                                                        \\ \hline
+\multicolumn{1}{|c|}{\textbf{Equipe}}             & \multicolumn{1}{c|}{\textbf{Atividades planejadas}}                                                                                                                                                                                                               \\ \hline
+\textbf{Estrutura}                                & \begin{tabular}[c]{@{}l@{}}- Cortar Cantoneiras\\ - Soldar Estrutura\end{tabular}                                                                                                                                                                                 \\ \hline
+\textbf{Eletromecânica}                           & \begin{tabular}[c]{@{}l@{}}- Realizar ensaio de qualidade com amperímetro, \\ voltímetro e termógrafo\\ - Comprar tomadas e cabos\end{tabular}                                                                                                                    \\ \hline
+\textbf{Eletroeletrônica}                         & \begin{tabular}[c]{@{}l@{}}- Fazer concepção de esquemático para o Encoder\\ - Estabelecer comunicação entre \\ dois MCUs usando MSP430\\ - Fazer simulação de resposta do microcontrolador\end{tabular}                                                             \\ \hline
+\textbf{Interface/Processamento}                  & \begin{tabular}[c]{@{}l@{}}- Modelar banco de dados da aplicação WEB\\ - Modelar banco de dados do REST\\ - Estruturar servidor REST e testar na Raspberry\\ - Implementar Cadastro de Usuário e Login\\ - Implementar Parser dos dados dos sensores\end{tabular} \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\caption{Atividades - Iteração 2}
+\label{tab:iteracao2}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Início da Iteração}} & \multicolumn{1}{c|}{21/09}                                                                                                                            \\ \hline
+\multicolumn{1}{|c|}{\textbf{Fim da Iteração}}    & \multicolumn{1}{c|}{28/09}                                                                                                                            \\ \hline
+\multicolumn{1}{|c|}{\textbf{Equipe}}             & \multicolumn{1}{c|}{\textbf{Atividades planejadas}}                                                                                                   \\ \hline
+\textbf{Estrutura}                                & \begin{tabular}[c]{@{}l@{}}- Definir material da mesa e espessura\\ - Estimar os pesos\\ - Fazer cálculos estruturais\end{tabular}                    \\ \hline
+\textbf{Eletromecânica}                           & - Fazer sistema de acionamento do motor                                                                                                               \\ \hline
+\textbf{Eletroeletrônica}                         &                                                                                                                                                       \\ \hline
+\textbf{Interface/Processamento}                  & \begin{tabular}[c]{@{}l@{}}- Implementar início do experimento\\ - Implementar timer do experimento\\ - Implementar captura dos sensores\end{tabular} \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
+\caption{Atividades - Iteração 3}
+\label{tab:iteracao3}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Início da Iteração}} & \multicolumn{1}{c|}{28/09}                                                                                                                                                                                                                  \\ \hline
+\multicolumn{1}{|c|}{\textbf{Fim da Iteração}}    & \multicolumn{1}{c|}{12/10}                                                                                                                                                                                                                  \\ \hline
+\multicolumn{1}{|c|}{\textbf{Equipe}}             & \multicolumn{1}{c|}{\textbf{Atividades planejadas}}                                                                                                                                                                                         \\ \hline
+\textbf{Estrutura}                                & \begin{tabular}[c]{@{}l@{}}- Comprar pés\\ - Furar fixação do motor\\ - Fixar apoio dos pés e molas\end{tabular}                                                                                                                            \\ \hline
+\textbf{Eletromecânica}                           & - Programar inversor trifásico                                                                                                                                                                                                              \\ \hline
+\textbf{Eletroeletrônica}                         &                                                                                                                                                                                                                                             \\ \hline
+\textbf{Interface/Processamento}                  & \begin{tabular}[c]{@{}l@{}}- Adaptar parser para prover escalabilidade\\ - Implementar rotina de verificação e passagem\\ dos dados da porta serial \\ - Implementar visualização dos ensaios realizados \end{tabular} \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\caption{Atividades - Iteração 4}
+\label{tab:iteracao4}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Início da Iteração}} & \multicolumn{1}{c|}{14/10}                                                                                                                                                           \\ \hline
+\multicolumn{1}{|c|}{\textbf{Fim da Iteração}}    & \multicolumn{1}{c|}{21/10}                                                                                                                                                           \\ \hline
+\multicolumn{1}{|c|}{\textbf{Equipe}}             & \multicolumn{1}{c|}{\textbf{Atividades planejadas}}                                                                                                                                  \\ \hline
+\textbf{Estrutura}                                & \begin{tabular}[c]{@{}l@{}}- Comprar e instalar molas\\ - Projetar o retentor da correia\\ - Analisar o tampo com os reforços\\ - Fixar o motor\end{tabular}                         \\ \hline
+\textbf{Eletromecânica}                           & \begin{tabular}[c]{@{}l@{}}- Fazer teste de integração\\ - Fazer sistema de proteção\\ - Estudar a amplitude\end{tabular}                                                            \\ \hline
+\textbf{Eletroeletrônica}                         & \begin{tabular}[c]{@{}l@{}}- Testar layouts de controle do inversor\\ - Finalizar BSP\\ - Estudar obtenção da frequência * crítico\\ - Estudar viabilidade da amplitude\end{tabular} \\ \hline
+\textbf{Interface/Processamento}                  & \begin{tabular}[c]{@{}l@{}}- Integrar aplicação WEB com o servidor\\ - Implementar população do banco da aplicação\\ - Implementar mais testes \\ - Fazer documento de arquitetura \end{tabular}                          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\caption{Atividades - Iteração 5}
+\label{tab:iteracao5}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Início da Iteração}} & \multicolumn{1}{c|}{21/10}                                                                                                                                                                                                                                                                                         \\ \hline
+\multicolumn{1}{|c|}{\textbf{Fim da Iteração}}    & \multicolumn{1}{c|}{28/10}                                                                                                                                                                                                                                                                                         \\ \hline
+\multicolumn{1}{|c|}{\textbf{Equipe}}             & \multicolumn{1}{c|}{\textbf{Atividades planejadas}}                                                                                                                                                                                                                                                                \\ \hline
+\textbf{Estrutura}                                &                                                                                                                                                                                                                                                                                                                    \\ \hline
+\textbf{Eletromecânica}                           &                                                                                                                                                                                                                                                                                                                    \\ \hline
+\textbf{Eletroeletrônica}                         &                                                                                                                                                                                                                                                                                                                    \\ \hline
+\textbf{Interface/Processamento}                  & \begin{tabular}[c]{@{}l@{}}- Concluir fluxo de ida e de volta da aplicação\\       - Ler sensores e dados dos sensores\\ - Implementar pausa do ensaio a cada mudança de \\ frequência\\ - Adaptar modelagem do banco do REST\\ - Definir técnica de processamento dos dados\\ - Otimizar a aplicação\end{tabular} \\ \hline
+\end{tabular}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%% FIM SEÇÃO GERENCIAMENTO
