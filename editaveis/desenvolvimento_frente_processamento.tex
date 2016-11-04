@@ -128,34 +128,38 @@ Para realização das rotinas de comunicação e parser, a equipe de software co
 consiste em um \textit{Arduino} que simula o comportamento da entrada e saída de dados que o sistema da \textit{Raspberry} terá de comunicar. Com isso 
 então, foi possível realizar o desenvolvimento das rotinas de comunicação em \textit{Python}, bem como iniciar também o \textit{Parser}.
 
-O \textit{Parser} foi construído utilizando a base de dados que o próprio \textit{Django} oferece, que no caso é o \textit{SQLITE3}, foi simulado uma 
-entrada de uma \textit{String} seguindo o protocolo de comunicação e em seguida essa \textit{String} é tratada para que seja guardada no banco de dados 
-da aplicação local. O primeiro passo consiste em conectar ao banco de dados, e em seguida realizar o tratamento dos dados em uma lista de forma a 
-averiguar se os dados estão corretos de acordo com a entrada de elementos das tabelas no banco de dados. O próximo passo então insere os dados da lista 
-no banco de dados, usando o método \textit{inserting acceleration} e assim por diante para os outros dados.
+O \textit{Parser} dos dados foi construído baseado na \textit{String} de resposta definida no protocolo de comunicação e em seguida essa \textit{String}
+é tratada para que seja guardada no banco de dados da aplicação local.
+O primeiro passo consiste realizar o tratamento dos dados em uma lista de forma a averiguar se os dados estão corretos de acordo com o padrão de
+resposta definido no protocolo de comunicação. O próximo passo então é inserir os dados da lista no banco de dados.
 
-É importante ressaltar que o processamento está planejado para o ponto de controle 3, que utilizará essa base de dados local para realizar os cálculos 
-e então inserir os dados de acordo com as tabelas de velocidade, amplitude e frequência, que serão utilizados pela aplicação web.
+% Com relação às rotinas de entrada e saída de dados, foi utilizado o \textit{Arduino} para fins de teste de comunicação. A frente de eletroeletrônica 
+% desenvolveu uma rotina que é executada no \textit{Arduino} que conseguia simular a entrada e saída de dados com o comportamento similar ao esperado. 
 
-Com relação às rotinas de entrada e saída de dados, foi utilizado o \textit{Arduino} para fins de teste de comunicação. A frente de eletroeletrônica 
-desenvolveu uma rotina que é executada no \textit{Arduino} que conseguia simular a entrada e saída de dados com o comportamento similar ao esperado. 
-Então utilizado a biblioteca serial que é padrão em \textit{Python}, foi possível construir métodos abstraindo o controle da comunicação serial em baixo
-nível para um alto nível, e conectá-los as rotinas que guardarão os dados, no caso o \textit{Parser}.
+Com relação às rotinas de entrada e saída de dados foi utilizada a biblioteca serial padrão no \textit{Python},
+foi possível construir métodos abstraindo o controle da comunicação serial em baixo
+nível para um alto nível e conectá-los às rotinas que guardarão os dados, no caso o \textit{Parser}.
 
-Para comunicação com a malha fechada de controle do sistema, foi desenvolvido o \textit{Pyserial}. Uma classe que abstrai os principais métodos da 
-biblioteca padrão do \textit{Python} chamada serial. Com essa biblioteca foi possível inicializar os valores como \textit{BAUDRATE} (Taxa de transmissão),
-\textit{Timeout} e a porta serial de entrada e saída dos dados. A classe também conta com um método simples que acumula os resultados de leitura da porta 
-serial em uma grande lista que será utilizada pelo \textit{Parser} para o tratamento dos dados resultantes para que eles possam ser guardados no banco de 
-dados. A classe também conta com um tratamento de exceções para evitar que as exceções subam em nível de usuário.
+Para comunicação com o sistema de controle, foi desenvolvida uma classe que abstrai os principais métodos da 
+biblioteca serial padrão do \textit{Python}, a classe "\textit{PiSerial}".
+Com essa biblioteca foi possível inicializar os valores como \textit{Baudrate} (Taxa de transmissão),
+\textit{Timeout} e a porta serial de entrada e saída dos dados. A classe também conta com um método simples
+que acumula os resultados de leitura da porta serial em uma grande lista que será utilizada pelo \textit{Parser}
+para o tratamento dos dados resultantes para que eles possam ser guardados no banco de 
+dados. A classe também conta com um tratamento de exceções para evitar que as exceções subam a nível de usuário.
 
-O \textit{RoutinesUtil}, é uma classe que faz parte da solução em \textit{Django} no pacote de classes e ele é responsável por definir o comportamento 
-da rotina. Nesta classe são definidas as rotinas de leitura de dados resultantes, dos sensores ativos e da escrita de controle do sistema. Ela utiliza 
-as classes \textit{Pyserial} e \textit{Parser} para abrir a porta serial, ler os dados, fechar a porta serial e gravar no banco de dados da aplicação do 
-servidor, que mandará para aplicação Web.
+A classe "\textit{Routine}" foi criada para comportar as rotinas disponíveis no sistema.
+Nesta classe são definidas as rotinas de leitura de dados resultantes, dos sensores ativos e da escrita de controle do sistema.
+Esta classe utiliza a classe  "\textit{PiSerial}" para realizar o gerenciamento da porta serial.
+
+Por fim, uma classe de faixada foi criada para receber as requisições de acesso à porta serial por parte dos serviços RESTFul
+do Servidor de Controle, a classe "\textit{SerialFacade}". Esta classe se comunica com a classe "\textit{Routine}" para chamar as 
+respectivas rotinas necessárias.
 
 A integração entre eletroeletrônica e software vem com as rotinas que irão se comunicar com a malha fechada de controle do sistema e com a 
-\textit{Raspberry} da aplicação, responsáveis por armazenar os resultados e processá-las para a aplicação web. Na imagem abaixo você poderá verificar 
-o diagrama de classes parcial das rotinas de comunicação em integração com o \textit{Django} da \textit{Raspberry} e seus respectivos métodos.
+\textit{Raspberry} da aplicação, responsáveis por armazenar os resultados e repassá-los para a aplicação web.
+Na Figura \ref{fig:uml_routines_parser} é apresentado o diagrama de classes parcial das rotinas de comunicação em integração
+com o Servidor de Controle.
 
 \begin{figure}[H]
 \centering
@@ -300,6 +304,7 @@ precisão do método será ainda maior.
 
 Para implementação do método dos trapézios, por meio de pesquisa, foi encontrada a Biblioteca \textit{SciPy}, disponível em \href{https://www.scipy.org/}{https://www.scipy.org/}. A mesma é implementada em linguagem \textit{Python} e adota a política de código aberto. A partir de uma rápida utilização da mesma, foi possível contemplar diversas ferramentas matemáticas amplamente utilizadas para resolução de problemas da ciência e engenharia.
 
+É importante ressaltar que o processamento está planejado para o ponto de controle 3.
 
 \subsubsection{\textbf{Alternativas propostas e testes realizados}}
 
