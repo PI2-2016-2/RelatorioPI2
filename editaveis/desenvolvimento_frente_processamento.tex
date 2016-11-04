@@ -1,13 +1,11 @@
 \label{desenvolvimento_processamento}
 
-Nesta seção é descrito o detalhamento da solução do módulo de interface/processamento, resultante das duas primeiras fases, 
-e o seu projeto e construção, resultante da Fase 03. Além disso, a visão da solução e da arquitetura estão
-documentadas nos Apêndices \ref{documento_visao} e \ref{documento_arquitetura}.
+Nesta seção é descrito o detalhamento da solução do módulo de interface/processamento, resultante das duas primeiras fases, e o seu projeto e construção, resultante da Fase 03. Além disso, a visão da solução e da arquitetura estão documentadas nos Apêndices \ref{documento_visao} e \ref{documento_arquitetura}.
 
 \subsection{Detalhamento da Solução} \label{software:detalhamento_solucao}
 
-O detalhamento da solução para a frente de interface/processamento pode ser sumarizado nos itens abaixo. A solução completa definida nas 
-  Fases 01 e 02 pode ser vista no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}.
+O detalhamento da solução para a frente de interface/processamento pode ser sumarizado nos itens abaixo. A solução completa definida nas Fases 01 e 02 pode ser vista no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}.
+
 % Esta subseção apresenta a visão da solução da parte de processamento e interface referentes a Software, e
 % integração com a frente de Eletro-eletrônica. A intenção desta frente é apresentar a visão da arquitetura do sistema,
 % bem como será o fluxo de dados entre usuário até chegar ao sistema. A intenção é transmitir as decisões significativas do 
@@ -119,8 +117,27 @@ O detalhamento da solução para a frente de interface/processamento pode ser su
 
 \subsection{Projeto e Construção}
 
-Nesta subseção é apresentado o projeto e construção do sistema proposto na Subseção \ref{software:detalhamento_solucao}, bem
-como as mudanças realizadas no que foi proposto.
+Nesta subseção é apresentado o projeto e construção do sistema proposto na Subseção \ref{software:detalhamento_solucao}, bem como as mudanças realizadas no que foi proposto.
+
+Ao final do primeiro ponto de controle, a frente de interface/processamento, em suma, havia estabelecido os seguintes requisitos para o \textbf{software}:
+
+\begin{itemize}
+    \item Aplicação \textit{Web} para uso por parte do usuário, sendo esta desenvolvida com o \textit{framework} Django (que utiliza linguagem de programação \textit{Python}) juntamente com o SGBD (Sistema Gerenciador de Banco de Dados) \textit{MySQL}.
+    \item Aplicação \textit{REST} para recebimento de comandos e fornecimento de dados para a Aplicação \textit{Web}, sendo esta desenvolvida com o Django \textit{REST} \textit{Framework} juntamente com a base de dados \textit{SQLite}.
+    \item Rotinas de comunicação em linguagem C para escrita e leitura de dados na porta serial existente na \textit{Raspberry}.
+\end{itemize}
+
+\subsubsection*{\textbf{Mudanças - Aspectos Gerais}}
+
+Durante a execução do projeto, constatou-se que não haveria mais necessidade de uso da linguagem C, aspecto que será melhor detalhado na próximas subseção, sobre as mudanças no projeto das rotinas de comunicações. Outro aspecto alterado foi a base de dados utilizada pelo \textit{REST}, optando-se pelo uso do \textit{MySQL} ao invés do \textit{SQLite}.
+
+O SGBD \textit{MySQL} foi também adotado para a aplicação \textit{REST} pelos seguintes motivos:
+
+\begin{itemize}
+    \item É mais performático que o \textit{SQLite}.
+    \item Não há travamentos da base de dados devido às operações.
+    \item Favorece a escalabilidade da solução.
+\end{itemize}
 
 \subsubsection*{\textbf{Mudanças - Rotinas de Comunicação}}
 
@@ -131,12 +148,12 @@ com \textit{Python}, que seria utilizado nas rotinas de comunicação entre \tex
 Durante o desenvolvimento das rotinas de comunicação, foi-se percebendo que não havia necessidade de que o mesmo fosse desenvolvida 
 usando tal linguagem, considerando que a linguagem C é uma linguagem de baixo nível normalmente utilizada para ter um maior controle sobre o 
 hardware, que não é o caso. Levando em consideração este fato, foi levantada a hipótese de utilização do módulo de comunicação serial que o próprio 
-\textit{Python} oferece, e para isso foi realizado uma lista de prós e contras a cerca da linguagem no desenvolvimento das rotinas de comunicação.
+\textit{Python} oferece, e para isso foi realizado uma lista de prós e contras acerca da linguagem no desenvolvimento das rotinas de comunicação.
 
 Utilizando a linguagem C para o desenvolvimento das rotinas de comunicação possui as seguintes vantagens:
 
 \begin{itemize}
-    \item A linguagem C é uma linguagem de baixo nível, ou seja, oferece um maior controle do hardware, e te da possibilidade de manipulações com \textit{bytes} em uma maior flexibilidade do que as outras linguagens com exceção da linguagem \textit{ASSEMBLY}.
+    \item A linguagem C é uma linguagem de baixo nível, ou seja, oferece um maior controle do hardware, e fornece a possibilidade de manipulações com \textit{bytes} em uma maior flexibilidade do que com as demais linguagens, exceto a linguagem \textit{ASSEMBLY}.
     \item Com a linguagem C é possível desenvolver o sistema de forma a se proteger contra falhas críticas, impedindo de repassar erros de baixo nível para a camada de alto nível.
     \item A linguagem C realiza processamentos mais velozes em comparação com as outras linguagens como \textit{Python}, dentre outras, se tornando uma excelente ferramenta para manipulação de \textit{bytes}.
 \end{itemize}
@@ -145,7 +162,7 @@ Desvantagens da utilização da linguagem C para o desenvolvimento das rotinas d
 
 \begin{itemize}
     \item Por ser uma linguagem de baixo nível com uma alta tipagem, o trabalho de desenvolver uma rotina de comunicação serial usando recursos da camada de hardware se tornam bastante complexos.
-    \item Na arquitetura proposta no primeiro ponto de controle, as rotinas de escrita e leitura de dados funcionariam da seguinte maneira, a escrita iria ler um arquivo, em seguida iria apagá-lo enviaria este dado para o sistema de controle, e no sistema de leitura, seria aberta a porta seria para leitura dos \textit{bytes}, que seriam decodificados e transcritos num arquivo para serem lidos por uma rotina \textit{Python} para escrever no banco de dados. Ou seja, a integração possui uma alta complexidade.
+    \item Na arquitetura proposta no primeiro ponto de controle, as rotinas de escrita e leitura de dados funcionariam da seguinte maneira: a escrita iria ler um arquivo, em seguida iria apagá-lo e então, enviaria este dado para o sistema de controle; no sistema de leitura, seria aberta a porta seria para leitura dos \textit{bytes}, que seriam decodificados e transcritos num arquivo para serem lidos por uma rotina \textit{Python} para escrever no banco de dados. Ou seja, a integração possui uma alta complexidade.
     \item Apesar da linguagem C ser mais rápida que \textit{Python}, não existe necessidade das rotinas serem desenvolvidas em tal linguagem, pois a diferença de velocidade de escrita e leitura para comunicação serial é bem mínima levando em consideração ao que \textit{Python} também faz.
 \end{itemize}
 
@@ -157,18 +174,18 @@ Vantagens em utilizar \textit{Python} para o desenvolvimento das rotinas de comu
     \item Fácil integração com \textit{RESTful} do \textit{Django} que é realizado em \textit{Python}.
     \item Elimina necessidade de escrever e ler em arquivos, pois os métodos podem ser carregados pelo \textit{REST} diretamente, assim o \textit{REST} terá o controle total da comunicação.
     \item Não existe necessidade de manipular leitura e escrita de bytes, devida a abstração da biblioteca.
-    \item \textit{Python} é uma linguagem melhor para manipulação de dados, e permitirá a escrita dos dados recebidos diretamente no banco de dados do servidor da \textit{Raspberry}, que a aplicação irá ler.
+    \item \textit{Python} é uma linguagem melhor para manipulação de dados, e permitirá a escrita dos dados recebidos diretamente no banco de dados do servidor da \textit{Raspberry}, que a aplicação irá utilizar.
 \end{itemize}
 
 Desvantagens da linguagem \textit{Python} para o desenvolvimento das rotinas de comunicação:
 
 \begin{itemize}
-    \item \textit{Python} é uma linguagem interpretada e mais lenta em comparação a linguagem C.
-    \item Não fornece um controle maior em comparação as linguagens de baixo nível.
+    \item \textit{Python} é uma linguagem interpretada e mais lenta em comparação à linguagem C.
+    \item Não fornece um controle maior em comparação às linguagens de baixo nível.
 \end{itemize}
 
 Com a nova mudança então, a única linguagem de programação que está sendo utilizada neste projeto é a linguagem \textit{Python}, e em virtude 
-desta mudança, a arquitetura mudou um pouco agora sendo nesse novo estilo.
+desta mudança, a arquitetura mudou um pouco agora, sendo nesse novo estilo.
 
 \begin{figure}[H]
 \centering
@@ -242,14 +259,14 @@ então, foi possível realizar o desenvolvimento das rotinas de comunicação em
 
 O \textit{Parser} foi construído utilizando a base de dados que o próprio \textit{Django} oferece, que no caso é o \textit{SQLITE3}, foi simulado uma 
 entrada de uma \textit{String} seguindo o protocolo de comunicação e em seguida essa \textit{String} é tratada para que seja guardada no banco de dados 
-da aplicação local. O primeiro passo consiste em conectar no banco de dados, e em seguida realizar o tratamento dos dados em uma lista de forma a 
+da aplicação local. O primeiro passo consiste em conectar ao banco de dados, e em seguida realizar o tratamento dos dados em uma lista de forma a 
 averiguar se os dados estão corretos de acordo com a entrada de elementos das tabelas no banco de dados. O próximo passo então insere os dados da lista 
 no banco de dados, usando o método \textit{inserting acceleration} e assim por diante para os outros dados.
 
 É importante ressaltar que o processamento está planejado para o ponto de controle 3, que utilizará essa base de dados local para realizar os cálculos 
 e então inserir os dados de acordo com as tabelas de velocidade, amplitude e frequência, que serão utilizados pela aplicação web.
 
-Com relação as rotinas de entrada e saída de dados, foi utilizado o \textit{Arduino} para fins de teste de comunicação. A frente de eletroeletrônica 
+Com relação às rotinas de entrada e saída de dados, foi utilizado o \textit{Arduino} para fins de teste de comunicação. A frente de eletroeletrônica 
 desenvolveu uma rotina que é executada no \textit{Arduino} que conseguia simular a entrada e saída de dados com o comportamento similar ao esperado. 
 Então utilizado a biblioteca serial que é padrão em \textit{Python}, foi possível construir métodos abstraindo o controle da comunicação serial em baixo
 nível para um alto nível, e conectá-los as rotinas que guardarão os dados, no caso o \textit{Parser}.
@@ -292,7 +309,7 @@ como um conjunto discreto de pontos \cite{metodos_numericos}.
 Este é o caso da Bancada de Vibrações Mecânicas que está sendo construída neste projeto. Os dados que se tem são o retorno da leitura dos sensores 
 e assim, o integrando é fornecido como um conjunto de pontos.
 
-A análise numérica de uma integral caracteriza-se por estimar  o número correspondente à integral de uma função entre os limites [a, b]. 
+A análise numérica de uma integral caracteriza-se por estimar o número correspondente à integral de uma função entre os limites [a, b]. 
 Caso seja utilizado apenas os pontos finais do intervalo, pode ser que o resultado fornecido não seja suficientemente preciso, especialmente se
 o intervalo for significativamente grande ou se o integrando variar significativamente ao longo do intervalo. Dessa maneira, uma maior precisão 
 pode ser obtida com o uso de um método composto, no qual o intervalo [a, b] é dividido em subintervalos menores. Assim, calcula-se a integral ao
@@ -342,3 +359,5 @@ O método dos trapézios se aplica independentemente deste aspecto.
 
 Outro aspecto que deve ser notado é que como a massa de dados coletada a partir da leitura das medições feitas pelos sensores é grande, a
 precisão do método será ainda maior.
+
+Para implementação do método dos trapézios, por meio de pesquisa, foi encontrada a Biblioteca \textit{SciPy}, disponível em \href{https://www.scipy.org/}{https://www.scipy.org/}. A mesma é implementada em linguagem \textit{Python} e adota a política de código aberto. A partir de uma rápida utilização da mesma, foi possível contemplar diversas ferramentas matemáticas amplamente utilizadas para resolução de problemas da ciência e engenharia.
