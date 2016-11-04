@@ -302,11 +302,47 @@ O método dos trapézios se aplica independentemente deste aspecto.
 Outro aspecto que deve ser notado é que como a massa de dados coletada a partir da leitura das medições feitas pelos sensores é grande, a
 precisão do método será ainda maior.
 
-Para implementação do método dos trapézios, por meio de pesquisa, foi encontrada a Biblioteca \textit{SciPy}, disponível em \href{https://www.scipy.org/}{https://www.scipy.org/}. A mesma é implementada em linguagem \textit{Python} e adota a política de código aberto. A partir de uma rápida utilização da mesma, foi possível contemplar diversas ferramentas matemáticas amplamente utilizadas para resolução de problemas da ciência e engenharia.
+Para implementação do método dos trapézios, por meio de pesquisa, foi encontrada a Biblioteca \textit{SciPy}, disponível em
+\href{https://www.scipy.org/}{https://www.scipy.org/}. A mesma é implementada em linguagem \textit{Python} e adota a política
+de código aberto. A partir de uma rápida utilização da mesma, foi possível contemplar diversas ferramentas matemáticas amplamente
+utilizadas para resolução de problemas da ciência e engenharia.
 
 É importante ressaltar que o processamento está planejado para o ponto de controle 3.
 
-\subsubsection{\textbf{Alternativas propostas e testes realizados}}
+\subsubsection{\textbf{Análises e testes realizados}}
 
+Uma simulação da versão 1.0 do protocolo de comunicação definido entre o Servidor de Controle e o sistema de controle eletrônico (seção \ref{software:protocolo})
+foi implementada pela frente de eletroeletrônica para fins de teste. O código da simulação foi implantado em um Arduino que foi conectado
+à \textit{Raspberry} via comunicação serial. O Servidor de Controle foi implantado na \textit{Raspberry}.
 
-FALAR DOS TESTES DE CARGA REALIZADOS COM A SIMULAÇÃO
+A título de teste foi considerado um experimento de duração de 20 segundos.
+Como a frequência máxima que a mesa pode atingir é de 100Hz é necessário amostrar no mínimo 200Hz,
+o que gera 200 dados/segundo coletados para cada sensor.
+A simulação realizada retornava dados apenas para um sensor, para simplificar a implementação.
+
+Primeiramente foi realizado o seguinte caso de teste: 
+\begin{itemize}
+ \item Ler todos os dados dos sensores pela porta serial e armazená-los em variável local;
+ \item Salvar todos os dados armazenados na variável local no banco de dados;
+\end{itemize}
+
+Ao executar esse teste percebeu-se que a performance dessa tarefa estava inaceitável, pois para coletar os dados gerados pelos sensores
+para 20 segundos de experimento (ler os dados da porta serial e salvar no banco de dados) gastava-se aproximadamente 10 minutos. 
+
+Pensando em otimizar a inserção no banco de dados foi implementado o seguinte caso de teste, utilizando programação \textit{multi-threading}:
+\begin{itemize}
+ \item Criar um \textit{Pool de Threads} com 5 \textit{threads} para salvar os dados dos sensores no banco de dados;
+ \item Ler o dado da porta serial;
+ \item Salvar imediatamente no banco de dados, por meio do \textit{Pool de Threads};
+\end{itemize}
+
+Os resultados dessa segunda abordagem foi ainda pior porque a criação de várias \textit{Threads} exauria a memória da \textit{Raspberry},
+o que impedia a execução do sistema. Então a abordagem anterior foi retomada (ler todos os dados e depois salvar no banco de dados) e a inserção
+no banco de dados foi otimizada utilizando inserção em \textit{batch}, o que gastou um tempo de 7 minutos, evidenciando uma pequena melhoria.
+
+Embora tenhamos alcançado uma melhoria, esta simulação considera apenas dados de 1 sensor, ou seja, o resultado obtido deve ser multiplicado pela
+quantidade de sensores, que no caso deste projeto será 6 (2 sensores da mesa e 4 sensores livres), o que dá um valor de 42 minutos de espera para
+o resultado de 20 segundos de experimento, o que é inaceitável.
+
+Para mitigar este problema duas abordagens foram definidas para serem estudadas: otimizar o protocolo de comunicação e/ou utilizar um
+\textit{hardware} mais potente.
