@@ -1,125 +1,101 @@
 \label{desenvolvimento_processamento}
 
-Nesta seção é descrito o detalhamento da solução do módulo de interface/processamento, resultante das duas primeiras fases, e o seu projeto e construção, resultante da Fase 03. Além disso, a visão da solução e da arquitetura estão documentadas nos Apêndices \ref{documento_visao} e \ref{documento_arquitetura}.
+Nesta seção é descrito o detalhamento da solução do módulo de interface/processamento, resultante das duas primeiras fases,
+e o seu projeto e construção, resultante da Fase 03.
+Além disso, a visão da solução e da arquitetura estão documentadas nos Apêndices \ref{documento_visao} e \ref{documento_arquitetura}, respectivamente.
 
 \subsection{Detalhamento da Solução} \label{software:detalhamento_solucao}
 
-O detalhamento da solução para a frente de interface/processamento pode ser sumarizado nos itens abaixo. A solução completa definida nas Fases 01 e 02 pode ser vista no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}.
+A solução completa definida nas Fases 01 e 02 pode ser vista no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}.
 
-% Esta subseção apresenta a visão da solução da parte de processamento e interface referentes a Software, e
-% integração com a frente de Eletro-eletrônica. A intenção desta frente é apresentar a visão da arquitetura do sistema,
-% bem como será o fluxo de dados entre usuário até chegar ao sistema. A intenção é transmitir as decisões significativas do 
-% ponto de vista da arquitetura de baixo e alto nível que foram tomadas de acordo com as necessidades do sistema.
+A Figura \ref{fig:arquitetura_solucao} apresenta a solução proposta como um todo e nela podemos destacar a atuação da
+frente de interface/processamento nos seguintes subsistemas de software:
 
-% \subsubsection*{\textbf{Escopo}}
+\begin{itemize}
+ \item \textbf{Interface de comunicação entre o usuário e a bancada, realizada por meio da aplicação web;}
+      \subitem Na aplicação web o usuário poderá controlar a bancada, iniciando um ensaio com os quesitos definido por ele,
+	       e visualizar os resultados do ensaio por meio de gráficos.
+ \item \textbf{Servidor para intermediar a comunicação da aplicação web com o sistema de controle eletrônico, hospedado na \textit{Raspberry}.}
+      \subitem Este servidor provê serviços RESTFul (API REST) como a interface de comunicação para a aplicação web. Neste servidor estão as 
+	       rotinas de comunicação com o sistema de controle eletrônico, que realizam a inserção de dados de comando e recupera os dados 
+	       dos sensores via comunicação serial.
+\end{itemize}
 
-% A arquitetura que foi idealizada fundamenta a base para a construção do produto, expressando como o sistema deverá se 
-% comportar em suas interações, bem como o nível de abrangência da aplicação em quesitos de limitação e qualidade.
+A integração entre esses dois subsistemas que compõem o módulo de interface/processamento funcionará da seguinte forma
+(o protocolo de comunicação definido será apresentado na subseção \ref{software:protocolo}):
 
-% O escopo deste projeto vai de encontro em cobrir os aspectos de comunicação entre usuário e sistema, bem como o tratamento
-% dos dados embarcados. Para isso, este será apresentado o dimensionamento do sistema, tanto em alto nível, com relação à aplicação 
-% web, quanto em baixo nível, referente a rotina de comunicação entre Raspberry PI e Arduino e a rotina de processamento de dados.
+\begin{enumerate}
+ \item O usuário cadastrado autentica-se no sistema (caso o usuário não seja cadastrado basta ele se cadastrar);
+ \item O usuário monta um ensaio com seus respectivos \textit{jobs};
+ \item O usuário confere os sensores ativos identificados pelo sistema e inicia o experimento;
+    \subitem O usuário tem a possibilidade de atualizar os sensores ativos, caso perceba erro na leitura dos sensores;
+    \subitem Quando o usuário solicita a identificação dos sensores ativos, a aplicação web envia uma requisição
+	     de identificação dos sensores ativos ao servidor hospedado na \textit{Raspberry}, seguindo o protocolo definido.
+ \item A aplicação web envia uma requisição ao servidor hospedado na \textit{Raspberry} informando os dados dos \textit{joobs}
+       e sinalizando que o experimento começou.
+       \subitem A cada novo \textit{job} que deve começar (mudança de frequência da mesa) a aplicação web envia uma requisição
+       de solicitação de alteração de frequência da mesa, seguindo o protocolo definido.
+ \item O servidor da \textit{Raspberry}, então, envia uma mensagem ao sistema de controle (via rotinas de comunicação,
+       que serão apresentadas na subseção \ref{software:rotinas}) informando o início do experimento e a frequência
+       desejada (frequência do \textit{job} corrente) e inicia uma \textit{thread} para a coleta dos dados lidos dos sensores.
+ \item Quando o último \textit{job} chegar ao fim, a aplicação web envia uma requisição ao servidor da \textit{Raspberry} informando
+       que o ensaio acabou, o que significa que o sistema de controle não precisa mais coletar dados dos sensores.
+ \item Quando o servidor da \textit{Raspberry} recebe essa requisição, este envia uma mensagem ao sistema de controle (via rotinas de comunicação)
+       informando a parada da coleta dos dados dos sensores, seguindo o protocolo definido.
+ \item A aplicação web informa ao usuário que está aguardando o término da coleta e processamento dos dados enquanto o servidor da
+       \textit{Raspberry} coleta o restante dos dados dos sensores e a aplicação web processa os dados coletados;
+ \item Quando todos os dados amostrados forem coletados, destes serão derivados os outros dados necessários para a aplicação, seguindo 
+       o método apresentado na seção \ref{software:processamento}. O processamento dos dados aqui mencionado se refere aos cálculos da frequência,
+       velocidade e amplitude a partir da aceleração fornecida pelos sensores.
+\end{enumerate}
 
-% \subsubsection*{\textbf{Representação da Arquitetura}}
 
-% A arquitetura da aplicação utiliza de padrões que organizam e aperfeiçoam o desenvolvimento dentro do paradigma de Orientação a 
-% Objetos e adicionalmente, a persistência e o consumo de dados.
+Nas próximas subseções são detalhados os dois subsistemas propostos como solução para o módulo de interface de processamento.
 
-% Quanto à camada de alto nível, para o corrente projeto da bancada de vibrações, optou-se por desenvolver uma aplicação web para que 
-% o usuário possa fornecer inputs de controle para operação da bancada e também, visualizar os resultados do ensaio realizado.
-
-% É válido ressaltar que para fins de boa performance da aplicação web, foram consideradas abordagens para o projeto de aplicativos 
-% da Web fracamente acoplados. Nesse cenário, o estilo REST (Representational State Transfer - Transferência de Estado Representacional)
-% foi adotado.
-
-% Roy Fielding, um dos idealizadores do estilo REST,  afirma que o estilo REST enfatiza a escalabilidade das interações entre 
-% componentes e componentes intermediários para reduzir a latência da interação.
-
-% De uma forma geral, vale notar que tudo na Web (páginas, imagens, entre outros) são a essência de um recurso \footnote{http://www.ibm.com/developerworks/br/library/j-rest/}.
-% O fato de o REST  possuir a  característica de contar com recursos nomeados em vez de mensagens facilita o fraco acoplamento 
-% no design da aplicação.
-
-% Logo abaixo, é possível contemplar uma figura esquemática da arquitetura geral do sistema.
-
-% \begin{figure}[!ht]
-% \centering
-% \includegraphics[scale=0.5]{figuras/arquitetura_sistema.png}
-% \caption{Esquema geral da arquitetura do sistema. Fonte: Autores}
-% \label{fig:arquitetura_sistema}
-% \end{figure}
-
-% Para a realização dos testes na bancada, o usuário poderá determinar a frequência de vibração e o tempo de funcionamento da 
-% bancada por meio da interação com uma aplicação web. Durante e após a execução dos testes, o usuário poderá visualizar os dados
-% coletados pelos sensores.
-
-% A aplicação web fará requisições, através de uma rotina, para um servidor que provê serviços REST. Este servidor será disponibilizado
-% por uma Raspberry Pi. É valido ressaltar que a comunicação entre aplicação web e o Raspberry PI funcione é necessário que o mesmo 
-% esteja com acesso a internet para que ele possa receber e enviar as requisições para a aplicação web.
-
-% Adicionalmente, os serviços REST consultarão os dados coletados e persistidos em uma base de dados SQLite , que também será hospedado
-% na Raspberry Pi.
-
-% Para a camada de baixo nível será desenvolvido uma rotina responsável por enviar, receber dados entre Arduino e Raspberry PI, bem 
-% como disponibilizar os dados recebidos na forma de arquivos que serão utilizados pela aplicação para que o usuário consiga ver os 
-% resultados das ações que foram aplicadas no sistema. Toda essa transmissão de dados será feita com a interface UART \footnote{http://www.raspberry-projects.com/pi/programming-in-c/uart-serial-port/using-the-uart}
-% (Universal Asynchronous Receiver Transmitter - Transmissor Receptor Assíncrono Universal), via serialização de dados.
-
-% Os dados de resultados que chegarem do Arduino para a Raspberry PI, serão tratados pela rotina de comunicação de forma a 
-% disponibilizar esses dados brutos em arquivos. Estes arquivos serão lidos por uma rotina que terá como objetivo realizar o 
-% processamento dos dados e logo em seguida a realização do parser (leitura dos dados nos arquivos e a gravação deles no banco 
-% de dados embarcado) desses dados no banco de dados local.
-
-% \begin{figure}[!ht]
-% \centering
-% \includegraphics[scale=0.5]{figuras/sistema.png}
-% \caption{Camada baixo nível do sistema, responsável pela comunicação entre a aplicação web e o sistema da bancada de vibração}
-% \label{fig:sistema}
-% \end{figure}
-
-% Por fim, vale destacar que a rotina é o meio de integração entre Software e Eletrônica o qual teremos uma comunicação
-% de baixo nível pela porta serial e os resultados obtidos entregues na forma de arquivos, ou seja, separando a comunicação 
-% entre Hardware e a aplicação. Serão utilizados rotinas para tratamento dos dados de acordo com a necessidade do usuário em 
-% visualizar os dados de resultados derivados.
-
-% \subsubsection*{\textbf{Restrições Arquiteturais}}
-% Com o objetivo de se criar um sistema confiável, estabeleceu-se que deverá ser feita uma avaliação dos componentes mais críticos 
-% e deverão ser elaborados testes unitários para assegurar o bom funcionamento destes módulos.
-
-% Adicionalmente, dentre as opções de linguagens de programação disponíveis para desenvolvimento de aplicações web, e do parser e 
-% tratamento dos dados brutos, optou-se pela linguagem Python e para a camada de baixo nível será utilizado a linguagem C para o 
-% desenvolvimento  das rotinas de comunicação entre Raspberry PI e Arduino. O desenvolvimento da aplicação web e dos serviços REST 
-% será feito com o auxílio de recursos providos pelo framework Django \footnotemark, que oferece uma alta produtividade no 
-% desenvolvimento.
-% \footnotetext{https://www.djangoproject.com/}
-
-% A linguagem de programação Python possui uma excelente performance, especialmente considerando que o hardware a ser utilizado 
-% para disponibilizar o servidor REST possui recursos de processamento bem limitados. Além disso, a linguagem de programação Python 
-% possui uma alta produtividade associada.
-
-% Outro aspecto vantajoso da linguagem é vasta disponibilidade de bibliotecas para tratamento de informações, especialmente cálculos
-% matemáticos, que serão amplamente utilizados no sistema para uso integrado com a bancada de vibrações.
-% \newpage
-% \subsubsection*{\textbf{Requisitos Levantados}}
-% A partir do escopo definido no projeto foram elicitados alguns requisitos de forma macro, estes podem ser vistos na 
-% Figura \ref{backlog_produto} que representa os \textit{Backlogs} do Produto para as duas aplicações.
-
-% \begin{figure}[H]
-% \centering
-% \label{backlog_produto}
-% \includegraphics[keepaspectratio=true,scale=0.55]	{figuras/backlog_produto.png}
-% \caption{\textit{Backlogs} das aplicações do projeto}
-% \end{figure}
-
-% \subsubsection*{\textbf{Protótipo da Solução Web}}
-
-% Com o intuito de visualizar a solução Web foi desenhado um protótipo de alta fidelidade da aplicação Web. 
-% As telas podem ser vistas no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}. 
 
 \subsection{Projeto e Construção}
 
-Nesta subseção é apresentado o projeto e construção do sistema proposto na Subseção \ref{software:detalhamento_solucao}, bem como as mudanças realizadas no que foi proposto.
+  Nesta subseção é apresentado o projeto e construção dos subsistemas propostos na Subseção \ref{software:detalhamento_solucao},
+  bem como as mudanças realizadas no que foi proposto.
 
-Ao final do primeiro ponto de controle, a frente de interface/processamento, em suma, havia estabelecido os seguintes requisitos para o \textbf{software}:
+\subsubsection{\textbf{Interface de comunicação com o usuário - Aplicação Web}}
+    
+    Como  apresentado no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1},
+    a aplicação web servirá para o usuário controlar a bancada e visualizar os resultados dos ensaios, contando com os seguintes requisitos
+    funcionais (conforme \textit{backlog} apresentado no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1})
+    para atender as necessidades do usuário (vide Apêndice \ref{documento_visao} para as necessidades do usuário):
+    
+    \begin{itemize}
+      \item \textbf{Cadastro de usuários;}
+	 \subitem Os usuários da bancada (alunos, professores e técnicos) devem ser cadastrados no sistema para utilizar a bancada.
+      \item \textbf{Acesso ao sistema;}
+	 \subitem Os usuários cadastrados devem ter acesso ao sistema para realizar ensaios.
+      \item \textbf{Início do ensaio;}
+	 \subitem Deve ser possível a criação de um ensaio específico pelo usuário, informando a frequência e tempo de ensaio desejados.
+      \item \textbf{Visualização dos ensaios realizados;}
+	 \subitem Os ensaios de um usuário devem ser mantidos no sistema, para que o usuário possa visualizar os resultados de um ensaio
+		  já realizado quando quiser;
+      \item \textbf{Visualização dos resultados do ensaio;}
+	 \subitem Os resultados do ensaio realizado deve ser apresentado em formas de gráficos para facilitar a interpretação dos resultados.
+    \end{itemize}
+     
+    Para o requisito "Início do ensaio" o usuário necessita poder criar um ensaio com diferentes frequências a serem testadas no mesmo ensaio.
+    Para implementar este requisito foi realizada um abstração do ensaio como um conjunto de \textit{jobs}.
+    Um \textit{job} é uma parte do ensaio com uma frequência e tempo fixo. Exemplificando, caso o usuário queira um ensaio que começa com uma
+    frequência de 50Hz por 10s e depois mude para 80Hz e permaneça por mais 15s, basta criar um ensaio com dois \textit{jobs}, onde o primeiro
+    \textit{job} teria frequência igual a 50Hz e tempo de 10s e o segundo teria frequência igual a 80Hz e tempo de 15s.
+    
+    Com o intuito de visualizar a solução Web foi desenhado um protótipo de alta fidelidade da aplicação Web. 
+    As telas podem ser vistas no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}.
+
+\subsubsection{\textbf{Interface de comunicação com o sistema de controle - Servidor RESTFul}}
+   
+   Esta subseção apresenta o projeto e construção do servidor RESTFul que será hospedado na \textit{Raspberry} para intermediar a comunicação
+   com o sistema de controle.
+  
+\subsubsection*{\textbf{Mudanças - Aspectos gerais}}
+    
+Ao final do primeiro ponto de controle, a frente de interface/processamento, em suma, havia estabelecido os seguintes requisitos não-funcionais para o \textbf{software}:
 
 \begin{itemize}
     \item Aplicação \textit{Web} para uso por parte do usuário, sendo esta desenvolvida com o \textit{framework} Django (que utiliza linguagem de programação \textit{Python}) juntamente com o SGBD (Sistema Gerenciador de Banco de Dados) \textit{MySQL}.
@@ -127,7 +103,6 @@ Ao final do primeiro ponto de controle, a frente de interface/processamento, em 
     \item Rotinas de comunicação em linguagem C para escrita e leitura de dados na porta serial existente na \textit{Raspberry}.
 \end{itemize}
 
-\subsubsection*{\textbf{Mudanças - Aspectos Gerais}}
 
 Durante a execução do projeto, constatou-se que não haveria mais necessidade de uso da linguagem C, aspecto que será melhor detalhado na próximas subseção, sobre as mudanças no projeto das rotinas de comunicações. Outro aspecto alterado foi a base de dados utilizada pelo \textit{REST}, optando-se pelo uso do \textit{MySQL} ao invés do \textit{SQLite}.
 
@@ -145,9 +120,9 @@ A camada de software na aplicação Web foi desenvolvida em \textit{Python}, bem
 \textit{Raspberry}. Como foi relatado, os membros do grupo naquele momento haviam chegado ao consenso de utilizar a linguagem C para integrar 
 com \textit{Python}, que seria utilizado nas rotinas de comunicação entre \textit{Raspberry} e os microcontroladores da baixa aplicação.
 
-Durante o desenvolvimento das rotinas de comunicação, foi-se percebendo que não havia necessidade de que o mesmo fosse desenvolvida 
+Durante o desenvolvimento das rotinas de comunicação, percebeu-se que não havia necessidade de que as mesmas fossem desenvolvidas 
 usando tal linguagem, considerando que a linguagem C é uma linguagem de baixo nível normalmente utilizada para ter um maior controle sobre o 
-hardware, que não é o caso. Levando em consideração este fato, foi levantada a hipótese de utilização do módulo de comunicação serial que o próprio 
+hardware, o que não é o caso do projeto. Levando em consideração este fato, foi levantada a hipótese de utilização do módulo de comunicação serial que o próprio 
 \textit{Python} oferece, e para isso foi realizado uma lista de prós e contras acerca da linguagem no desenvolvimento das rotinas de comunicação.
 
 Utilizando a linguagem C para o desenvolvimento das rotinas de comunicação possui as seguintes vantagens:
@@ -194,7 +169,7 @@ desta mudança, a arquitetura mudou um pouco agora, sendo nesse novo estilo.
 \caption{Nova arquitetura com a mudança da linguagem implementada - Fonte: Autor}
 \end{figure}
 
-\subsubsection*{\textbf{Protocolo de Comunicação}}
+\subsubsection*{\textbf{Protocolo de Comunicação}} \label{software:protocolo}
 
 As rotinas de comunicação são as pontes pelas quais os componentes de software do servidor que estará rodando na \textit{Raspberry} irão se
 comunicar com os componentes eletroeletrônicos do sistema de controle e, consequentemente, com o resto do sistema. 
@@ -252,7 +227,7 @@ ilustrando como é tratado o \textit{input} e o \textit{output} do sistema como 
 \caption{Diagrama de sequência - Fonte: Autor}
 \end{figure}
 
-\subsubsection*{\textbf{Arquitetura das Rotinas de Comunicação e Parser}}
+\subsubsection*{\textbf{Arquitetura das Rotinas de Comunicação e Parser}} \label{software:rotinas}
 
 Para realização das rotinas de comunicação e parser, a equipe de software contou com um simulador. O simulador, construído pela frente de eletroeletrônica, 
 consiste em um \textit{Arduino} que simula o comportamento da entrada e saída de dados que o sistema da \textit{Raspberry} terá de comunicar. Com isso 
@@ -294,7 +269,7 @@ o diagrama de classes parcial das rotinas de comunicação em integração com o
 \caption{Diagrama de Classes Parcial das Rotinas de Comunicação e Parser, integrados ao \textit{Django} - Fonte: Autor}
 \end{figure}
 
-\subsubsection*{\textbf{Processamento dos Dados}}
+\subsubsection*{\textbf{Processamento dos Dados}} \label{software:processamento}
 
 A integral é uma das mais importantes ferramentas matemáticas e que aparece com frequência na solução de problemas e no cálculo de grandezas 
 na engenharia e na ciência \cite{metodos_numericos}.
