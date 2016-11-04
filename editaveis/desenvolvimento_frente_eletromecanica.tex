@@ -9,7 +9,7 @@ O detalhamento da solução para a frente de eletromecânica pode ser sumarizado
 
 \section{Considerações iniciais}
 
-Para a construção de uma bancada com capacidade de vibração mecânica e análise de parâmetros, é de interesse um sistema de estudos para comportamento mecânico frente às vibrações, sendo um equipamento para instalações fixas com limites de carga e dimensões para sistemas analisados. Portanto para análise eletromecâmica, segue-se os estudos realizado abaixo.
+Para a construção de uma bancada com capacidade de vibração mecânica e análise de parâmetros, é de interesse um sistema de estudos para comportamento mecânico frente às vibrações, sendo um equipamento para instalações fixas com limites de carga e dimensões para sistemas analisados. Portanto, para análise eletromecâmica, seguem os estudos realizados abaixo.
 
 \begin{figure}[h!]
 	\centering
@@ -18,7 +18,7 @@ Para a construção de uma bancada com capacidade de vibração mecânica e aná
     \label{bancada}
 \end{figure}
 
-As funções principais do controle de um motor são: partida, parada, direção de rotação, regulação da velocidade, limitação da corrente de partida, proteção mecânica, proteção Elétrica. Um motor só começa a girar quando o momento de carga a ser vencido, quando parado, for menor do que seu conjugado de partida. Em determinadas aplicações há necessidade de uma rápida desaceleração do motor e da carga
+As funções principais do controle de um motor são: partida, parada, direção de rotação, regulação da velocidade, limitação da corrente de partida, proteção mecânica e proteção elétrica. Um motor só começa a girar quando o momento de carga a ser vencido, quando parado, for menor do que seu conjugado de partida. Em determinadas aplicações há necessidade de uma rápida desaceleração do motor e da carga.
 
 \begin{figure}[h!]
 	\centering
@@ -27,14 +27,15 @@ As funções principais do controle de um motor são: partida, parada, direção
     \label{motor}
 \end{figure}
 
-O modo utilizado para variação de velocidade do motor de indução será através do inversor de freqüência, o qual possibilita o controle do motor CA variando a freqüência, mas também realiza a variação da tensão de saída para que seja respeitada a característica V/F ( Tensão / Freqüência) do motor.
+O modo utilizado para variação de velocidade do motor de indução será através do inversor de frequência, o qual possibilita o controle do motor CA variando a frequência, mas também realiza a variação da tensão de saída para que seja respeitada a característica V/F ( Tensão / Freqüência) do motor.
 
-No projeto em questão, será usado um motor de indução trifásico conectado a um eixo preso por mancais soldados no tampo da mesa, usando-se para isto uma correia encaixada na polia fixa no eixo do motor e no eixo preso nos rolamentos dos mancais. Com isso, tem-se o intuito de acionar o sistema, gerando assim uma vibração. Para realizar esta vibração, a velocidade do motor será alterada com o uso de um inversor de frequência e com a razão de voltas da polia fixa no motor e o do eixo fixo nos mancais. O conjunto motor+inversor dimensionado deverá atender o torque solicitado e as velocidades solicitadas por todo o sistema.
+No projeto em questão, será usado um motor de indução trifásico conectado a um eixo preso por mancais soldados no tampo da mesa, usando-se para isto uma correia encaixada na polia fixa no eixo do motor e no eixo preso nos rolamentos dos mancais. Com isso, tem-se o intuito de acionar o sistema, gerando assim uma vibração. Para realizar esta vibração, a velocidade do motor será alterada com o uso de um inversor de frequência e com a razão de voltas da polia fixa no motor e o do eixo fixo nos mancais. O conjunto motor e inversor dimensionado deverá atender o torque solicitado e as velocidades solicitadas por todo o sistema.
 
 	Para avaliação térmica do motor realizado por meio da tecnologia do termovisor, na qual fornece uma avaliação da temperatura para com a classe de isolamento, na qual podemos observar na figura \ref{camera} abaixo o comportamento térmico do mesmo para a classe de isolamento do tipo F.
-    \begin{figure}[h!]
-	\centering
-		\includegraphics[keepaspectratio=true,scale= 0.5]{figuras/camera.jpg}
+
+\begin{figure}[h!]
+    \centering
+	\includegraphics[keepaspectratio=true,scale= 0.5]{figuras/camera.jpg}
 	\caption{- Câmara térmica. Fonte: Autoria própria }
     \label{camera}
 \end{figure}
@@ -48,7 +49,6 @@ No projeto em questão optamos pela ligação do motor em estrela, dada que a di
     \label{inversor}
 \end{figure}
 
-
 O inversor de frequência trabalha com rampas para partida e frenagem. Na partida é utilizada a rampa de aceleração, a velocidade inicia em zero e atinge a velocidade desejada, podendo ajudar o tempo numa faixa de milésimos de segundo. A frequência do rotor é maior do que a frequência do estator durante a frenagem, dessa forma é provocado um fluxo reverso da energia do rotor diretamente ao estator (COVINO; GRASSI; PAGANO, 1997). A rampa de desaceleração é responsável por controlar a frenagem, esse processo se dá pela redução de forma controlada da frequência aplicada ao motor. A figura \ref{rampas} abaixo evidencia as rampas de aceleração e desaceleração.
 
 \begin{figure}[h!]
@@ -60,7 +60,7 @@ O inversor de frequência trabalha com rampas para partida e frenagem. Na partid
 
 \section{Medidas construtivas}
 
-A primeira parte do trabalho, basicamente realizou-se um estudo sobre o tema proposto, definiu-se os conceitos básicos, realizou-se os cálculos iniciais para definição das diretrizes a serem tomadas e definiu-se qual o motor e o inversor a ser usado. Após a realização do ponto de controle 1, foram tomadas as seguintes medidas construtivas:
+Na primeira parte do trabalho, basicamente realizou-se um estudo sobre o tema proposto, definiu-se os conceitos básicos, realizou-se os cálculos iniciais para definição das diretrizes a serem tomadas e definiu-se qual o motor e o inversor a ser usado. Após a realização do ponto de controle 1, foram tomadas as seguintes medidas construtivas:
 
 \begin{itemize}
 \item Aquisição do motor de indução trifásico de 0,5 cv;
@@ -150,10 +150,9 @@ A tabela \ref{tabela_info_motor} mostra os dados elétricos do motor de induçã
 
 \section{Parametrização do inversor de frequência}
 
-Após a realização do estudo acerca do inversor de frequência, foi realizada a parametrização do mesmo. Com base no manual disponibilizado pela NHP Eletrical Engineering Products, uma empresa australiana renomada no setor da engenharia elétrica, o controle do motor foi minimamente estabelecido em todos os detalhes necessários para atender a demanda do projeto.
+Após a realização do estudo acerca do inversor de frequência, foi realizada a parametrização do mesmo. Com base no manual disponibilizado pela NHP \textit{Eletrical Engineering Products}, uma empresa australiana renomada no setor da engenharia elétrica, o controle do motor foi minimamente estabelecido em todos os detalhes necessários para atender a demanda do projeto.
 
-
-	O inversor dispõe uma interface bastante amigável, como pode ser visto na figura \ref{Interface do inversor}
+O inversor dispõe de uma interface bastante amigável, como pode ser visto na figura \ref{Interface do inversor}
 
 \begin{figure}[h!]
 	\centering
@@ -172,7 +171,6 @@ Para a programação do inversor, foi utilizado apenas os parâmetros básicos, 
 \end{figure}
 
 No parâmetro P031 foi ajustada a tensão na qual o motor necessita, no caso a tensão foi ajustada em 380V. No parâmetro P032 foi ajustada a frequência nominal do motor de indução, fixada em 60Hz. O parâmetro P033 não foi alterado. Os parâmetros P034 e P035 remetem, respectivamente, às frequências mínima e máxima, ajustadas em 0 e 60Hz. O parâmetro P036 estabelece de que forma o start ocorrerá, no caso foi selecionada a opção 0 que estabelece que será pelo botão na interface do inversor de frequência. O parâmetro P037 não foi alterado. Já o parâmetro P038 foi ajustado na opção 2, cuja estabelece o controle via entrada de 0 a 10V, nessa parte acontece a integração com a frente de eletroeletrônica, onde haverá o controle estabelecido por eles. Os parâmetros P039 e P040 estabelecem os tempos de aceleração e desaceleração, respectivamente, esses tempos estão definidos em valores por volta de 2 a 4 segundos. Os últimos três parâmetros não foram alterados.
-
 
 \section{Sistema de Segurança}
 
