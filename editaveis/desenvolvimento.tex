@@ -22,61 +22,6 @@ Além disso, normas técnicas e de segurança foram levadas em consideração no
 
 \input{editaveis/desenvolvimento_frente_processamento}
 
-% \section{Normas Técnicas e de Segurança}
-% Para garantir a integridade e segurança do projeto e dos futuros usuários do produto, deve-se atentar a
-% determinadas normas técnicas, que garantem a funcionalidade do projeto. Essas normas ajudam a definir diversas
-% características de um produto, visando uma padronização que ajuda na solução de futuros problemas, assegurando a qualidade,
-% segurança e eficiência desejada. No Brasil, a Agência Brasileira de Normas Técnicas (ABNT) é o órgão responsável pela elaboração
-% das Normas Técnicas Brasileiras (NBR), que servem como instrumento na avaliação de conformidades e certificação de diversas áreas
-% e produtos, garantindo a devida credibilidade. Para o caso da Bancada de Vibração, alguns itens importantes podem ser destacados
-% diante da NBR NM 213, que é uma norma específica voltada para Princípio de Projeto e Segurança de Máquinas e Equipamentos Elétricos.
-
-%  \begin{table}[!ht]
-%             \begin{center}
-%               \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-%                 \hline
-%                 \textbf{Item Avaliado} & \textbf{Medida Normativa} & \textbf{O que será feito?}
-%                 \\ \hline
-%                 Arestas vivas, ângulos vivos, peças salientes, etc. & Previnir, durante a operação da bancada, o acesso do usuário aos componentes de risco. & Será utilizado um material uniforme como tampo da bancada e serão colocados protetores de quina.
-%                 \\ \hline
-%                 Formas e posição de componentes mecânicos. & Previnir, durante a operação da bancada, o acesso do usuário aos componentes de risco. & Durante o projeto da estrutura, os motores e a polia serão dispostos à uma distância segura da posição de operação.
-%                 \\ \hline
-%                 Ergonomia & Reduzir as tensões nervosas e o esforço físico do operador & Garantir uma altura da bancada que não sobrecarregue o usuário, fisicamente, na operação da bancada. Partindo de uma altura média esperada pelo usuário.
-%                 \\ \hline
-%                 Sistema de Comando & Garantir a fácil intervenção do operador em casos de: Partida inesperada, Velocidade não controlada, Pesos insustentáveis & O sistema da bancada terá “faixas” de frequência e velocidade acessíveis ao usuário, não permitindo que tais valores sejam extrapolados. Uma célula de carga será acoplada para informar se o objeto testado está acima do peso suportado pela estrutura.
-%                 \\ \hline
-%                 Perigo Elétrico & Proteções contra: choques elétricos, curtos circuitos, sobrecargas & Haverá um aviso na bancada sobre a fonte de alimentação que deve ser usada e um relé de proteção para preservar a integridade dos motores e dos circuitos. Ao longo da bancada, nos pontos que forem determinados críticos, será utilizado material isolante.
-%                 \\ \hline
-%                 Estrutura & Robustez & A estrutura será projetada e testada para que a bancada não fique instável e nem balance, fixando os motores, polias e pés
-%                 \\ \hline
-%                 Exigências Gerais, avisos, inscrições. & Deve existir clareza nas informações de operação. & Haverá um determinado número de adesivos na bancada informando sobre procedimentos de operação, instruções técnicas e prevenções de riscos. Tais avisos serão localizados em partes estratégicas da bancada
-%                 \\ \hline
-%               \end{tabular}
-%               \caption[Normas versus Itens e ações a serem realizadas]{Normas versus Itens e ações a serem realizadas
-%               \protect Fonte: Autor}
-%             \label{tabela_normas_1}
-%         \end{center}
-%     \end{table}
-
-%      \begin{table}[!ht]
-%             \begin{center}
-%               \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-%                 \hline
-%                 \textbf{Item Avaliado} & \textbf{Medida Normativa} & \textbf{O que será feito?}
-%                 \\ \hline
-%                 Documento de acompanhamento & Manual de instrução & Será elaborado um manual abordando os itens de segurança, utilização, condição de armazenamento, indicações para a movimentação, dimensões, exigências de espaço físico, regulagens e ajustes, manutenções, situações de emergência, etc.
-%                 \\ \hline
-%                 Medidas adicionais & Medidas previstas para situações de emergência & Será implementado um dispositivo de parada de emergência
-%                 \\ \hline
-%                 Manutenção & Considerar fatores que facilitem a manutenabilidade do sistema. & A estrutura será projetada atentando ao fácil acesso de partes internas.
-%                 \\ \hline
-%               \end{tabular}
-%               \caption[Normas versus Itens e ações a serem realizadas]{Normas versus Itens e ações a serem realizadas
-%               \protect Fonte: Autor}
-%             \label{tabela_normas_2}
-%         \end{center}
-%     \end{table}
-
 \section{Integração dos subsistemas}
 
 Considerando os produtos gerados nas frentes de trabalho citados nas Seções anteriores o sistema completo será integrado de acordo com
@@ -89,4 +34,82 @@ a representação da Figura \ref{fig:arquitetura_solucao}.
 \label{fig:arquitetura_solucao}
 \end{figure}
 
+Para iniciar um ensaio o usuário insere as frequências e tempos desejados na aplicação web, que passa essa informação
+para a Raspberry através do protocolo HTTP. Na Raspberry é realizada a comunicação serial com o microcontrolador possibilitando 
+a comunicação com o sistema de controle eletroeletrônico. Esse servidor estabelece comunicação com o sistema de controle
+através de protocolos definidos na subseção \ref{software:protocolo}.
 
+Com o envio das frequências estabelecidas pelo usuário para o sistema de controle, este é responsável por enviar a 
+frequência ao inversor. Desse modo, ocorre a integração dos subsistemas eletroeletrônico e eletromecânico. 
+O procedimento de integração contempla a interligação do sistema de controle eletroeletrônico
+com o inversor que rege a velocidade do motor a partir dos bornes analógicos na forma de variações de tensão.
+
+A integração dos subsistemas eletromecânico e de estrutura será realizada através da fixação 
+do motor aos furos dedicados na estrutura e o acoplamento por meio de 
+transmissão por correia entre o eixo do volante desbalanceado, fixado no mancal da superfície vibratória, com o motor 
+do sistema, para que a bancada seja capaz de vibrar.
+
+Com a integração do fluxo de controle realizada, para a coleta de dados do ensaio há a comunicação do sistema de controle eletroeletrônico com
+o sistema de interface e processamento através dos protocolos definidos na subseção \ref{software:protocolo}. Os dados são coletados através
+dos acelerômetros acoplados ao tampo e no objeto testado. Esses dados são enviados ao servidor da Raspberry.
+
+\subsection*{\textbf{Protocolos - Interface/Processamento e Controle}} \label{software:protocolo}
+
+As rotinas de comunicação são as pontes pelas quais os componentes de software do servidor que estará rodando na \textit{Raspberry} irão se
+comunicar com os componentes eletroeletrônicos do sistema de controle e, consequentemente, com o resto do sistema. 
+Para que a comunicação seja estabelecida é necessário estabelecer um padrão de comunicação de acordo com ambas as frentes, de forma que a comunicação 
+ocorra com sucesso e sem surpresas. Foi definido então um protocolo de comunicação que deve ser respeitado pela frente de software e
+eletrônica durante a transmissão de dados via serial.
+
+Com a mudança da arquitetura ficou mais simples a integração das rotinas de comunicação e de escrita (com o parser dos dados)
+com o
+servidor, o que nos permitiu formalizar um protocolo bem simples para a comunicação entre o sistema de controle e o 
+sistema da aplicação.
+
+O protocolo de comunicação é dividido em duas partes: o protocolo de controle e o protocolo de resposta, que são apresentados 
+abaixo.
+
+\begin{itemize}
+    \item \textbf{Protocolo de Controle}
+    \begin{itemize}
+        \item É definido por \textit{flags} que permitirão que o sistema realize ações pré-definidas.
+    \end{itemize}
+    \item \textbf{Protocolo de Resposta}
+    \begin{itemize}
+        \item É definida a \textit{STRING} de resposta que o sistema de controle enviará para a camada de alto nível, no caso a \textit{Raspberry}, via 
+        comunicação serial.
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.7]{figuras/protocolo_controle.png}
+\label{fig:protocolo_controle}
+\caption{Protocolo de Controle com \textit{flags} já definidas - Fonte: Autor}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.8]{figuras/protocolo_string.png}
+\label{fig:protocolo_string}
+\caption{Protocolo de Resposta e o formato da String que chegará ao sistema - Fonte: Autor}
+\end{figure}
+
+Com esse padrão definido, o usuário definirá um determinado número de \textit{jobs} (cada \textit{job} representa uma frequência com uma duração de tempo, 
+e um conjunto de \textit{jobs} define um ensaio) que serão executados ao longo do ensaio. Ao executar o ensaio, os resultados dos sensores irão ser 
+repassados na escala entre 0 a 1024 em AD (\textit{Analogic Digital}), sendo 0AD igual a 0G e 1024AD igual a 16G. Para determinar a aceleração a 
+partir dessa escala basta utilizar uma regra de três simples. Por fim, esses dados passarão pelo processamento para serem persistidos no
+banco de dados da \textit{Raspberry}.
+
+Um dos objetivos ao obter a \textit{timestamp} a qual foi obtido o resultado pelo sensor é a necessidade de identificar e mapear os
+\textit{jobs} de acordo com o ensaio, para ordenar e saber quais dados pertencem a quais \textit{jobs}.
+
+A Figura \ref{fig:diagrama_sequencia_pc2} mostra um diagrama de sequência que apresenta a interação entre usuário, a aplicação web e o servidor da \textit{raspberry},
+ilustrando como é tratado o \textit{input} e o \textit{output} do sistema como um todo entre os componentes de software e de eletrônica.
+
+\begin{figure}[H]
+\label{fig:diagrama_sequencia_pc2}
+\centering
+\includegraphics[keepaspectratio=true,scale=0.5]{figuras/diagrama_sequencia_pc2.png}
+\caption{Diagrama de sequência - Fonte: Autor}
+\end{figure}
