@@ -7,7 +7,7 @@ e o seu projeto e construção, resultante da Fase 03.
 O detalhamento da solução para a frente de eletromecânica pode ser sumarizado nos itens abaixo. A solução completa definida nas
   Fases 01 e 02 pode ser vista no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}.
 
-\section{Considerações iniciais}
+\subsubsection*{Considerações iniciais}
 
 Para a construção de uma bancada com capacidade de vibração mecânica e análise de parâmetros, é de interesse um sistema de estudos para comportamento mecânico frente às vibrações, sendo um equipamento para instalações fixas com limites de carga e dimensões para sistemas analisados. Portanto, para análise eletromecâmica, seguem os estudos realizados abaixo.
 
@@ -58,7 +58,7 @@ O inversor de frequência trabalha com rampas para partida e frenagem. Na partid
     \label{rampas}
 \end{figure}
 
-\section{Medidas construtivas}
+\subsubsection*{Medidas construtivas}
 
 Na primeira parte do trabalho, basicamente realizou-se um estudo sobre o tema proposto, definiu-se os conceitos básicos, realizou-se os cálculos iniciais para definição das diretrizes a serem tomadas e definiu-se qual o motor e o inversor a ser usado. Após a realização do ponto de controle 1, foram tomadas as seguintes medidas construtivas:
 
@@ -147,8 +147,9 @@ A tabela \ref{tabela_info_motor} mostra os dados elétricos do motor de induçã
         \end{center}
     \end{table}
 
+\subsection{Projeto e Construção}
 
-\section{Parametrização do inversor de frequência}
+\subsubsection*{Parametrização do inversor de frequência}
 
 Após a realização do estudo acerca do inversor de frequência, foi realizada a parametrização do mesmo. Com base no manual disponibilizado pela NHP \textit{Eletrical Engineering Products}, uma empresa australiana renomada no setor da engenharia elétrica, o controle do motor foi minimamente estabelecido em todos os detalhes necessários para atender a demanda do projeto.
 
@@ -161,7 +162,7 @@ O inversor dispõe de uma interface bastante amigável, como pode ser visto na f
     \label{Interface do inversor}
 \end{figure}
 
-Para a programação do inversor, foi utilizado apenas os parâmetros básicos, visto que, dessa forma, a nossa necessidade seria atendida. A figura \ref{Parâmetros do inversor} mostra os parâmetros utilizados para fazer o controle do motor de indução através do inversor de frequência. 
+Para a programação do inversor, foi utilizado apenas os parâmetros básicos, visto que, dessa forma, a nossa necessidade seria atendida. A figura \ref{Parâmetros do inversor} mostra os parâmetros utilizados para fazer o controle do motor de indução através do inversor de frequência.
 
 \begin{figure}[h!]
 	\centering
@@ -172,11 +173,11 @@ Para a programação do inversor, foi utilizado apenas os parâmetros básicos, 
 
 No parâmetro P031 foi ajustada a tensão na qual o motor necessita, no caso a tensão foi ajustada em 380V. No parâmetro P032 foi ajustada a frequência nominal do motor de indução, fixada em 60Hz. O parâmetro P033 não foi alterado. Os parâmetros P034 e P035 remetem, respectivamente, às frequências mínima e máxima, ajustadas em 0 e 60Hz. O parâmetro P036 estabelece de que forma o start ocorrerá, no caso foi selecionada a opção 0 que estabelece que será pelo botão na interface do inversor de frequência. O parâmetro P037 não foi alterado. Já o parâmetro P038 foi ajustado na opção 2, cuja estabelece o controle via entrada de 0 a 10V, nessa parte acontece a integração com a frente de eletroeletrônica, onde haverá o controle estabelecido por eles. Os parâmetros P039 e P040 estabelecem os tempos de aceleração e desaceleração, respectivamente, esses tempos estão definidos em valores por volta de 2 a 4 segundos. Os últimos três parâmetros não foram alterados.
 
-\section{Sistema de Segurança}
+\subsubsection{Sistema de Segurança}
 
 Sistemas de segurança elétrica são concebidos com a finalidade de garantir uma operação segura para os usuários finais, equipes de manutenção e dos próprios equipamentos, que em casos de ocorrências internas ou externas os danos são minimizados.
 
-O projeto inicial concebia a utilização além dos disjuntores e fusíveis, a utilização de dispositivos anti-surto, no sistema trifásico bem como um diferencial residual, no entanto para fins de minimização de custos, considerando a fase de protótipo, foram considerados apenas a utilização de fusíveis na entrada principal trifásica e disjuntores com função de desarme e dispositivo do manobra nos diferentes circuitos que são: Inversor-motor, controle eletrônico, e tomadas auxiliares, dispostos segundo o diagrama mostrado na figura \ref{Diagrama de Instalações}. 
+O projeto inicial concebia a utilização além dos disjuntores e fusíveis, a utilização de dispositivos anti-surto, no sistema trifásico bem como um diferencial residual, no entanto para fins de minimização de custos, considerando a fase de protótipo, foram considerados apenas a utilização de fusíveis na entrada principal trifásica e disjuntores com função de desarme e dispositivo do manobra nos diferentes circuitos que são: Inversor-motor, controle eletrônico, e tomadas auxiliares, dispostos segundo o diagrama mostrado na figura \ref{Diagrama de Instalações}.
 
 \begin{figure}[h!]
 	\centering
