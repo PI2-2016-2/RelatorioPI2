@@ -10,14 +10,14 @@
  {\large Plano de gerenciamento de riscos}\\[0.2cm]
  {Bancada para Ensaios de Vibração Mecânica}\\
  \end{center}
- 
+
  \section*{Histórico de Alterações}
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|c|p{6cm}|p{5cm}|}
 
 Data & Versão & Descrição & Responsável\\
-\hline                               
+\hline
 01/09/2016 & 1.0 & Criação do Plano de Gerenciamento de Riscos & Ítalo Paiva.
 \\
 \hline
@@ -40,7 +40,7 @@ Para o plano de gerenciamento de riscos do projeto, os processos adotados serão
 \end{itemize}
 
 \section*{EAR – Estrutura Analítica de Riscos para identificação dos riscos}
-	
+
   O Project Management Institute (PMI), criador do PMBoK, elaborou uma Estrutura Analítica de Riscos genérica para identificação dos riscos de um projeto a partir de categorias e subcategorias.
   \begin{figure}[h]
     \label{fig:ear_padrao}
@@ -59,7 +59,7 @@ As categorias e subcategorias foram analisadas em relação ao projeto e o resul
     \end{center}
     \caption{Análise em relação aos riscos técnicos}
   \end{figure}
-  
+
   \begin{figure}[h]
     \begin{center}
     \label{fig:riscos_externos}
@@ -67,7 +67,7 @@ As categorias e subcategorias foram analisadas em relação ao projeto e o resul
     \end{center}
     \caption{Análise em relação aos riscos externos e organizacionais}
   \end{figure}
-  
+
   \begin{figure}[ht]
     \begin{center}
     \label{fig:riscos_gerenciamento}
@@ -129,7 +129,7 @@ A prioridade dos riscos é dada pelo produto cartesiano da probabilidade e do im
 \end{tabular}
 \end{table}
 
-\subsection*{Riscos Identificados}
+\subsection*{Riscos Identificados - Ponto de Controle 1}
 
 Os riscos identificados para o projeto estão listados na Tabela \ref{riscos_projeto}.
 
@@ -150,7 +150,7 @@ Greve & Baixa & Baixo & \cellcolor[HTML]{34FF34}\textbf{Baixa} \\ \hline
 \end{tabular}
 \end{table}
 
-\subsection*{Ações de resposta aos riscos}
+\subsubsection*{Ações de resposta aos riscos}
 
 As ações definidas para reagir aos riscos identificados se encontram na Tabela \ref{acoes_riscos}.
 
@@ -171,12 +171,73 @@ Greve & \begin{tabular}[c]{@{}c@{}}Os trabalhos continuarão e serão  readaptad
 \end{tabular}
 \end{table}
 
-\section*{Sistema de Controle de mudanças de riscos}
+\subsection*{Sistema de Controle de mudanças de riscos}
 
 Para controlar riscos e tentar de alguma forma amenizar percalços que possam atingir o projeto futuramente, o controle de riscos assume os problemas que possam surgir no decorrer do trabalho, de maneira que, caso aconteça algum risco não planejado, a resposta lógica da equipe será retornar ao documento de Gerenciamento de Risco, mensurar e analisar tal problema, assim como todos os outros, para que se possa tomar a medida mais adequada a situação.
 
-\section*{Outros assuntos relacionados ao gerenciamento de riscos do projeto não previstos nesse plano}
+\subsection*{Outros assuntos relacionados ao gerenciamento de riscos do projeto não previstos nesse plano}
 
 Assuntos relacionados ao Gerenciamento de Riscos do Projeto que não foram previstos, caso aconteçam e mostrem relevância para o projeto, devem ser atualizados nesse documento, de maneira que este ande sempre alinhado com o projeto.
+
+\section*{Riscos Identificados - Ponto de Controle 2}
+
+Os riscos identificados para o projeto estão listados na Tabela foram divididos por cada frente do projeto
+
+\subsection*{Riscos Identificados - Frente Mecânica}
+
+\begin{table}[H]
+    \begin{tabular}{|p{7cm}|p{7cm}|}
+        \hline
+        \textbf{Risco} & \textbf{Ação de contigência} \\ \hline
+        Alinhamento inadequado do contato entre tampo e estrutura. &  \\ \hline
+        Alinhamento inadequado dos mancais (podendo causar desalinhamento das polias). & \\ \hline
+        Incompatibilidade das análises com as constantes cpnsideradas com relação ao modelo real. & \\ \hline
+        Uso do galpão comprometido (Devido à greve dos técnicos). & \\ \hline
+    \end{tabular}
+    \caption{Tabela de Riscos Identificados da Frente de Mecânica - Fonte: Autores}
+    \label{tab:tabela_riscos_mecanica}
+\end{table}
+
+\subsection*{Riscos Identificados - Frente Eletromecânica}
+
+\begin{table}[H]
+    \begin{tabular}{|p{7cm}|p{7cm}|}
+        \hline
+        \textbf{Risco} & \textbf{Ação de contigência} \\ \hline
+        Descargas elétricas que podem danificar o funcionamento do inversor e do motor. &  \\ \hline
+        Intervenção indevida do usuário no sistema de distribuição de potência & \\ \hline
+        Ausência de monitoramento de corrente de falta (aterramento). & \\ \hline
+    \end{tabular}
+    \caption{Tabela de Riscos Identificados da Frente de Mecânica - Fonte: Autores}
+    \label{tab:tabela_riscos_mecanica}
+\end{table}
+
+\subsection*{Riscos Identificados - Frente Eletroeletrônica}
+
+\begin{table}[H]
+    \begin{tabular}{|p{7cm}|p{7cm}|}
+        \hline
+        \textbf{Risco} & \textbf{Ação de contigência} \\ \hline
+        Taxa de leitura de sensores abaixo da taxa de nyquist quando escalado & Trabalhar as frequencias mais baixas, ou diminuir a quantidade de sensores \\ \hline
+        Estabilidade das fontes de tensão (Forte depêndencia das fontes de tensão que vierem do inversos) & Utilizar elementos de proteção na placa \\ \hline
+        Aliasing no sinal de aceleração da mesa. & Fazer uma filtragem digital passa baixas no sinal \\ \hline
+    \end{tabular}
+    \caption{Tabela de Riscos Identificados da Frente de Mecânica - Fonte: Autores}
+    \label{tab:tabela_riscos_mecanica}
+\end{table}
+
+\subsection*{Riscos Identificados - Frente Interface/Processamento}
+
+\begin{table}[H]
+    \begin{tabular}{|p{7cm}|p{7cm}|}
+        \hline
+        \textbf{Risco} & \textbf{Ação de contigência} \\ \hline
+        Massa de dados coletadas pelos sensores sendo fornecidas à uma taxa superior à capacidade de processamento do hardware & Efetuar troca do hardware disponível para atuar como servidor REST (Passar à utilizar um microcomputador ao invés de uma Raspberry PI) \\ \hline
+        Atrasos existentes na rede para transmissão de pacotes de informações & Utilizar conexão de rede cabeada para evitar agressões à transmissão oriundas do meio e verificar dimensionamento da rede para não haver sobrecarga no roteador, evitando perda de pacotes. \\ \hline
+        Integridade dos dados comprometida & Implementar mecanismos de checagem de integridade de dados (checksum) \\ \hline
+    \end{tabular}
+    \caption{Tabela de Riscos Identificados da Frente de Mecânica - Fonte: Autores}
+    \label{tab:tabela_riscos_mecanica}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%% FIM PLANO DE GERENCIAMENTO DE RISCOS
