@@ -15,38 +15,40 @@ frente de interface/processamento nos seguintes subsistemas de software:
  \item \textbf{Interface de comunicação entre o usuário e a bancada, realizada por meio da aplicação web;}
       \subitem Na aplicação web o usuário poderá controlar a bancada, iniciando um ensaio com os quesitos definido por ele,
 	       e visualizar os resultados do ensaio por meio de gráficos.
- \item \textbf{Servidor para intermediar a comunicação da aplicação web com o sistema de controle eletrônico, hospedado na \textit{Raspberry}.}
+ \item \textbf{Servidor de Controle para intermediar a comunicação da aplicação web com o sistema de controle eletrônico, hospedado na \textit{Raspberry}.}
       \subitem Este servidor provê serviços RESTFul (API REST) como a interface de comunicação para a aplicação web. Neste servidor estão as 
 	       rotinas de comunicação com o sistema de controle eletrônico, que realizam a inserção de dados de comando e recupera os dados 
 	       dos sensores via comunicação serial.
 \end{itemize}
 
-A integração entre esses dois subsistemas que compõem o módulo de interface/processamento funcionará da seguinte forma
+A interação entre esses dois subsistemas que compõem o módulo de interface/processamento funcionará da seguinte forma
 (o protocolo de comunicação definido será apresentado na subseção \ref{software:protocolo}):
 
 \begin{enumerate}
  \item O usuário cadastrado autentica-se no sistema (caso o usuário não seja cadastrado basta ele se cadastrar);
- \item O usuário monta um ensaio com seus respectivos \textit{jobs};
+ \item O usuário monta um ensaio com seus respectivos \textit{jobs} (o conceito de \textit{job} é apresentado na subseção \ref{software:app_web});
  \item O usuário confere os sensores ativos identificados pelo sistema e inicia o experimento;
     \subitem O usuário tem a possibilidade de atualizar os sensores ativos, caso perceba erro na leitura dos sensores;
     \subitem Quando o usuário solicita a identificação dos sensores ativos, a aplicação web envia uma requisição
-	     de identificação dos sensores ativos ao servidor hospedado na \textit{Raspberry}, seguindo o protocolo definido.
- \item A aplicação web envia uma requisição ao servidor hospedado na \textit{Raspberry} informando os dados dos \textit{joobs}
-       e sinalizando que o experimento começou.
+         de identificação dos sensores ativos ao Servidor de Controle, seguindo o protocolo definido.
+ \item A aplicação web envia uma requisição ao Servidor de Controle informando os dados dos \textit{jobs} 
+        e sinalizando que o experimento começou;
        \subitem A cada novo \textit{job} que deve começar (mudança de frequência da mesa) a aplicação web envia uma requisição
        de solicitação de alteração de frequência da mesa, seguindo o protocolo definido.
- \item O servidor da \textit{Raspberry}, então, envia uma mensagem ao sistema de controle (via rotinas de comunicação,
+ \item O Servidor de Controle, então, envia uma mensagem ao sistema de controle (via rotinas de comunicação,
        que serão apresentadas na subseção \ref{software:rotinas}) informando o início do experimento e a frequência
-       desejada (frequência do \textit{job} corrente) e inicia uma \textit{thread} para a coleta dos dados lidos dos sensores.
- \item Quando o último \textit{job} chegar ao fim, a aplicação web envia uma requisição ao servidor da \textit{Raspberry} informando
-       que o ensaio acabou, o que significa que o sistema de controle não precisa mais coletar dados dos sensores.
- \item Quando o servidor da \textit{Raspberry} recebe essa requisição, este envia uma mensagem ao sistema de controle (via rotinas de comunicação)
-       informando a parada da coleta dos dados dos sensores, seguindo o protocolo definido.
- \item A aplicação web informa ao usuário que está aguardando o término da coleta e processamento dos dados enquanto o servidor da
-       \textit{Raspberry} coleta o restante dos dados dos sensores e a aplicação web processa os dados coletados;
- \item Quando todos os dados amostrados forem coletados, destes serão derivados os outros dados necessários para a aplicação, seguindo 
+       desejada (frequência do \textit{job} corrente) e inicia uma \textit{thread} para a coleta dos dados lidos dos sensores;
+ \item Quando o último \textit{job} chegar ao fim, a aplicação web envia uma requisição ao Servidor de Controle informando
+       que o ensaio acabou, o que significa que o sistema de controle não precisa mais coletar dados dos sensores;
+ \item Quando o Servidor de Controle recebe essa requisição, este envia uma mensagem ao sistema de controle (via rotinas de comunicação)
+       informando a parada da coleta dos dados dos sensores, seguindo o protocolo definido;
+ \item A aplicação web informa ao usuário que está aguardando o término da coleta e processamento dos dados enquanto o Servidor de
+       Controle coleta o restante dos dados dos sensores e a aplicação web processa os dados coletados;
+ \item Quando todos os dados amostrados forem coletados, o Servidor de Controle repassa esses dados para a aplicação web e
+       destes serão derivados os outros dados necessários para a aplicação, seguindo 
        o método apresentado na seção \ref{software:processamento}. O processamento dos dados aqui mencionado se refere aos cálculos da frequência,
-       velocidade e amplitude a partir da aceleração fornecida pelos sensores.
+       velocidade e amplitude a partir da aceleração fornecida pelos sensores;
+ \item Com todos os dados calculados, a aplicação web monta os gráficos e apresenta os resultados do ensaio ao usuário.
 \end{enumerate}
 
 
@@ -58,7 +60,7 @@ Nas próximas subseções são detalhados os dois subsistemas propostos como sol
   Nesta subseção é apresentado o projeto e construção dos subsistemas propostos na Subseção \ref{software:detalhamento_solucao},
   bem como as mudanças realizadas no que foi proposto.
 
-\subsubsection{\textbf{Interface de comunicação com o usuário - Aplicação Web}}
+\subsubsection{\textbf{Interface de comunicação com o usuário - Aplicação Web}} \label{software:app_web}
     
     Como  apresentado no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1},
     a aplicação web servirá para o usuário controlar a bancada e visualizar os resultados dos ensaios, contando com os seguintes requisitos
@@ -87,13 +89,17 @@ Nas próximas subseções são detalhados os dois subsistemas propostos como sol
     
     Com o intuito de visualizar a solução Web foi desenhado um protótipo de alta fidelidade da aplicação Web. 
     As telas podem ser vistas no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}.
+    
+    Como definido no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1},
+    a aplicação web foi desenvolvida utilizando o \textit{framework} Django (em linguagem Python) de acordo com as justificativas
+    apresentadas também no Relatório 1. 
 
-\subsubsection{\textbf{Interface de comunicação com o sistema de controle - Servidor RESTFul}}
+\subsubsection{\textbf{Interface de comunicação com o sistema de controle - Servidor de Controle}}
    
    Esta subseção apresenta o projeto e construção do servidor RESTFul que será hospedado na \textit{Raspberry} para intermediar a comunicação
-   com o sistema de controle.
+   com o sistema de controle. Este servidor é chamado aqui de Servidor de Controle.
   
-\subsubsection*{\textbf{Mudanças - Aspectos gerais}}
+\subsubsubsection*{\textbf{Mudanças - Aspectos gerais}}
     
 Ao final do primeiro ponto de controle, a frente de interface/processamento, em suma, havia estabelecido os seguintes requisitos não-funcionais para o \textbf{software}:
 
@@ -104,21 +110,66 @@ Ao final do primeiro ponto de controle, a frente de interface/processamento, em 
 \end{itemize}
 
 
-Durante a execução do projeto, constatou-se que não haveria mais necessidade de uso da linguagem C, aspecto que será melhor detalhado na próximas subseção, sobre as mudanças no projeto das rotinas de comunicações. Outro aspecto alterado foi a base de dados utilizada pelo \textit{REST}, optando-se pelo uso do \textit{MySQL} ao invés do \textit{SQLite}.
+Durante a execução do projeto, constatou-se que não haveria mais necessidade de uso da linguagem C, aspecto que será melhor detalhado na
+próxima subseção, sobre as mudanças no projeto das rotinas de comunicações.
+Outro aspecto alterado foi a base de dados utilizada pelo \textit{REST}, optando-se pelo uso do \textit{MySQL} ao invés do \textit{SQLite}.
 
 O SGBD \textit{MySQL} foi também adotado para a aplicação \textit{REST} pelos seguintes motivos:
 
 \begin{itemize}
-    \item É mais performático que o \textit{SQLite}.
-    \item Não há travamentos da base de dados devido às operações.
-    \item Favorece a escalabilidade da solução.
+  \item É mais performático que o \textit{SQLite}.
+  \item Não há travamentos da base de dados devido às operações, o que possibilita a concorrência no uso do banco de dados.
+  \item Favorece a escalabilidade da solução.
 \end{itemize}
 
-\subsubsection*{\textbf{Mudanças - Rotinas de Comunicação}}
+\subsubsubsection*{\textbf{Arquitetura das Rotinas de Comunicação e Parser}} \label{software:rotinas}
+
+Para realização das rotinas de comunicação e parser, a equipe de software contou com um simulador. O simulador, construído pela frente de eletroeletrônica, 
+consiste em um \textit{Arduino} que simula o comportamento da entrada e saída de dados que o sistema da \textit{Raspberry} terá de comunicar. Com isso 
+então, foi possível realizar o desenvolvimento das rotinas de comunicação em \textit{Python}, bem como iniciar também o \textit{Parser}.
+
+O \textit{Parser} foi construído utilizando a base de dados que o próprio \textit{Django} oferece, que no caso é o \textit{SQLITE3}, foi simulado uma 
+entrada de uma \textit{String} seguindo o protocolo de comunicação e em seguida essa \textit{String} é tratada para que seja guardada no banco de dados 
+da aplicação local. O primeiro passo consiste em conectar ao banco de dados, e em seguida realizar o tratamento dos dados em uma lista de forma a 
+averiguar se os dados estão corretos de acordo com a entrada de elementos das tabelas no banco de dados. O próximo passo então insere os dados da lista 
+no banco de dados, usando o método \textit{inserting acceleration} e assim por diante para os outros dados.
+
+É importante ressaltar que o processamento está planejado para o ponto de controle 3, que utilizará essa base de dados local para realizar os cálculos 
+e então inserir os dados de acordo com as tabelas de velocidade, amplitude e frequência, que serão utilizados pela aplicação web.
+
+Com relação às rotinas de entrada e saída de dados, foi utilizado o \textit{Arduino} para fins de teste de comunicação. A frente de eletroeletrônica 
+desenvolveu uma rotina que é executada no \textit{Arduino} que conseguia simular a entrada e saída de dados com o comportamento similar ao esperado. 
+Então utilizado a biblioteca serial que é padrão em \textit{Python}, foi possível construir métodos abstraindo o controle da comunicação serial em baixo
+nível para um alto nível, e conectá-los as rotinas que guardarão os dados, no caso o \textit{Parser}.
+
+Para comunicação com a malha fechada de controle do sistema, foi desenvolvido o \textit{Pyserial}. Uma classe que abstrai os principais métodos da 
+biblioteca padrão do \textit{Python} chamada serial. Com essa biblioteca foi possível inicializar os valores como \textit{BAUDRATE} (Taxa de transmissão),
+\textit{Timeout} e a porta serial de entrada e saída dos dados. A classe também conta com um método simples que acumula os resultados de leitura da porta 
+serial em uma grande lista que será utilizada pelo \textit{Parser} para o tratamento dos dados resultantes para que eles possam ser guardados no banco de 
+dados. A classe também conta com um tratamento de exceções para evitar que as exceções subam em nível de usuário.
+
+O \textit{RoutinesUtil}, é uma classe que faz parte da solução em \textit{Django} no pacote de classes e ele é responsável por definir o comportamento 
+da rotina. Nesta classe são definidas as rotinas de leitura de dados resultantes, dos sensores ativos e da escrita de controle do sistema. Ela utiliza 
+as classes \textit{Pyserial} e \textit{Parser} para abrir a porta serial, ler os dados, fechar a porta serial e gravar no banco de dados da aplicação do 
+servidor, que mandará para aplicação Web.
+
+A integração entre eletroeletrônica e software vem com as rotinas que irão se comunicar com a malha fechada de controle do sistema e com a 
+\textit{Raspberry} da aplicação, responsáveis por armazenar os resultados e processá-las para a aplicação web. Na imagem abaixo você poderá verificar 
+o diagrama de classes parcial das rotinas de comunicação em integração com o \textit{Django} da \textit{Raspberry} e seus respectivos métodos.
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.65]{figuras/uml_routines_parser.png}
+\label{fig:uml_routines_parser}
+\caption{Diagrama de Classes Parcial das Rotinas de Comunicação e Parser, integrados ao \textit{Django} - Fonte: Autor}
+\end{figure}
+
+
+\subsubsubsection*{\textbf{Mudanças - Rotinas de Comunicação}}
 
 A camada de software na aplicação Web foi desenvolvida em \textit{Python}, bem como a camada de servidor de comunicação com a aplicação na 
 \textit{Raspberry}. Como foi relatado, os membros do grupo naquele momento haviam chegado ao consenso de utilizar a linguagem C para integrar 
-com \textit{Python}, que seria utilizado nas rotinas de comunicação entre \textit{Raspberry} e os microcontroladores da baixa aplicação.
+com \textit{Python}, que seria utilizado nas rotinas de comunicação entre \textit{Raspberry} e os microcontroladores da aplicação de baixo nível.
 
 Durante o desenvolvimento das rotinas de comunicação, percebeu-se que não havia necessidade de que as mesmas fossem desenvolvidas 
 usando tal linguagem, considerando que a linguagem C é uma linguagem de baixo nível normalmente utilizada para ter um maior controle sobre o 
@@ -227,49 +278,18 @@ ilustrando como é tratado o \textit{input} e o \textit{output} do sistema como 
 \caption{Diagrama de sequência - Fonte: Autor}
 \end{figure}
 
-\subsubsection*{\textbf{Arquitetura das Rotinas de Comunicação e Parser}} \label{software:rotinas}
-
-Para realização das rotinas de comunicação e parser, a equipe de software contou com um simulador. O simulador, construído pela frente de eletroeletrônica, 
-consiste em um \textit{Arduino} que simula o comportamento da entrada e saída de dados que o sistema da \textit{Raspberry} terá de comunicar. Com isso 
-então, foi possível realizar o desenvolvimento das rotinas de comunicação em \textit{Python}, bem como iniciar também o \textit{Parser}.
-
-O \textit{Parser} foi construído utilizando a base de dados que o próprio \textit{Django} oferece, que no caso é o \textit{SQLITE3}, foi simulado uma 
-entrada de uma \textit{String} seguindo o protocolo de comunicação e em seguida essa \textit{String} é tratada para que seja guardada no banco de dados 
-da aplicação local. O primeiro passo consiste em conectar ao banco de dados, e em seguida realizar o tratamento dos dados em uma lista de forma a 
-averiguar se os dados estão corretos de acordo com a entrada de elementos das tabelas no banco de dados. O próximo passo então insere os dados da lista 
-no banco de dados, usando o método \textit{inserting acceleration} e assim por diante para os outros dados.
-
-É importante ressaltar que o processamento está planejado para o ponto de controle 3, que utilizará essa base de dados local para realizar os cálculos 
-e então inserir os dados de acordo com as tabelas de velocidade, amplitude e frequência, que serão utilizados pela aplicação web.
-
-Com relação às rotinas de entrada e saída de dados, foi utilizado o \textit{Arduino} para fins de teste de comunicação. A frente de eletroeletrônica 
-desenvolveu uma rotina que é executada no \textit{Arduino} que conseguia simular a entrada e saída de dados com o comportamento similar ao esperado. 
-Então utilizado a biblioteca serial que é padrão em \textit{Python}, foi possível construir métodos abstraindo o controle da comunicação serial em baixo
-nível para um alto nível, e conectá-los as rotinas que guardarão os dados, no caso o \textit{Parser}.
-
-Para comunicação com a malha fechada de controle do sistema, foi desenvolvido o \textit{Pyserial}. Uma classe que abstrai os principais métodos da 
-biblioteca padrão do \textit{Python} chamada serial. Com essa biblioteca foi possível inicializar os valores como \textit{BAUDRATE} (Taxa de transmissão),
-\textit{Timeout} e a porta serial de entrada e saída dos dados. A classe também conta com um método simples que acumula os resultados de leitura da porta 
-serial em uma grande lista que será utilizada pelo \textit{Parser} para o tratamento dos dados resultantes para que eles possam ser guardados no banco de 
-dados. A classe também conta com um tratamento de exceções para evitar que as exceções subam em nível de usuário.
-
-O \textit{RoutinesUtil}, é uma classe que faz parte da solução em \textit{Django} no pacote de classes e ele é responsável por definir o comportamento 
-da rotina. Nesta classe são definidas as rotinas de leitura de dados resultantes, dos sensores ativos e da escrita de controle do sistema. Ela utiliza 
-as classes \textit{Pyserial} e \textit{Parser} para abrir a porta serial, ler os dados, fechar a porta serial e gravar no banco de dados da aplicação do 
-servidor, que mandará para aplicação Web.
-
-A integração entre eletroeletrônica e software vem com as rotinas que irão se comunicar com a malha fechada de controle do sistema e com a 
-\textit{Raspberry} da aplicação, responsáveis por armazenar os resultados e processá-las para a aplicação web. Na imagem abaixo você poderá verificar 
-o diagrama de classes parcial das rotinas de comunicação em integração com o \textit{Django} da \textit{Raspberry} e seus respectivos métodos.
-
-\begin{figure}[H]
-\centering
-\includegraphics[keepaspectratio=true,scale=0.65]{figuras/uml_routines_parser.png}
-\label{fig:uml_routines_parser}
-\caption{Diagrama de Classes Parcial das Rotinas de Comunicação e Parser, integrados ao \textit{Django} - Fonte: Autor}
-\end{figure}
-
 \subsubsection*{\textbf{Processamento dos Dados}} \label{software:processamento}
+
+Como mencionado, o processamento dos dados se refere ao cálculo da frequência, velocidade e amplitude a partir dos dados de aceleração
+coletados dos sensores. Como os dados que se tem são coordenadas de aceleração por tempo, é preciso recorrer a integração numérica para 
+cálcular esses dados, pois a velocidade (v(t)) é a integral da aceleração (a(t)) e o deslocamento (s(t)) é a integral da velocidade, como 
+ilustram as fórmulas abaixo. A curva do deslocamento, neste caso, representa a amplitude (A) ao longo do tempo, pois o deslocamento calculado
+da mesa, a partir dos dados dos sensores, representa o quanto a mesa subiu ou desceu (pois a mesa se move apenas no eixo Y).
+
+$$ v(t) = \int_{}^{} a(t) dt$$
+$$ A(t) = s(t) = \int_{}^{} v(t) dt$$
+
+\subsubsubsection*{\textbf{Métodos numéricos analisados}}
 
 A integral é uma das mais importantes ferramentas matemáticas e que aparece com frequência na solução de problemas e no cálculo de grandezas 
 na engenharia e na ciência \cite{metodos_numericos}.
@@ -337,3 +357,9 @@ Outro aspecto que deve ser notado é que como a massa de dados coletada a partir
 precisão do método será ainda maior.
 
 Para implementação do método dos trapézios, por meio de pesquisa, foi encontrada a Biblioteca \textit{SciPy}, disponível em \href{https://www.scipy.org/}{https://www.scipy.org/}. A mesma é implementada em linguagem \textit{Python} e adota a política de código aberto. A partir de uma rápida utilização da mesma, foi possível contemplar diversas ferramentas matemáticas amplamente utilizadas para resolução de problemas da ciência e engenharia.
+
+
+\subsubsection{\textbf{Alternativas propostas e testes realizados}}
+
+
+FALAR DOS TESTES DE CARGA REALIZADOS COM A SIMULAÇÃO
