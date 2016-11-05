@@ -5,9 +5,7 @@ e o seu projeto e construção, resultante da Fase 03.
 \subsection{Detalhamento da Solução}
 
  O detalhamento da solução para a frente de estrutura pode ser sumarizado nos itens abaixo. A solução completa definida nas
-
   Fases 01 e 02 pode ser vista no \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}.
- A solução proposta para o módulo mecânico/estrutural está descrita nesta seção.
 
  \begin{itemize}
   \item A base estrutural da mesa de vibração será composta por cantoneiras de abas iguais. A cantoneira a ser utilizada terá abas iguais e uma bitola de 4,76 x 50,8mm, tendo assim um peso de 3,63kg/m.
@@ -20,11 +18,11 @@ e o seu projeto e construção, resultante da Fase 03.
 
 \subsubsection*{Mudanças na solução}
 
-Após iniciado a fase de projeto e construção verificou-se que alguns dos parâmetros decididos nas fases 01 e 02 tiveram que ser alterados a fim de adequá-los a 
-disponibilidade e a realidade local.
+Após iniciado a fase de projeto e construção verificou-se que alguns dos parâmetros decididos nas fases 01 e 02 
+deveriam que ser alterados a fim de adequá-los a disponibilidade e a realidade local. As mudanças foram:
 \begin{itemize}
-\item Mudanças da carga estática dos pés de 50kg  para 70kg
-\item Alteração da espessura da chapa de aço de 10 mm para 4.75 mm.
+\item Carga estática dos pés de 50kg  para 70kg
+\item Espessura da chapa de aço de 10 mm para 4.75 mm.
 
 \end{itemize}
 
@@ -32,7 +30,7 @@ disponibilidade e a realidade local.
 
     A análise da estrutura da bancada tem como intuito determinar os efeitos das cargas aplicadas sobre a mesma e, assim, os resultados serão usados para examinar se a estrutura está apta para o uso.
 
-    Essa análise foi feita no software Ansys a partir do design da estrutura projetada no software SOLIDWORKS\footnote{http://www.solidworks.com/}. Os esforços de maiores relevâncias para a estrutura são os pesos da chapa superior e do motor. A partir disso, realizou-se a simulação estrutural colocando como esforços as forças peso da chapa e do motor, conforme indicado na Fig. \ref{fig:an_estrutural}.
+    Essa análise foi feita no software Ansys a partir do design da estrutura projetada no software SOLIDWORKS\footnote{http://www.solidworks.com/}. Os esforços de maiores relevâncias para a estrutura são os pesos da chapa superior e do motor. A partir disso, realizou-se a simulação estrutural colocando como esforços as forças peso da chapa e do motor, conforme indicado na Figura \ref{fig:an_estrutural}.
 
   \begin{figure}[H]
       \centering
@@ -41,7 +39,9 @@ disponibilidade e a realidade local.
       \label{fig:an_estrutural}
       \end{figure}
 
-    A carga relacionada ao peso do motor foi aplicada na estrutura afim de verificar a deformação máxima que este carregamento pode causar na estrutura. A  Figura\ref{fig:carga_motor} ilustra a carga aplicada atraves da ferramenta computacional ANSYS\footnote{www.ansys.com/}.
+    A carga relacionada ao peso do motor foi aplicada na estrutura a fim de verificar a deformação máxima que este carregamento pode causar na estrutura. 
+    A  Figura \ref{fig:carga_motor} ilustra a carga aplicada através da ferramenta computacional ANSYS\footnote{www.ansys.com/}.
+
 
   \begin{figure}[H]
       \centering
@@ -49,8 +49,9 @@ disponibilidade e a realidade local.
       \caption{Peso do motor aplicado na estrutura. Fonte: Autores}
       \label{fig:carga_motor}
       \end{figure}
-
-      Com os esforços definidos, o programa computa automaticamente todos os cálculos estruturais necessários a partir das cargas aplicadas. Os resultados estão mostrados na fig. \ref{fig:def_motor}.
+    
+      Com os esforços definidos, o programa computa automaticamente todos os cálculos estruturais necessários a partir das cargas aplicadas. 
+      Os resultados estão mostrados na Figura \ref{fig:def_motor}.
 
   \begin{figure}[H]
       \centering
@@ -59,7 +60,7 @@ disponibilidade e a realidade local.
       \label{fig:def_motor}
       \end{figure}
 
-      Os resultados da simulação para deformação máxima da estrutura sob o carregamento do peso do motor  são ilustrados pela Fig.\ref{fig:result}.
+      Os resultados da simulação para deformação máxima da estrutura sob o carregamento do peso do motor são ilustrados pela Figura \ref{fig:result}.
 
   \begin{figure}[H]
       \centering
@@ -68,15 +69,19 @@ disponibilidade e a realidade local.
       \label{fig:result}
       \end{figure}
 
-      Pelas Figuras \ref{fig:def_motor} e \ref{fig:result}, percebe-se que o peso do motor é o responsável pela maior deformação da estrutura, mas essa deformação é praticamente desprezível por ser extremamente pequena, 0,03 mm. Então a estrutura mostrou-se apta e segura para a utilização.
-    Com o intuito de ter um maior grau de segurança para validar a estrutura, diversas simulações foram feitas aumentando os valores das cargas aplicadas e as deformações continuaram desprezíveis comprovando que a estrutura é válida para o projeto.
+      Pelas Figuras \ref{fig:def_motor} e \ref{fig:result}, percebe-se que o peso do motor é o responsável pela maior deformação da estrutura, mas 
+      essa deformação é praticamente desprezível por ser extremamente pequena, 0,03 mm. Então a estrutura mostrou-se apta e segura para a utilização.
+    Com o intuito de ter um maior grau de segurança para validar a estrutura, diversas simulações foram feitas aumentando os valores das cargas aplicadas e as 
+    deformações continuaram desprezíveis comprovando que a estrutura é válida para o projeto.
 
+    \vfill
 \subsubsubsection*{\textbf{Análise modal da estrutura}}
 
-    Uma vez que o projeto se trata de uma bancada vibratória, é de suma importância analisar o comportamento da estrutura submetido a vibração. A análise modal da estrutura foi feita no software Ansys e observou-se o primeiro modo de vibração para validar a utilização da mesma.
+    Uma vez que o projeto trata de uma bancada vibratória, é de suma importância analisar o comportamento da estrutura submetido a vibração. A análise modal da estrutura foi feita no software Ansys e observou-se o primeiro modo de vibração para validar a utilização da mesma.
     A maior influência vibracional na estrutura é do motor, pelo fato do mesmo estar fixado diretamente na estrutura da mesa. A tampa superior não terá tanta relevância quanto o motor por causa das molas que amorteceram grande parte da propagação da vibração.
-    O primeiro modo de vibração da estrutura está representado na figura abaixo e corresponde a um valor de 65,83 Hz.
-    Analisando a Fig.\ref{fig:vib_estrutura}, percebe-se a importância dos reforços horizontais no eixo x, pois a tendência de movimento desse modo de vibração é ao longo do mesmo eixo e os reforços proporcionam uma maior rigidez para esse movimento.
+    O primeiro modo de vibração da estrutura está representado na Figura \ref{fig:vib_estrutura} e corresponde a um valor de 65,83 Hz.
+    Analisando a Figura \ref{fig:vib_estrutura}, percebe-se a importância dos reforços horizontais no eixo x, pois a tendência de movimento 
+    desse modo de vibração é ao longo do mesmo eixo e os reforços proporcionam uma maior rigidez para esse movimento.
 
   \begin{figure}[H]
       \centering
@@ -85,13 +90,18 @@ disponibilidade e a realidade local.
       \label{fig:vib_estrutura}
       \end{figure}
 
-      Dado que o motor tem maior influência na estrutura e mesmo possui uma vibração máxima de 60 Hz e o primeiro modo de vibração foi superior a esse valor, então a estrutura está validada. Para aumentar ainda mais o valor do primeiro modo de vibração, instalou-se pés vibra-stop na estrutura e, assim, o grau de segurança da mesma submetida a vibração foi ampliado.
+      Dado que o motor tem maior influência na estrutura e mesmo possui uma vibração máxima de 60 Hz e o primeiro modo de vibração foi superior 
+      a esse valor, então a estrutura está validada. Para aumentar ainda mais o valor do primeiro modo de vibração, instalou-se pés vibra-stop na estrutura e, 
+      assim, o grau de segurança da mesma submetida a vibração foi ampliado.
 
 \subsubsubsection*{\textbf{Análise modal do tampo}}
 
-    Tendo em vista que a rotação máxima do eixo para atender as especificações do projeto seja de 6000 rotações por minuto ou 100Hz a plataforma superior da bancada não poderá ter frequência de ressonância menor que 100Hz. Para validação do mesmo foram elaborados ensaios na plataforma ANSYS\footnote{www.ansys.com/} afim de verificar a frequência de ressonância do tampo.
+    Tendo em vista que a rotação máxima do eixo para atender as especificações do projeto seja de 6000 rotações por minuto ou 100Hz a 
+    plataforma superior da bancada não poderá ter frequência de ressonância menor que 100Hz. Para validação do mesmo foram elaborados ensaios 
+    na plataforma ANSYS\footnote{www.ansys.com/} afim de verificar a frequência de ressonância do tampo.
 
-    A Figura\ref{fig:tampo} mostra que a frequência de ressonância do tampo é superior ao esperado(100Hz) podendo chegar até 106Hz e com isso a validação da escolha deste material. A deformação máxima do tampo corresponde a 13mm.
+    A Figura \ref{fig:tampo} mostra que a frequência de ressonância do tampo é superior ao esperado(100Hz) podendo chegar até 106Hz e com isso a
+    validação da escolha deste material. A deformação máxima do tampo corresponde a 13mm.
 
   \begin{figure}[H]
       \centering
@@ -102,7 +112,11 @@ disponibilidade e a realidade local.
 
 \subsubsection*{\textbf{Dimensionamento das Molas}}
 
-Para o presente projeto foram utilizadas quatro molas de comando de válvulas de cabeçote de motor de combustão interna. A escolha desse tipo de mola se deve ao fato de possuír vida infinita em uso sendo, por isso, usada nessas função pela indústria automotiva. Geralmente feitas de liga de Cromo e Vanádio, comandos de válvulas giram em torno de 2000 rotações por segundo por longos períodos de tempo, qualquer falha durante o uso terá consequências catastróficas para funcionamento do motor. A  Figura\ref{fig:mola} ilustra uma mola de comando de válvula utilizada em motor de automóveis.
+Para o presente projeto foram utilizadas quatro molas de comando de válvulas de cabeçote de motor de combustão interna. A escolha desse tipo de mola se deve ao fato de possuir 
+vida infinita em uso, sendo, por isso, usada nessa função pela indústria automotiva. Geralmente feitas de liga de Cromo 
+e Vanádio, comandos de válvulas giram em torno de 2000 rotações por segundo por longos períodos de tempo, 
+qualquer falha durante o uso terá consequências catastróficas para funcionamento do motor. A  Figura \ref{fig:mola} 
+ilustra uma mola de comando de válvula utilizada em motor de automóveis.
 
 \begin{figure}[H]
 \centering
@@ -119,8 +133,10 @@ No projeto da mesa vibratória foram usadas 4 molas de comando de cabeçote uma 
 \item Número de espiras ativas 5.
 \end{itemize}
 
-O uso de molas de comando de válvula, seja em um motor, seja na mesa vibratória do projeto do grupo é sempre em compressão. Molas de compressão possuem suas extremidades usinadas reduzindo o número de espiras ativas e contribuindo para armazenar mais energia na mola.
-Um dos principais requisitos do projeto foi a operação da mesa em uma faixa de frequência que se estende entre 70 Hz e 100Hz. Sabendo que um Hertz é um ciclo por segundo a máquina opera entre 70 ciclos por segundo e 100 ciclos por segundo daí constata-se que a cada ciclo dura entre:
+O uso de molas de comando de válvula, seja em um motor, seja na mesa vibratória do projeto do grupo é sempre em compressão. 
+Molas de compressão possuem suas extremidades usinadas reduzindo o número de espiras ativas e contribuindo para armazenar mais energia na mola.
+Um dos principais requisitos do projeto foi a operação da mesa em uma faixa de frequência que se estende entre 70 Hz e 100Hz. 
+Sabendo que um Hertz é um ciclo por segundo a máquina opera entre 70 ciclos por segundo e 100 ciclos por segundo daí constata-se que a cada ciclo dura entre:
 
 $$t_{min} (segundos)=\frac{1segundo}{70 ciclos/segundo}=0.0143$$
 $$t_{max} (segundos)=\frac{1segundo}{100 ciclos/segundo}=0.0100$$
@@ -137,17 +153,21 @@ Será usado o tempo para 100 Hz por ser o menor, mais exigente. Logo:
 
 $$\omega=\frac{2\pi}{t_{max}}=\frac{2\pi}{0,001s}=628,3rad/s$$
 
-Para encontrarmos a aceleração diferenciamos duas vezes a formula do deslocamento:
+Para encontrarmos a aceleração diferenciamos duas vezes a fórmula do deslocamento:
 
 $$deslocamento=amplitude * \cos(\omega t)$$
 $$aceleração=-\omega^2 * amplitude * \cos(\omega t)$$
 
-A aceleração máxima ocorre quando o termo $\cos(\omega t)$ equivale a 1, a situação mais extrema de operação. O deslocamento máximo, amplitude do movimento, foi decidido que será de 10 mm (0,01 metro). Com essa informação em mãos pode-se calcular a aceleração máxima:
+A aceleração máxima ocorre quando o termo $\cos(\omega t)$ equivale a 1, a situação mais extrema de operação. 
+O deslocamento máximo, amplitude do movimento, foi decidido que será de 10 mm (0,01 metro). Com essa informação em mãos pode-se calcular a aceleração máxima:
 
 
 $$aceleração =628,3^2 * 0,01 *1 =3948m/s^2 $$
 
-Tendo em mãos o valor da aceleração é possível calcular a força que cada mola recebe. O tampo pesa exatamente 15.31 kg. Como as molas estão a mesma distância do centro de massa do tampo, pode-se afirmar que cada mola apoia um quarto desse valor, 3,83 kg. O peso máximo dos elementos que serão estudados sob a mesma são passa de 10kg e devem ser sempre apoiado no centro geométrico da mesma. Dessa forma cada mola suporta, devido ao corpo, no máximo, 3.33kg.
+Tendo em mãos o valor da aceleração é possível calcular a força que cada mola recebe. O tampo pesa exatamente 15.31 kg. 
+Como as molas estão a mesma distância do centro de massa do tampo, pode-se afirmar que cada mola apoia um quarto desse valor, 3,83 kg. 
+O peso máximo dos elementos que serão estudados sob a mesma são passa de 10kg e devem ser sempre apoiado no centro geométrico da mesma. 
+Dessa forma cada mola suporta, devido ao corpo, no máximo, 3.33kg.
 
 $$ F=m*a=(3,83+3,33)kg*3948m/s^2$$
 $$ F=7,157kg*3948m/s^2$$
@@ -169,13 +189,16 @@ Econtrando o valor de \textit{Bergsträsser}
 $$K_B=\frac{4C+2}{4C-3}=\frac{4*6,834+2}{4*6,834-3}$$
 $$K_B=1,2054,$$
 
-Pode-se agora calcular a força limite, por segurança, para a mola atingir seu comprimento sólido. Ou seja, a força que, se exercida sob a mola, ocasionará contato entre suas espiras.
+Pode-se agora calcular a força limite, por segurança, para a mola atingir seu comprimento sólido. Ou seja, a força que, 
+se exercida sob a mola, ocasionará contato entre suas espiras.
 
 $$F_s=\frac{\pi d^3 \alpha}{8 K_B D}$$ onde $$\alpha=\frac{S_{sy}}{n_s}$$
 
-Fs depende do material que é utilizado para confeccionar a mola, no caso de molas de comando de válvula, como informado, são feitas de Ligas de Cromo e Vanádio.
+Fs depende do material que é utilizado para confeccionar a mola, no caso de molas de comando de válvula, como informado, 
+são feitas de Ligas de Cromo e Vanádio.
 
-Em teoria de projeto de molas a tensão última de um material pode ser encontrada por uma relação entre o seu diâmetro, um expoente tabelado e uma característica físicas, pela fórmula:
+Em teoria de projeto de molas a tensão última de um material pode ser encontrada por uma relação entre o seu diâmetro, 
+um expoente tabelado e uma característica físicas, pela fórmula:
 
 $$S_{ut}=\frac{A}{d^m}$$
 
@@ -243,7 +266,8 @@ A mola empregada na construção da mesa passa bem pelas exigências do projeto,
 
 \subsubsubsection*{\textbf{Fixação dos pés}}
 
-    Os pés de borracha que sustentam a estrutura do projeto consistem em fixação por parafuso e porca. Para que esta fixação não comprometa a integridade da estrutura, foram elaborados apoios com furação iguais aos das roscas dos pés, as quais são de meia polegada. Além disso, como o projeto consiste em constantes vibrações sobre a estrutura, foram realizados travamento para que as porcas não venham folgar ou até mesmo soltar ao longo do tempo. Tendo em vista este problema a fixação é feita por duas porcas na parte superior da estrutura, como podemos ver na Fig.\ref{fig:config_pes} A fim de ajustar erros de construção obtidos pela solda da estrutura a qual provocou desnível na mesma foram colocadas arruelas na medida certa até que houvesse o nivelamento da estrutura.
+    Os pés de borracha que sustentam a estrutura do projeto consistem em fixação por parafuso e porca. Para que esta fixação não comprometa a integridade da estrutura, foram elaborados apoios com furação iguais aos das roscas dos pés, as quais são de meia polegada. Além disso, como o projeto consiste em constantes vibrações sobre a estrutura, foram realizados travamento para que as porcas não venham folgar ou até mesmo soltar ao longo do tempo. 
+    Tendo em vista este problema a fixação é feita por duas porcas na parte superior da estrutura, como podemos ver na Figura \ref{fig:config_pes}. A fim de ajustar erros de construção obtidos pela solda da estrutura a qual provocou desnível na mesma foram colocadas arruelas na medida certa até que houvesse o nivelamento da estrutura.
 
     \begin{figure}[H]
       \centering
@@ -258,7 +282,8 @@ A mola empregada na construção da mesa passa bem pelas exigências do projeto,
 
 \subsubsubsection*{\textbf{Fixação das molas}}
 
-    As molas são os componentes mais delicados do projeto, tendo em vista que será o componente que mais sofrerá esforço. Com base nisto é de suma importância estar atento a todos os detalhes deste item do projeto. Para que não haja falha das molas, é de entendimento que tais componentes não podem ser soldados na estrutura, para que o projeto atenda tais requisitos as molas são fixadas na estrutura através de interferência do diâmetro interno da mola para com copinhos de fixação que foram projetados pelos próprios autores. Para que não houvesse solda entre os copinhos com a estrutura foram elaboradas chapas de sustentação dos copinhos, nos quais tem furação para que a solda fosse elaborada por baixo dos copinhos. Para melhor entendimento a Fig.\ref{fig:config_copinhos} ilustra a configuração dos copinhos.
+    As molas são os componentes mais delicados do projeto, tendo em vista que será o componente que mais sofrerá esforço. Com base nisto é de suma importância estar atento a todos os detalhes deste item do projeto. Para que não haja falha das molas, é de entendimento que tais componentes não podem ser soldados na estrutura, para que o projeto atenda tais requisitos as molas são fixadas na estrutura através de interferência do diâmetro interno da mola para com copinhos de fixação que foram projetados pelos próprios autores. Para que não houvesse solda entre os copinhos com a estrutura foram elaboradas chapas de sustentação dos copinhos, nos quais tem furação para que a solda fosse elaborada por baixo dos copinhos. 
+    Para melhor entendimento a Figura \ref{fig:config_copinhos} ilustra a configuração dos copinhos.
 
 \begin{figure}[H]
 \centering
@@ -279,6 +304,8 @@ A mola empregada na construção da mesa passa bem pelas exigências do projeto,
 
     A polia maior acoplada na saída do eixo do motor tem diâmetro de 250mm, feita de alumínio fundido e é fixada na ponta de eixo do motor através de chavetas e parafusos. A Figura\ref{fig:config_polia} ilustra o esboço do acoplamento do motor com a polia e da polia com a correia.
 
+\vfill
+
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{figuras/config_polia.png}
@@ -296,7 +323,7 @@ A mola empregada na construção da mesa passa bem pelas exigências do projeto,
 
     Os mancais de deslizamentos são constituídos de bucha (corpo cilíndrico oco que envolve o eixo) fixada num suporte, estes mancais são utilizados em máquinas pesadas ou em equipamentos com pouca rotação, pois devido ao atrito os componentes aquecem. Ao se utilizar a bucha e lubrificantes reduzimos o atrito e melhoramos a rotação e consequentemente melhoramos o desempenho da rotação.
 
-    O objetivo em se utilizar este sistema é colocar uma massa desbalanceada com o intuito de que gere na mesa as vibrações desejadas, para que isso ocorre tem que levar em consideração tais observações: Massa desbalanceadora, que se trata de um peso com uma distribuição não uniforme por meio deste podemos obter amplitudes de vibração ou seja quanto maior for a massa desbalanceada maior será a amplitude de vibração; Raio da ação da massa desbalanceadora, pois quanto maior for o raio desta massa maior será a amplitude para a mesma massa desbalanceada; Rotação da polia, em relação a esta podemos analisar que ao se aumentar a rotação aumenta-se a amplitude de vibração de acordo com o desbalanceamento. A Figura\ref{fig:mancal} ilustra melhor o mancal e seu respectivo eixo a ser utilizado no projeto.
+    O objetivo em se utilizar este sistema é colocar uma massa desbalanceada com o intuito de que gere na mesa as vibrações desejadas, para que isso ocorre tem que levar em consideração tais observações: Massa desbalanceadora, que se trata de um peso com uma distribuição não uniforme por meio deste podemos obter amplitudes de vibração ou seja quanto maior for a massa desbalanceada maior será a amplitude de vibração; Raio da ação da massa desbalanceadora, pois quanto maior for o raio desta massa maior será a amplitude para a mesma massa desbalanceada; Rotação da polia, em relação a esta podemos analisar que ao se aumentar a rotação aumenta-se a amplitude de vibração de acordo com o desbalanceamento. A Figura \ref{fig:mancal} ilustra melhor o mancal e seu respectivo eixo a ser utilizado no projeto.
 
 \begin{figure}[H]
 \centering
