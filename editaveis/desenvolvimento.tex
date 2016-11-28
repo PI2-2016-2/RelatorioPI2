@@ -1,9 +1,8 @@
 \chapter{Desenvolvimento da Solução}
 \label{desenvolvimento}
 
-Este capítulo apresenta as soluções propostas para o problema definido, de acordo com as frentes de trabalho estabelecidas, o projeto
-e construção de cada uma e o planejamento de integração entre elas.
-Além disso, normas técnicas e de segurança foram levadas em consideração no detalhamento da solução e podem ser vistas no
+Este capítulo apresenta os procedimentos que foram realizados para garantir a integração final entre sub-módulos afim de obter o produto final, atendendo aos requisitos especificados nas primeiras fases de projeto.
+Além disso, normas técnicas e de segurança foram levadas em consideração na realização da integração final e podem ser vistas no
 \href{https://drive.google.com/file/d/0B5InkGKx6O-MR1B3eVYzZFpjQ3c/view?usp=sharing}{Relatório 1}.
 
 \section{Projeto Mecânico/Estrutural}
@@ -22,96 +21,95 @@ Além disso, normas técnicas e de segurança foram levadas em consideração no
 
 \input{editaveis/desenvolvimento_frente_processamento}
 
-\section{Integração dos subsistemas}
+% \section{Integração dos subsistemas}
 
-Considerando os produtos gerados nas frentes de trabalho citados nas Seções anteriores o sistema completo será integrado de acordo com
-a representação da Figura \ref{fig:arquitetura_solucao}.
+% Considerando os produtos gerados nas frentes de trabalho citados nas Seções anteriores o sistema completo integrado que está sendo entregue está de acordo com
+% a representação da Figura \ref{fig:arquitetura_solucao}.
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.45]{figuras/arquitetura_solucao.png}
-\caption{Arquitetura Geral da Solução.  Fonte: Autores}
-\label{fig:arquitetura_solucao}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[scale=0.45]{figuras/arquitetura_solucao.png}
+% \caption{Arquitetura Geral da Solução.  Fonte: Autores}
+% \label{fig:arquitetura_solucao}
+% \end{figure}
 
-Para iniciar um ensaio o usuário insere as frequências e tempos desejados na aplicação web, que passa essa informação
-para a Raspberry através do protocolo HTTP. Na Raspberry é realizada a comunicação serial com o microcontrolador possibilitando 
-a comunicação com o sistema de controle eletroeletrônico. Esse servidor estabelece comunicação com o sistema de controle
-através de protocolos definidos na subseção \ref{software:protocolo}.
+% Para iniciar um ensaio o usuário insere as frequências e tempos desejados na aplicação web, que passa essa informação
+% para a Raspberry através do protocolo HTTP. Na Raspberry é realizada a comunicação serial com o microcontrolador possibilitando
+% a comunicação com o sistema de controle eletroeletrônico. Esse servidor estabelece comunicação com o sistema de controle
+% através de protocolos definidos na subseção \ref{software:protocolo}.
 
-Com o envio das frequências estabelecidas pelo usuário para o sistema de controle, este é responsável por enviar a 
-frequência ao inversor. Desse modo, ocorre a integração dos subsistemas eletroeletrônico e eletromecânico. 
-O procedimento de integração contempla a interligação do sistema de controle eletroeletrônico
-com o inversor que rege a velocidade do motor a partir dos bornes analógicos na forma de variações de tensão.
+% Com o envio das frequências estabelecidas pelo usuário para o sistema de controle, este é responsável por enviar a
+% frequência ao inversor. Desse modo, ocorre a integração dos subsistemas eletroeletrônico e eletromecânico.
+% O procedimento de integração contempla a interligação do sistema de controle eletroeletrônico
+% com o inversor que rege a velocidade do motor a partir dos bornes analógicos na forma de variações de tensão.
 
-A integração dos subsistemas eletromecânico e de estrutura será realizada através da fixação 
-do motor aos furos dedicados na estrutura e o acoplamento por meio de 
-transmissão por correia entre o eixo do volante desbalanceado, fixado no mancal da superfície vibratória, com o motor 
-do sistema, para que a bancada seja capaz de vibrar.
+% A integração dos subsistemas eletromecânico e de estrutura será realizada através da fixação
+% do motor aos furos dedicados na estrutura e o acoplamento por meio de
+% transmissão por correia entre o eixo do volante desbalanceado, fixado no mancal da superfície vibratória, com o motor
+% do sistema, para que a bancada seja capaz de vibrar.
 
-Com a integração do fluxo de controle realizada, para a coleta de dados do ensaio há a comunicação do sistema de controle eletroeletrônico com
-o sistema de interface e processamento através dos protocolos definidos na subseção \ref{software:protocolo}. Os dados são coletados através
-dos acelerômetros acoplados ao tampo e no objeto testado. Esses dados são enviados ao servidor da Raspberry.
+% Com a integração do fluxo de controle realizada, para a coleta de dados do ensaio há a comunicação do sistema de controle eletroeletrônico com
+% o sistema de interface e processamento através dos protocolos definidos na subseção \ref{software:protocolo}. Os dados são coletados através
+% dos acelerômetros acoplados ao tampo e no objeto testado. Esses dados são enviados ao servidor da Raspberry.
 
-Os testes a serem realizados para testar a integração dos subsistemas podem ser vistos no Apêndice \ref{documento_teste}.
+% Os testes a serem realizados para testar a integração dos subsistemas podem ser vistos no Apêndice \ref{documento_teste}.
 
-\subsection*{\textbf{Protocolos - Interface/Processamento e Controle}} \label{software:protocolo}
+% \subsection*{\textbf{Protocolos - Interface/Processamento e Controle}} \label{software:protocolo}
 
-As rotinas de comunicação são as pontes pelas quais os componentes de software do servidor que estará rodando na \textit{Raspberry} irão se
-comunicar com os componentes eletroeletrônicos do sistema de controle e, consequentemente, com o resto do sistema. 
-Para que a comunicação seja estabelecida é necessário estabelecer um padrão de comunicação de acordo com ambas as frentes, de forma que a comunicação 
-ocorra com sucesso e sem surpresas. Foi definido então um protocolo de comunicação que deve ser respeitado pela frente de software e
-eletrônica durante a transmissão de dados via serial.
+% As rotinas de comunicação são as pontes pelas quais os componentes de software do servidor que estará rodando na \textit{Raspberry} irão se
+% comunicar com os componentes eletroeletrônicos do sistema de controle e, consequentemente, com o resto do sistema.
+% Para que a comunicação seja estabelecida é necessário estabelecer um padrão de comunicação de acordo com ambas as frentes, de forma que a comunicação
+% ocorra com sucesso e sem surpresas. Foi definido então um protocolo de comunicação que deve ser respeitado pela frente de software e
+% eletrônica durante a transmissão de dados via serial.
 
-Com a mudança da arquitetura ficou mais simples a integração das rotinas de comunicação e de escrita (com o parser dos dados)
-com o
-servidor, o que nos permitiu formalizar um protocolo bem simples para a comunicação entre o sistema de controle e o 
-sistema da aplicação.
+% Com a mudança da arquitetura ficou mais simples a integração das rotinas de comunicação e de escrita (com o parser dos dados)
+% com o
+% servidor, o que nos permitiu formalizar um protocolo bem simples para a comunicação entre o sistema de controle e o
+% sistema da aplicação.
 
-O protocolo de comunicação é dividido em duas partes: o protocolo de controle e o protocolo de resposta, que são apresentados 
-abaixo.
+% O protocolo de comunicação é dividido em duas partes: o protocolo de controle e o protocolo de resposta, que são apresentados
+% abaixo.
 
-\begin{itemize}
-    \item \textbf{Protocolo de Controle}
-    \begin{itemize}
-        \item É definido por \textit{flags} que permitirão que o sistema realize ações pré-definidas.
-    \end{itemize}
-    \item \textbf{Protocolo de Resposta}
-    \begin{itemize}
-        \item É definida a \textit{STRING} de resposta que o sistema de controle enviará para a camada de alto nível, no caso a \textit{Raspberry}, via 
-        comunicação serial.
-    \end{itemize}
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{Protocolo de Controle}
+%     \begin{itemize}
+%         \item É definido por \textit{flags} que permitirão que o sistema realize ações pré-definidas.
+%     \end{itemize}
+%     \item \textbf{Protocolo de Resposta}
+%     \begin{itemize}
+%         \item É definida a \textit{STRING} de resposta que o sistema de controle enviará para a camada de alto nível, no caso a \textit{Raspberry}, via
+%         comunicação serial.
+%     \end{itemize}
+% \end{itemize}
 
-\begin{figure}[H]
-\centering
-\includegraphics[keepaspectratio=true,scale=0.7]{figuras/protocolo_controle.png}
-\label{fig:protocolo_controle}
-\caption{Protocolo de Controle com \textit{flags} já definidas - Fonte: Autor}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[keepaspectratio=true,scale=0.7]{figuras/protocolo_controle.png}
+% \label{fig:protocolo_controle}
+% \caption{Protocolo de Controle com \textit{flags} já definidas - Fonte: Autor}
+% \end{figure}
 
-\begin{figure}[H]
-\centering
-\includegraphics[keepaspectratio=true,scale=0.8]{figuras/protocolo_string.png}
-\label{fig:protocolo_string}
-\caption{Protocolo de Resposta e o formato da String que chegará ao sistema - Fonte: Autor}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[keepaspectratio=true,scale=0.8]{figuras/protocolo_string.png}
+% \label{fig:protocolo_string}
+% \caption{Protocolo de Resposta e o formato da String que chegará ao sistema - Fonte: Autor}
+% \end{figure}
 
-Com esse padrão definido, o usuário definirá um determinado número de \textit{jobs} (cada \textit{job} representa uma frequência com uma duração de tempo, 
-e um conjunto de \textit{jobs} define um ensaio) que serão executados ao longo do ensaio. Ao executar o ensaio, os resultados dos sensores irão ser 
-repassados na escala entre 0 a 1024 em AD (\textit{Analogic Digital}), sendo 0AD igual a 0G e 1024AD igual a 16G. Para determinar a aceleração a 
-partir dessa escala basta utilizar uma regra de três simples. Por fim, esses dados passarão pelo processamento para serem persistidos no
-banco de dados da \textit{Raspberry}.
+% Com esse padrão definido, o usuário definirá um determinado número de \textit{jobs} (cada \textit{job} representa uma frequência com uma duração de tempo,
+% e um conjunto de \textit{jobs} define um ensaio) que serão executados ao longo do ensaio. Ao executar o ensaio, os resultados dos sensores irão ser
+% repassados na escala em G (9,8 m/s2). Por fim, esses dados passarão pelo processamento para serem persistidos no
+% banco de dados da \textit{Raspberry}.
 
-Um dos objetivos ao obter a \textit{timestamp} a qual foi obtido o resultado pelo sensor é a necessidade de identificar e mapear os
-\textit{jobs} de acordo com o ensaio, para ordenar e saber quais dados pertencem a quais \textit{jobs}.
+% Um dos objetivos ao obter a \textit{timestamp} a qual foi obtido o resultado pelo sensor é a necessidade de identificar e mapear os
+% \textit{jobs} de acordo com o ensaio, para ordenar e saber quais dados pertencem a quais \textit{jobs}.
 
-A Figura \ref{fig:diagrama_sequencia_pc2} mostra um diagrama de sequência que apresenta a interação entre usuário, a aplicação web e o servidor da \textit{raspberry},
-ilustrando como é tratado o \textit{input} e o \textit{output} do sistema como um todo entre os componentes de software e de eletrônica.
+% A Figura \ref{fig:diagrama_sequencia_pc2} mostra um diagrama de sequência que apresenta a interação entre usuário, a aplicação web e o servidor da \textit{raspberry},
+% ilustrando como é tratado o \textit{input} e o \textit{output} do sistema como um todo entre os componentes de software e de eletrônica.
 
-\begin{figure}[ht]
-\label{fig:diagrama_sequencia_pc2}
-\centering
-\includegraphics[keepaspectratio=true,scale=0.5,angle=90]{figuras/diagrama_sequencia.png}
-\caption{Diagrama de sequência - Fonte: Autor}
-\end{figure}
+% \begin{figure}[ht]
+% \label{fig:diagrama_sequencia_pc2}
+% \centering
+% \includegraphics[keepaspectratio=true,scale=0.5,angle=90]{figuras/diagrama_sequencia.png}
+% \caption{Diagrama de sequência - Fonte: Autor}
+% \end{figure}
