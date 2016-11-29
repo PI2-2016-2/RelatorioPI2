@@ -356,3 +356,31 @@ Nesta seção é descrito o detalhamento da solução e finalização do módulo
 
 % Para mitigar este problema duas abordagens foram definidas para serem estudadas: otimizar o protocolo de comunicação e/ou utilizar um
 % \textit{hardware} mais potente.
+
+\subsection{Disponibilização da \textit{raspberry pi} como servidor}
+
+Com uma \textit{raspberry Pi} é possível disponibilizar serviços em rede, estabelecer esquemas de computação em nuvem, configurar servidor FTP (\textit{File Transfer Protocol}) etc. Portanto, faz-se necessário configurá-la para que possa ser acessível de qualquer ponto da internet. No caso deste projeto, foi construída uma aplicação \textit{REST} que, por sua vez, será hospedada em uma \textit{raspberry pi}.
+
+A figura a seguir ilustra de maneira esquemática a comunicação da \textit{Raspberry Pi} com a rede mundial, ou seja, a internet.
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.52]{figuras/raspberryeinternet.png}
+\label{fig:raspberry_internet}
+\caption{\textit{Raspberry Pi} e comunicação com a internet - Fonte: pplware}
+\end{figure}
+
+Primeiramente, é necessário criar uma conta em algum serviço que promova a identificação do dispositivo por meio de um nome, em outras palavras, configura-se um DNS (\textit{Domain Name System}) dinâmico. Um serviço existente hoje que oferece esse mapeamento é o no-ip (www.no-ip.org). A figura a seguir ilustra a página inicial do site.
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.35]{figuras/sitenoip.png}
+\label{fig:site_no_ip}
+\caption{Página inicial do site no-ip}
+\end{figure}
+
+Com o serviço no-ip, o utilizador passa a identificar a \textit{raspberrypi} por um nome, a partir de qualquer lugar. A configuração permite usar sempre o mesmo nome para identificar o dispositivo, independentemente se o endereço IP (\textit{Internet Protocol}) público tiver sido alterado. É válido ressaltar que o serviço no-ip disponibiliza agentes que, por sua vez, são instalados do lado do cliente e assim, informam e atualizam os dados relativos ao endereço IP público. O agente caracteriza-se como um pequeno \textit{software} instalado na \textit{raspberry pi} e fornecido pelo serviço no-ip.
+
+Prosseguindo com a configuração, faz-se necessário a configuração do mecanismo \textit{Port Forwarding}. Dessa maneira, todas as requisições que chegam ao roteador são redirecionadas para a porta configurada na \textit{raspberry pi}, por exemplo a porta 8080.
+
+Ao final de todo este processo, será possível acessar a \textit{raspberry pi} de qualquer local, possibilitando a hospedagem de serviços.
