@@ -4,6 +4,45 @@ Nesta seção é descrito o detalhamento da solução e finalização do módulo
 
 \subsection{Detalhamento do Módulo}
 
+Nesta seção é resumida os principais pontos do módulo de Interface e Processamento, focando na Parte 3 (Projeto e Construção da Solução) de forma a sumarizar todo o trabalho que foi realizado até o momento da iniciação da Parte 4 (Integração).
+
+\begin{itemize}
+  \item A frente de Interface e Processamento é a frente de Engenharia de Software que terá as seguintes preocupações:
+  \item Se comunicar e receber os dados da central de controle do sistema;
+  \item Realizar o tratamento dos resultados recebidos;
+  \item Realizar experimentos de vibração da mesa;
+  \item Apresentá-los ao usuário na forma de indicadores condizentes ao objetivo do projeto;
+\end{itemize}
+
+Esses são os principais pontos que resumem todo o trabalho de Software em cima do sistema. E durante as iterações ocorridas na Parte 3 os seguintes tópicos abaixo foram realizados:
+
+\begin{itemize}
+  \item Refatoração do Protocolo de Comunicação;
+  \item Mudança do Banco de dados para o \textbf{MySQL};
+  \item Pseudo-integração com simulador da central de controle do sistema;
+  \item Refatoração do \textbf{Parser} para utilização do Banco de dados do servidor local, integrado a aplicação do servidor;
+  \item Integração do \textbf{REST} entre Aplicação Web e Aplicação do Servidor (\textbf{Raspberry});
+  \item Mudança da linguagem do Protocolo de Comunicação para \textbf{Python};
+  \item Implementação do Algoritmo de Pausa do Experimento de acordo com a mudança de frequência entre \textbf{Jobs};
+  \item Implementação dos gráficos na Aplicação Web;
+  \item Implementação do novo Protocolo de Comunicação;
+  \item Estudo e escolha do método de ajuste e processamento de curvas de acordo com resultados obtidos;
+  \item Implementação do Método do Trapézio Acumulado para processamento da curva;
+  \item Implementação de Sincronização de \textbf{Threads} para escrita e leitura de dados da porta serial;
+  \item Implementação do Sistema de \textbf{Jobs} e Ensaio para o controle da Bancada em alto nível;
+\end{itemize}
+
+A parte 3 foi focada em deixar o módulo o mais independente possível e pronto para ser integrado (com uso de simulações) com a parte de Eletroeletrônica. Com utilização de simulações e manipulações de \textbf{Bytes} até ao alto nível de controle do usuário, Software desenvolveu duas aplicações separadas responsáveis pela manipulação de dados e entregar e controle dos dados em nível de usuário.
+
+Com o fim da parte 3 Software terminou de produzir o módulo funcional, pronto para ser integrado ao sistema como um todo, principalmente com Eletroeletrônica pelo protocolo previamente definido, de acordo com a imagem abaixo. Todos os detalhes do desenvolvimento da integração final de Software com o sistema, se encontram no próximo tópico.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[keepaspectratio=true,scale=0.7]{figuras/nova_arquitetura.png}
+  \label{fig:nova_arquitetura}
+  \caption{Arquitetura Entregue do Módulo - Fonte: Autores}
+\end{figure}
+
 %%%%%%%%%% SUMARIZAR TODO O TRABALHO QUE FOI FEITO ATÉ AGORA PARA ENTREGA O SUBMÓDULO %%%%%%%%%%%%%%
 
 \subsection{Detalhamento da Integração Final}
