@@ -18,11 +18,11 @@ Esses são os principais pontos que resumem todo o trabalho de Software em cima 
 
 \begin{itemize}
   \item Refatoração do Protocolo de Comunicação;
-  \item Mudança do Banco de dados para o \textbf{MySQL};
+  \item Mudança do banco de dados para o \textbf{MySQL};
   \item Pseudo-integração com simulador da central de controle do sistema;
-  \item Refatoração do \textbf{Parser} para utilização do Banco de dados do servidor local, integrado a aplicação do servidor;
-  \item Integração do \textbf{REST} entre Aplicação Web e Aplicação do Servidor (\textbf{Raspberry});
-  \item Mudança da linguagem do Protocolo de Comunicação para \textbf{Python};
+  \item Refatoração do \textit{parser} para utilização do Banco de dados do servidor local, integrado a aplicação do servidor;
+  \item Integração do \textit{REST} entre Aplicação Web e Aplicação do Servidor (\textbf{Raspberry});
+  \item Mudança da linguagem do Protocolo de Comunicação na Aplicação \textit{Web} para \textbf{Python}. Embora testes executados isoladamente demonstraram um maior desempenho por parte da linguagem C, é válido ressaltar que a linguagem Python traz um ganho de produtividade, visto que já dispõe dos recursos necessários para serialização de dados. Se as rotinas de comunicação tivessem sido construídas com C, seria necessária uma etapa adicional para tratamento dos dados brutos, o que não é necessário com o Python, visto que o dado ao ser lido na porta serial já é armazenado em uma estrutura e serializado para envio do \textit{REST} para a Aplicação \textit{Web};
   \item Implementação do Algoritmo de Pausa do Experimento de acordo com a mudança de frequência entre \textbf{Jobs};
   \item Implementação dos gráficos na Aplicação Web;
   \item Implementação do novo Protocolo de Comunicação;
@@ -32,9 +32,9 @@ Esses são os principais pontos que resumem todo o trabalho de Software em cima 
   \item Implementação do Sistema de \textbf{Jobs} e Ensaio para o controle da Bancada em alto nível.
 \end{itemize}
 
-A parte 3 foi focada em deixar o módulo o mais independente possível e pronto para ser integrado (com uso de simulações) com a parte de Eletroeletrônica. Com utilização de simulações e manipulações de \textbf{Bytes} até ao alto nível de controle do usuário, Software desenvolveu duas aplicações separadas responsáveis pela manipulação de dados e entregar e controle dos dados em nível de usuário.
+A parte 3 foi focada em deixar o módulo o mais independente possível e pronto para ser integrado (com uso de simulações) com a parte de Eletroeletrônica. Com utilização de simulações e manipulações de \textbf{bytes} até ao alto nível de controle do usuário, Software desenvolveu duas aplicações separadas responsáveis pela manipulação de dados e entregar e controle dos dados em nível de usuário.
 
-Com o fim da parte 3 Software terminou de produzir o módulo funcional, pronto para ser integrado ao sistema como um todo, principalmente com Eletroeletrônica pelo protocolo previamente definido, de acordo com a imagem abaixo. Todos os detalhes do desenvolvimento da integração final de Software com o sistema, se encontram no próximo tópico.
+Com o fim da parte 3, a frente de interface e processamento terminou de produzir o módulo funcional, pronto para ser integrado ao sistema como um todo, principalmente com Eletroeletrônica pelo protocolo previamente definido, de acordo com a imagem abaixo.
 
 \begin{figure}[H]
   \centering
