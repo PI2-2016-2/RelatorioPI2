@@ -2,13 +2,137 @@
 
 Nesta seção é descrito o detalhamento da solução e finalização do módulo de eletromecânica, bem como mudanças que ocorreram e a descrição da integração final com todos os sub-módulos resultando na entrega do produto final previsto na Fase 04.
 
-\subsection{Detalhamento do Módulo}
+\section{Detalhamento do Módulo}
 
-%%%%%%%%%% SUMARIZAR TODO O TRABALHO QUE FOI FEITO ATÉ AGORA PARA ENTREGA O SUBMÓDULO %%%%%%%%%%%%%%
+Para a realização da parte eletromecânica do projeto usou-se um motor de indução trifásico com o intuito de acionar o sistema, de modo a transmitir uma vibração á bancada. Para realizar esta vibração, a velocidade do motor é alterada com o uso de um inversor de frequência e com o uso de polias de diferentes tamanhos acopladas no eixo do motor e em um mancal preso no tampo do bancada.
 
-\subsection{Detalhamento da Integração Final}
+O controle de velocidade do motor realizado pelo inversor de frequência é feito pelo método escalar, no qual a relação de tensão/frequência (V/Hz) é constante. A figura \ref{bancada} mostra um modelo da bancada.
 
-%%%%%%%%%% REALIZAR DETALHAMENTO DO TRABALHO DE INTEGRAÇÃO FINAL %%%%%%%%%%%%%%%
+Após a realização do ponto de controle 2, foram realizadas as medidas construtivas finais de modo a finalizar o projeto eletromecânico. No ponto de controle 2 decidiu-se o método usado para controlar o motor através do inversor de frequência, fez-se a concepção do sistema de proteção, testes de qualidade dos equipamentos, fixou-se o motor à estrutura e adquiriu-se cabos e demais componentes elétricos. Após isto foram tomadas as seguintes medidas construtivas:
+\begin{itemize}
+\item Modelagem do sistema de proteção da bancada;
+\item Aquisição de tomadas e cabos;
+\item Construção do sistema de proteção da bancada;
+\item Ajuste do inversor de frequência com o sistema de proteção;
+\item Construção de púlpito para colocar o sistema de proteção;
+\item Instalação dos fusíveis;
+\item Instalação do sistema de proteção no púlpito.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering      \includegraphics[keepaspectratio=true,scale=1]{figuras/imaginario.png}
+    \caption{CAD da bancada para ensaio de teste de vibração mecânica. Fonte: Autores.}
+    \label{bancada}
+\end{figure}
+
+\begin{figure}[H]
+    \centering      \includegraphics[keepaspectratio=true,scale=1]{figuras/real.png}
+    \caption{Bancada para ensaio de teste de vibração mecânica. Fonte: Autores.}
+    \label{Bancada}
+\end{figure}
+
+\subsection{Sistema de segurança}
+
+    Foi proposto no Relatório 2 que o sistema de proteção fosse construído para garantir a segurança do usuário, dos equipamentos e das equipes de manutenção.
+    O projeto inicial concebia a utilização além dos disjuntores e fusíveis, a utilização de dispositivos anti-surto, no sistema trifásico bem como um diferencial residual, no entanto para fins de minimização de custos, considerando a fase de protótipo, foram considerados apenas a utilização de fusíveis na entrada principal trifásica e disjuntores com função de desarme e dispositivo do manobra nos diferentes circuitos que são: Inversor-motor, controle eletrônico, e tomadas auxiliares, dispostos segundo o diagrama mostrado na Figura \ref{Diagrama de Instalações}, o sistema foi devidamente montado, como pode-se ver na Figura \ref{protecao}.
+
+\begin{figure}[H]
+    \centering      \includegraphics[keepaspectratio=true,scale=0.6]{figuras/Diagrama_Instalacao.png}
+    \caption{Diagrama de Instalações e Sistema de Segurança. Fonte: Autores}
+    \label{Diagrama de Instalações}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering      \includegraphics[keepaspectratio=true,scale=0.6]{figuras/protecao.png}
+    \caption{Quadro de comando. Fonte: Autores.}
+    \label{protecao}
+\end{figure}
+
+\subsection{Construção do púlpito}
+
+Foi construído um púlpito afim de oferecer ergonomia ao usuário que utilizar a bancada. Neste foi fixado o inversor de frequência juntamente com os disjuntores na caixa de comando. O sistema elaborado pela frente de eletroeletrônica estará na parte interna do púlpito, que será inserido pela porta lateral, e será alimentado pelas tomadas auxiliares que também estão na parte interna do púlpito.
+
+
+\begin{figure}[h]
+    \centering      \includegraphics[keepaspectratio=true,scale=0.9]{figuras/pulpito.png}
+    \caption{Púlpito. Fonte: Autores.}
+    \label{pulpito}
+\end{figure}
+
+\section{Detalhamento da Integração Final}
+
+A frente de eletromecânica teve sua integração de forma direta com as frentes de estrutura e de eletroeletrônica.
+Em relação à frente de estrutura, a integração consistiu na fixação do motor à estrutura montada, em seguida, foi realizado um procedimento para que, após a fixação do motor, houvesse a transmissão da rotação do mesmo para que a bancada sofra os efeitos da vibração mecânica.Conectou-se o motor a um eixo preso por mancais soldados no tampo da mesa, usando-se para isto uma correia encaixada na polia fixa no eixo do motor e no eixo preso nos rolamentos dos mancais, com isso a vibração é entregue à bancada por meio da rotação oferecida pelo motor.
+
+O objetivo da integração com a frente de eletroeletrônica teve por finalidade realizar o controle em malha fechada do inversor, de modo a controlar a frequência da bancada, através do input de 0-10V programado pelos parâmetros do inversor.
+
+Acredita-se que ocorreu um fenômeno chamado curto-circuito entre espiras, cujo não pode ser identificado pela instrumentação convencional. Porém, o motor foi trocado por outro e está operando normalmente. A tabela \ref{tabela_info_motor} mostra os dados elétricos do motor de indução escolhido.
+
+        \begin{table}[h]
+            \begin{center}
+              \begin{tabular}{|p{5cm}|p{5cm}|}
+                \hline
+                \textbf{Dados elétrico do motor} &
+                \\ \hline
+                Carcaça & 71
+                \\ \hline
+                Potência & 0,5HP
+                \\ \hline
+                Frequencia & 60Hz
+                \\ \hline
+                Polos & 4
+                \\ \hline
+                Rotação Nominal & 1720 RPM
+                \\ \hline
+                Escorregamento & 4,44
+                \\ \hline
+                Tensão Nominal & 220/380 V
+                \\ \hline
+                Corrente Nominal & 2.07/1.20 A
+                \\ \hline
+                Corrente de Partida & 10.45/5.99 A
+                \\ \hline
+                LP/LN & 5.0
+                \\ \hline
+                Corrente a vazio & 1.50/0.868 A
+                \\ \hline
+                Conjugado Nominal & 2.06 Nm
+                \\ \hline
+                Conjugado de partida & 240
+                \\ \hline
+                Conjugado Máximo & 250
+                \\ \hline
+                Categoria & N
+                \\ \hline
+                Classe de isolação & B
+                \\ \hline
+                Elevação de temperatura & 80 K
+                \\ \hline
+                Tempo de rotor bloqueado & 18 s (quente)
+                \\ \hline
+                Fator de serviço & 1.15
+                \\ \hline
+                Regime de serviço & S1
+                \\ \hline
+                Temperatura ambiente & -20 graus Celsius - +40 graus Celsius
+                \\ \hline
+                Altitude & 1000 m
+                \\ \hline
+                Proteção & IP55
+                \\ \hline
+                Massa aproximada & 10 Kg
+                \\ \hline
+                Momento de inércia & 0,00082 Kg
+                \\ \hline
+                Nível de ruído & 47 dB(A)
+                \\ \hline
+              \end{tabular}
+              \caption[Informações detalhadas sobre o motor]{Informações detalhadas sobre o motor
+              \protect Fonte: CATÁLOGO WEG }
+            \label{tabela_info_motor}
+        \end{center}
+    \end{table}
 
 % Nesta seção é descrito o detalhamento da solução do módulo de eletromecânica, resultante das duas primeiras fases,
 % e o seu projeto e construção, resultante da Fase 03.
