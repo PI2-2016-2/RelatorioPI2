@@ -63,7 +63,7 @@ Com o fim da parte 3, a frente de interface e processamento terminou de produzir
 
 \subsection{Detalhamento da Integração Final}
 
-A aplicação Web envia um requisição REST que passa pela internet para se comunicar com a Aplicação Server, que por sua vez realiza o tratamento do comando e chama a rotina de envio de dado para enviar o dado para a central de controle. Uma vez o comando enviado, a bancada irá iniciar suas atividades, os sensores começarão a captar dados, e a central de controle irá enviar esses dados que serão capturados pela rotina de comunicação e serão repassados a Aplicação Server. A aplicação server por sua vez aguarda a requisição REST da Aplicação Web para envio dos dados serializados em JSON. Uma vez esses dados na aplicação web, eles serão guardados no banco de dados da aplicação Web e em seguida são tratados pelas rotinas de processamento de dados, que realizam cálculos em cima destes dados para obter a curva aproximada, e então por fim a aplicação plota todos os gráficos referentes aos dados obtidos e processados, apresentados ao cliente.
+A Aplicação Web envia um requisição REST que passa pela internet para se comunicar com a Aplicação Server, que por sua vez realiza o tratamento do comando e chama a rotina de envio de dado para enviar o dado para a central de controle. Uma vez o comando enviado, a bancada irá iniciar suas atividades, os sensores começarão a captar dados, e a central de controle irá enviar esses dados que serão capturados pela rotina de comunicação e serão repassados a Aplicação Server. A aplicação server por sua vez aguarda a requisição REST da Aplicação Web para envio dos dados serializados em JSON. Uma vez esses dados na aplicação web, eles serão guardados no banco de dados da aplicação Web e em seguida são tratados pelas rotinas de processamento de dados, que realizam cálculos em cima destes dados para obter a curva aproximada, e então por fim a aplicação plota todos os gráficos referentes aos dados obtidos e processados, apresentados ao cliente.
 
 Na seção abaixo, temos uma breve explicação da disponibilização da \textit{Raspberry PI} como servidor, e o motivo disso se dá a necessidade que a Aplicação Web precisa de enxergar a Aplicação Server, pois é um \textit{Domain Name Server} definido a \textit{Raspberry PI} para garantir que mesmo com o IP Dinâmico da Raspberry, a aplicação Web posssa enxergar a aplicação server na \textit{Raspberry Pi}. É apresentado também detalhes da aplicação Web e Server que serão a ponta de comunicação \& integração entre usuário e bancada. E por fim é explicado na última seção o protocolo de comunicação que está atualmente sendo utilizado na comunicação entre a central de controle (frente eletroeletrônica) e a \textit{Raspberry PI} (frente Interface \& Processamento).
 
@@ -93,9 +93,42 @@ Primeiramente, é necessário criar uma conta em algum serviço que promova a id
 
 Com o serviço no-ip, o utilizador passa a identificar a \textit{raspberrypi} por um nome, a partir de qualquer lugar. A configuração permite usar sempre o mesmo nome para identificar o dispositivo, independentemente se o endereço IP (\textit{Internet Protocol}) público tiver sido alterado. É válido ressaltar que o serviço no-ip disponibiliza agentes que, por sua vez, são instalados do lado do cliente e assim, informam e atualizam os dados relativos ao endereço IP público. O agente caracteriza-se como um pequeno \textit{software} instalado na \textit{raspberry pi} e fornecido pelo serviço no-ip.
 
-Prosseguindo com a configuração, faz-se necessário a configuração do mecanismo \textit{Port Forwarding}. Dessa maneira, todas as requisições que chegam ao roteador são redirecionadas para a porta configurada na \textit{raspberry pi}, por exemplo a porta 8080.
+Os procedimentos básicos para útilizar o serviço provido pelo no-ip ou qualquer outro que forneça DNS dinâmica gratuitamente são:
+
+\begin{itemize}
+  \item Registrar uma conta de usuário.
+  \item Informar o domínio desejado (tal como \textit{your.domain.name}).
+  \item Receber a URL com identificador único (preferencialmente com protocolo HTTPS).
+\end{itemize}
+
+Prosseguindo com a configuração, faz-se necessário a configuração do mecanismo \textit{Port Forwarding}. É válido notar que o NAT (\textit{Network Address Translation}) do roteador é um obstáculo, pois oculta todos os dispositivos da rede interna para as conexões oriundas de outras redes.
+
+Para realizar o encaminhamento de conexões externas para a \textit{raspberry}, é bom utilizar o UPnP (\textit{Universal Plug and Play}), pois este configura dinamicamente regras de encaminhamento de porta. É válido ressaltar também que é possível efetuar a configuração manual das regras de encaminhamento de portas em cada roteador, contudo, esta não é uma solução escalável. No caso da bancada de ensaios de vibrações mecânicas, por exemplo, caso ela seja transferida para outro local, o roteador ao qual a \textit{raspberry} estaria conectada nesse novo local deveria ser configurado para possibilitar tal encaminhamento.
+
+A maior parte dos roteadores atualmente suportam tanto o recurso \textit{Port Forwarding} como também, UPnP. É possível encontrar o pacote miniupnpc no repositório de pacotes do SO embarcado na \textit{raspberry} e assim configurar este recurso. Os seguintes procedimentos são necessários:
+
+\begin{itemize}
+  \item Executar o comando \textit{upnpc -1}: Esse comando irá enumerar todos os dispositivos UPnP disponíveis na rede local; irá exibir os endereços IP internos e externos dos dispositivos e por fim, irá listar as regras correntes para \textit{port forwarding} existentes.
+  \item Caso o roteador suporte UPnP, é possível adicionar \textit{port forwarding} para protocolo SSH por meio do seguinte comando: \textit{upnpc -e \textbf{nome da regra} -r 22}.
+  \item Para fins de conferência, é possível executar novamente o mesmo comando indicado no primeiro passo do procedimento e assim, será possível contemplar a regra para a porta 22 atrelada ao endereço IP.
+\end{itemize}
+
+Para configurar outros serviços, é necessário configurar regras adicionais para \textit{port forwarding} também. Por exemplo, caso um servidor de aplicação tenha que ser disponibilizado na \textit{raspberry} na porta 8080, basta adicionar uma regra para tal. Dessa maneira, todas as requisições que chegam ao roteador são redirecionadas para a porta configurada na \textit{raspberry pi}, por exemplo a porta 8080.
 
 Ao final de todo este processo, será possível acessar a \textit{raspberry pi} de qualquer local, possibilitando a hospedagem de serviços.
+
+Para tornar a configuração ainda mais escalável, é possível criar uma configuração autônoma por meio da utilização de \textit{shell script}. Basicamente, deve ser criado um \textit{script} na pasta bin dentro do diretório local do usuário. Assim, dentro deste arquivo, é possível colocar os comandos para configuração do DNS dinâmico e acréscimo de regra de \textit{port forwarding}. Por fim, dá para programar a \textit{raspberry} para executar o \textit{script} periodicamente, a fim de atualizar todas as informações.
+
+O último aspecto que deve ser notado é o quesito segurança. Embora possibilitar acesso remoto à \textit{raspberry} de qualquer rede seja extremamente conveniente, é necessário adotar medidas para bloquear acessos indevidos. Tais medidas são:
+
+\begin{itemize}
+  \item {Limitar o acesso SSH com login de usuário root}.
+  \item {Gerar uma chave SSH forte}.
+  \item {Desabilitar login SSH com senha}.
+  \item {Adicionar regras de tráfego ao firewall}.
+\end{itemize}
+
+Com a descrição desta disponibilização, é possível mostrar que a solução projetada em termos de aplicações para operação da bancada de vibrações mecânicas é escalável, tendo em vista que precisam de rede para funcionar.
 
 \subsection{Aplicação Web}
 
