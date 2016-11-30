@@ -26,8 +26,8 @@ A solução proposta para atender a esses requisitos consiste nos seguintes subs
       \subitem Na aplicação web o usuário poderá controlar a bancada, iniciando um ensaio com os quesitos definido por ele,
 	       e visualizar os resultados do ensaio por meio de gráficos.
  \item \textbf{Servidor de Controle para intermediar a comunicação da aplicação web com o sistema de controle eletrônico, hospedado na \textit{Raspberry}.}
-      \subitem Este servidor provê serviços RESTFul (API REST) como a interface de comunicação para a aplicação web. Neste servidor estão as 
-	       rotinas de comunicação com o sistema de controle eletrônico, que realizam a inserção de dados de comando e recupera os dados 
+      \subitem Este servidor provê serviços RESTFul (API REST) como a interface de comunicação para a aplicação web. Neste servidor estão as
+	       rotinas de comunicação com o sistema de controle eletrônico, que realizam a inserção de dados de comando e recupera os dados
 	       dos sensores via comunicação serial.
 \end{itemize}
 
@@ -62,6 +62,10 @@ Com o fim da parte 3, a frente de interface e processamento terminou de produzir
 %%%%%%%%%% SUMARIZAR TODO O TRABALHO QUE FOI FEITO ATÉ AGORA PARA ENTREGA O SUBMÓDULO %%%%%%%%%%%%%%
 
 \subsection{Detalhamento da Integração Final}
+
+A aplicação Web envia um requisição REST que passa pela internet para se comunicar com a Aplicação Server, que por sua vez realiza o tratamento do comando e chama a rotina de envio de dado para enviar o dado para a central de controle. Uma vez o comando enviado, a bancada irá iniciar suas atividades, os sensores começarão a captar dados, e a central de controle irá enviar esses dados que serão capturados pela rotina de comunicação e serão repassados a Aplicação Server. A aplicação server por sua vez aguarda a requisição REST da Aplicação Web para envio dos dados serializados em JSON. Uma vez esses dados na aplicação web, eles serão guardados no banco de dados da aplicação Web e em seguida são tratados pelas rotinas de processamento de dados, que realizam cálculos em cima destes dados para obter a curva aproximada, e então por fim a aplicação plota todos os gráficos referentes aos dados obtidos e processados, apresentados ao cliente.
+
+Na seção abaixo, temos uma breve explicação da disponibilização da \textit{Raspberry PI} como servidor, e o motivo disso se dá a necessidade que a Aplicação Web precisa de enxergar a Aplicação Server, pois é um \textit{Domain Name Server} definido a \textit{Raspberry PI} para garantir que mesmo com o IP Dinâmico da Raspberry, a aplicação Web posssa enxergar a aplicação server na \textit{Raspberry Pi}. É apresentado também detalhes da aplicação Web e Server que serão a ponta de comunicação \& integração entre usuário e bancada. E por fim é explicado na última seção o protocolo de comunicação que está atualmente sendo utilizado na comunicação entre a central de controle (frente eletroeletrônica) e a \textit{Raspberry PI} (frente Interface \& Processamento).
 
 \subsection{Disponibilização da \textit{raspberry pi} como servidor}
 
