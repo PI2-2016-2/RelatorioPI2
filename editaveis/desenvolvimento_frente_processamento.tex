@@ -75,6 +75,40 @@ Prosseguindo com a configuração, faz-se necessário a configuração do mecani
 
 Ao final de todo este processo, será possível acessar a \textit{raspberry pi} de qualquer local, possibilitando a hospedagem de serviços.
 
+\subsection{Aplicação Web}
+
+Da aplicação Web, a sua integração se fez em garantir a integridade do dado que chega pelo protocolo de comunicação entre a central de comando até ao usuário final.
+
+A integração que foi desenvolvida entre esses dois subsistemas que compõem o módulo de interface/processamento e deste módulo com o sistema todo, funciona da seguinte forma, entre a aplicação Web/ aplicação do Servidor e a Comunicação via Serial:
+
+\begin{enumerate}
+ \item O usuário cadastrado autentica-se no sistema (caso o usuário não seja cadastrado basta ele se cadastrar);
+ \item O usuário monta um ensaio com seus respectivos \textit{jobs};
+ \item O usuário confere os sensores ativos identificados pelo sistema e inicia o experimento;
+    \subitem O usuário tem a possibilidade de atualizar os sensores ativos, caso perceba erro na leitura dos sensores;
+    \subitem Quando o usuário solicita a identificação dos sensores ativos, a aplicação web envia uma requisição de identificação dos sensores ativos ao Servidor de Controle, seguindo o protocolo definido.
+ \item A aplicação web envia uma requisição ao Servidor de Controle informando os dados dos \textit{jobs} e sinalizando que o experimento começou;
+       \subitem A cada novo \textit{job} que deve começar (mudança de frequência da mesa) a aplicação web envia uma requisição de solicitação de alteração de frequência da mesa, seguindo o protocolo definido.
+ \item O Servidor de Controle, então, envia uma mensagem ao sistema de controle (via rotinas de comunicação, informando o início do experimento e a frequência desejada (frequência do \textit{job} corrente) e inicia uma \textit{thread} para a coleta dos dados lidos dos sensores;
+ \item Quando o último \textit{job} chegar ao fim, a aplicação web envia uma requisição ao Servidor de Controle informando que o ensaio acabou, o que significa que o sistema de controle não precisa mais coletar dados dos sensores;
+ \item Quando o Servidor de Controle recebe essa requisição, este envia uma mensagem ao sistema de controle (via rotinas de comunicação) informando a parada da coleta dos dados dos sensores, seguindo o protocolo definido;
+ \item A aplicação web informa ao usuário que está aguardando o término da coleta e processamento dos dados enquanto o Servidor de Controle coleta o restante dos dados dos sensores e a aplicação web processa os dados coletados;
+ \item Quando todos os dados amostrados forem coletados, o Servidor de Controle repassa esses dados para a aplicação web e destes serão derivados os outros dados necessários para a aplicação, seguindo o método do trapézio acumulado. O processamento dos dados aqui mencionado se refere aos cálculos da frequência, velocidade e amplitude a partir da aceleração fornecida pelos sensores;
+ \item Com todos os dados calculados, a aplicação web monta os gráficos e apresenta os resultados do ensaio ao usuário.
+\end{enumerate}
+
+Por fim, todas essas funcionalidades enumeradas acima foram desenvolvidas, contando com os adicionais como, gráficos por Job e o sistema de pausas. O sistema conta também com um sistema de tratamento de exceções para que nenhuma seja exibida a nível de usuário.
+
+O processamento foi realizado utilizando a biblioteca do Python Scipy, uma biblioteca matemática para diversos calculos com base no próprio C. Com isso foi utilizado para realizar o processamento dos dados utilizando trapézio acumulado para se obter a curva aproximada dos pontos.
+
+\subsection{Aplicação Server - Raspberry}
+
+A aplicação de servidor da Raspberry teve uma mudança signifcativa, que foi o abandono do Banco de Dados, e a utilização direta de um JSON serializado para diminuição do tempo de envio dos dados, pois esses dados irão subir diretamente via REST para a camada de aplicação e serão processados de acordo com os respectivos dados a serem obtidos. Serão 1200 dados por segundo de 6 sensores pré-estabelecido, logo a taxa de transmissão de dados é muito alta, foi tomado todo o cuidado para que esse dado chegasse com sua integridade na camada de aplicação do usuário.
+
+A integração frente Eletroeletrônica e Interface/Processamente está formalizada com o Protocolo funcional que permite o envio e o recebimento de dados do sistema de baixo nível para alto nível. Com o protocolo implementado na frente de Eletroeletrônica, a frente de Interface/Processamento conseguiu consolidar o envio e o recebimento de dados via portas UART (Tx/Rx) comunicação Serial.
+
+O sistema está todo previamente testado e pronto garantindo a integridade do módulo como um todo, também integrado ao produto, assim, controlando o motor de acordo com as especificações dos Jobs de um Ensaio total, e recebendo os dados dos sensores conforme combinado, apresentando-os na forma de gráficos.
+
 %%%%%%%%%% REALIZAR DETALHAMENTO DO TRABALHO DE INTEGRAÇÃO FINAL %%%%%%%%%%%%%%%
 
 % Nesta seção é descrito o detalhamento da solução do módulo de interface/processamento, resultante das duas primeiras fases,
@@ -97,37 +131,6 @@ Ao final de todo este processo, será possível acessar a \textit{raspberry pi} 
 % 	       rotinas de comunicação com o sistema de controle eletrônico, que realizam a inserção de dados de comando e recupera os dados
 % 	       dos sensores via comunicação serial.
 % \end{itemize}
-
-% A interação entre esses dois subsistemas que compõem o módulo de interface/processamento funcionará da seguinte forma
-% (o protocolo de comunicação definido será apresentado na subseção \ref{software:protocolo}):
-
-% \begin{enumerate}
-%  \item O usuário cadastrado autentica-se no sistema (caso o usuário não seja cadastrado basta ele se cadastrar);
-%  \item O usuário monta um ensaio com seus respectivos \textit{jobs} (o conceito de \textit{job} é apresentado na subseção \ref{software:app_web});
-%  \item O usuário confere os sensores ativos identificados pelo sistema e inicia o experimento;
-%     \subitem O usuário tem a possibilidade de atualizar os sensores ativos, caso perceba erro na leitura dos sensores;
-%     \subitem Quando o usuário solicita a identificação dos sensores ativos, a aplicação web envia uma requisição
-%          de identificação dos sensores ativos ao Servidor de Controle, seguindo o protocolo definido.
-%  \item A aplicação web envia uma requisição ao Servidor de Controle informando os dados dos \textit{jobs}
-%         e sinalizando que o experimento começou;
-%        \subitem A cada novo \textit{job} que deve começar (mudança de frequência da mesa) a aplicação web envia uma requisição
-%        de solicitação de alteração de frequência da mesa, seguindo o protocolo definido.
-%  \item O Servidor de Controle, então, envia uma mensagem ao sistema de controle (via rotinas de comunicação,
-%        que serão apresentadas na subseção \ref{software:rotinas}) informando o início do experimento e a frequência
-%        desejada (frequência do \textit{job} corrente) e inicia uma \textit{thread} para a coleta dos dados lidos dos sensores;
-%  \item Quando o último \textit{job} chegar ao fim, a aplicação web envia uma requisição ao Servidor de Controle informando
-%        que o ensaio acabou, o que significa que o sistema de controle não precisa mais coletar dados dos sensores;
-%  \item Quando o Servidor de Controle recebe essa requisição, este envia uma mensagem ao sistema de controle (via rotinas de comunicação)
-%        informando a parada da coleta dos dados dos sensores, seguindo o protocolo definido;
-%  \item A aplicação web informa ao usuário que está aguardando o término da coleta e processamento dos dados enquanto o Servidor de
-%        Controle coleta o restante dos dados dos sensores e a aplicação web processa os dados coletados;
-%  \item Quando todos os dados amostrados forem coletados, o Servidor de Controle repassa esses dados para a aplicação web e
-%        destes serão derivados os outros dados necessários para a aplicação, seguindo
-%        o método apresentado na seção \ref{software:processamento}. O processamento dos dados aqui mencionado se refere aos cálculos da frequência,
-%        velocidade e amplitude a partir da aceleração fornecida pelos sensores;
-%  \item Com todos os dados calculados, a aplicação web monta os gráficos e apresenta os resultados do ensaio ao usuário.
-% \end{enumerate}
-
 
 % Nas próximas subseções são detalhados os dois subsistemas propostos como solução para o módulo de interface de processamento.
 
