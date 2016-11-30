@@ -1,34 +1,50 @@
 \label{desenvolvimento_processamento}
 
-Nesta seção é descrito o detalhamento da solução e finalização do módulo de Interface e Processamento, bem como mudanças que ocorreram e a descrição da integração final com todos os sub-módulos resultando na entrega do produto final previsto na Fase 04.
+Nesta seção é descrito o detalhamento da solução e finalização do módulo de Interface e Processamento,
+bem como mudanças que ocorreram e a descrição da integração final com os sub-módulos resultando na
+entrega do produto final previsto na Fase 04.
 
 \subsection{Detalhamento do Módulo}
 
-Nesta seção é resumida os principais pontos do módulo de Interface e Processamento, focando na Parte 3 (Projeto e Construção da Solução) de forma a sumarizar todo o trabalho que foi realizado até o momento da iniciação da Parte 4 (Integração).
+Nesta seção são resumidos os principais pontos do módulo de Interface e Processamento, focando na Parte 3 (Projeto e Construção da Solução)
+de forma a sumarizar todo o trabalho que foi realizado até o momento da iniciação da Parte 4 (Integração).
+
+A frente de Interface e Processamento é a frente de Engenharia de Software que possuiu as seguintes preocupações:
 
 \begin{itemize}
-  \item A frente de Interface e Processamento é a frente de Engenharia de Software que terá as seguintes preocupações:
-  \item Se comunicar e receber os dados da central de controle do sistema;
+  \item Comunicar-se e receber os dados da central de controle eletrônico do sistema;
   \item Realizar o tratamento dos resultados recebidos;
-  \item Realizar experimentos de vibração da mesa;
-  \item Apresentá-los ao usuário na forma de indicadores condizentes ao objetivo do projeto;
+  \item Controlar os ensaios realizados na mesa;
+  \item Apresentar os resultados do ensaio realizado ao usuário;
 \end{itemize}
 
-Esses são os principais pontos que resumem todo o trabalho de Software em cima do sistema. E durante as iterações ocorridas na Parte 3 os seguintes tópicos abaixo foram realizados:
+Esses são os principais pontos que resumem todo o trabalho da frente de Interface e Processamento no sistema.
+A solução proposta para atender a esses requisitos consiste nos seguintes subsistemas de software:
+
+\begin{itemize}
+ \item \textbf{Interface de comunicação entre o usuário e a bancada, realizada por meio da aplicação web;}
+      \subitem Na aplicação web o usuário poderá controlar a bancada, iniciando um ensaio com os quesitos definido por ele,
+	       e visualizar os resultados do ensaio por meio de gráficos.
+ \item \textbf{Servidor de Controle para intermediar a comunicação da aplicação web com o sistema de controle eletrônico, hospedado na \textit{Raspberry}.}
+      \subitem Este servidor provê serviços RESTFul (API REST) como a interface de comunicação para a aplicação web. Neste servidor estão as 
+	       rotinas de comunicação com o sistema de controle eletrônico, que realizam a inserção de dados de comando e recupera os dados 
+	       dos sensores via comunicação serial.
+\end{itemize}
+
+Durante as iterações ocorridas na Parte 3 os seguintes tópicos abaixo foram realizados:
 
 \begin{itemize}
   \item Refatoração do Protocolo de Comunicação;
-  \item Mudança do banco de dados para o \textbf{MySQL};
-  \item Pseudo-integração com simulador da central de controle do sistema;
+  \item Integração parcial com um simulador da central de controle eletrônico do sistema;
   \item Refatoração do \textit{parser} para utilização do Banco de dados do servidor local, integrado a aplicação do servidor;
-  \item Integração do \textit{REST} entre Aplicação Web e Aplicação do Servidor (\textbf{Raspberry});
+  \item Integração via API \textit{RESTFul} entre Aplicação Web e Aplicação do Servidor (\textbf{Raspberry});
   \item Mudança da linguagem do Protocolo de Comunicação na Aplicação \textit{Web} para \textbf{Python}. Embora testes executados isoladamente demonstraram um maior desempenho por parte da linguagem C, é válido ressaltar que a linguagem Python traz um ganho de produtividade, visto que já dispõe dos recursos necessários para serialização de dados. Se as rotinas de comunicação tivessem sido construídas com C, seria necessária uma etapa adicional para tratamento dos dados brutos, o que não é necessário com o Python, visto que o dado ao ser lido na porta serial já é armazenado em uma estrutura e serializado para envio do \textit{REST} para a Aplicação \textit{Web};
-  \item Implementação do Algoritmo de Pausa do Experimento de acordo com a mudança de frequência entre \textbf{Jobs};
+  \item Implementação do algoritmo de pausa do experimento de acordo com a mudança de frequência entre \textbf{jobs};
   \item Implementação dos gráficos na Aplicação Web;
   \item Implementação do novo Protocolo de Comunicação;
   \item Estudo e escolha do método de ajuste e processamento de curvas de acordo com resultados obtidos;
-  \item Implementação do Método do Trapézio Acumulado para processamento da curva;
-  \item Implementação de Sincronização de \textbf{Threads} para escrita e leitura de dados da porta serial;
+  \item Aplicação do Método do Trapézio Acumulado para processamento das curvas de velocidade e amplitude;
+  \item Sincronização de \textbf{Threads} para escrita e leitura de dados da porta serial;
   \item Implementação do Sistema de \textbf{Jobs} e Ensaio para o controle da Bancada em alto nível.
 \end{itemize}
 
