@@ -101,6 +101,8 @@ Por fim, todas essas funcionalidades enumeradas acima foram desenvolvidas, conta
 
 O processamento foi realizado utilizando a biblioteca do Python Scipy, uma biblioteca matemática para diversos calculos com base no próprio C. Com isso foi utilizado para realizar o processamento dos dados utilizando trapézio acumulado para se obter a curva aproximada dos pontos.
 
+O sistema também irá contar com um manual de ativação da bancada desde ligar as tomadas trifásicas, à ativação do inversor, até a inicialização do sistema da bancada para que o usuário possa utilizar. Tudo isso explicado passo a passo na aplicação Web que o usuário irá acessar.
+
 \subsection{Aplicação Server - Raspberry}
 
 A aplicação de servidor da Raspberry teve uma mudança signifcativa, que foi o abandono do Banco de Dados, e a utilização direta de um JSON serializado para diminuição do tempo de envio dos dados, pois esses dados irão subir diretamente via REST para a camada de aplicação e serão processados de acordo com os respectivos dados a serem obtidos. Serão 1200 dados por segundo de 6 sensores pré-estabelecido, logo a taxa de transmissão de dados é muito alta, foi tomado todo o cuidado para que esse dado chegasse com sua integridade na camada de aplicação do usuário.
