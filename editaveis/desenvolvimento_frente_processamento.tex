@@ -111,6 +111,81 @@ A integração frente Eletroeletrônica e Interface/Processamente está formaliz
 
 O sistema está todo previamente testado e pronto garantindo a integridade do módulo como um todo, também integrado ao produto, assim, controlando o motor de acordo com as especificações dos Jobs de um Ensaio total, e recebendo os dados dos sensores conforme combinado, apresentando-os na forma de gráficos.
 
+\subsection{Protocolo de Comunicação}
+
+O protocolo de comunicação antigo ficou inutilizado tendo em vista que serviu para testarmos a perfomatica dos dados chegando no sistema. Para isso a frente de Eletroeletrônica juntamente com a frente de Interface \& Processamento, produziram um novo protocolo de comunicação que garante a integridade dos dados bem como a leitura mais performatica com menos utilização de Bytes na taxa de transmissão.
+
+Este protocolo foi desenvolvido de forma a tentar otimizar a comunicação entre MSP e o servidor de dados que irá enviar as informações para a aplicação em alto nível. O design deste protocolo levou-se em consideração o mapeamento de flags, metadados e dados de forma a obter o melhor desempenho de comunicação possível, sem gargalar entre taxa de transmissão dos hardwares. Nesta seção será explicado o design adotado para o protocolo de envio e recebimento de informações dentro da comunicação serial via UART.
+
+\subsubsection*{Input de Comandos}
+
+Foram definidos uma lista de inputs especiais de modo que torne facilitado o envio de comandos de controle ao MSP, levando em consideração que o tamanho da mensagem neste primeiro contexto de envio não interfere em nada e possui o tamanho de 1 BYTE.
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.8]{figuras/flags_input.png}
+\label{fig:flags_input}
+\caption{Flags de input - Fonte: Autores}
+\end{figure}
+
+\subsubsection*{Output de Dados}
+
+Nesta seção irá formaliza o formato padrão de saída de dados bem como alguns significados pré-definidos para otimização da consulta de dados pela porta serial.
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.8]{figuras/flags_output.png}
+\label{fig:flags_input}
+\caption{Flags de output - Fonte: Autores}
+\end{figure}
+
+\begin{itemize}
+  \item \textbf{Formato = [HEADER] + [DADO]}
+  \item Timestamp - Resolução 5 ms/bit;
+  \item Sensor - Os 4 \textit{Most Significant Bits} do \textit{Byte} definem qual o sensor que é em binário e os 4 \textit{Less Significant Bits} definem qual é o eixo que o dado está sendo amostrado;
+  \item Frequencia Atingida - Flag que amostra a frequência atual do sistema.
+\end{itemize}
+
+\subsubsection*{Leitura dos sensores ativos}
+
+Para identificação dos sensores ativos, foi acordado a utilização de um \textit{BYTE} apenas, sendo esse byte responsável pela representação de 8 sensores, e podendo ser escalável com adição de mais bytes, caso tenha adição de mais de 8 sensores ao sistema.
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.9]{figuras/active_sensors.png}
+\label{fig:active_sensors}
+\caption{Sensores ativos representado em 1 \textit{Byte} - Fonte: Autores}
+\end{figure}
+
+\begin{itemize}
+  \item Na imagem acima indica que os sensores S6, S5, S3, S2 e S1 estão ativos;
+  \item 1 \textit{BYTE} composto por 8 bits, sendo cada bit responsável por um sensor;
+  \item 0 Indica que o Sensor está desativado e 1 indica que o sensor está ativado;
+\end{itemize}
+
+\subsubsection*{Sequência do Output de Dados}
+
+Na tabela abaixo temos um exemplo da ordem do OUTPUT dos dados que serão enviados pela via serial:
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.8]{figuras/ordem_envio_1.png}
+\label{fig:envio_1}
+\caption{Ordem de chegada do Output de dados parte 1 - Fonte: Autores}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.8]{figuras/ordem_envio_2.png}
+\label{fig:envio_2}
+\caption{Ordem de chegada do Output de dados parte 2 - Fonte: Autores}
+\end{figure}
+
+
+
+
+
+
 %%%%%%%%%% REALIZAR DETALHAMENTO DO TRABALHO DE INTEGRAÇÃO FINAL %%%%%%%%%%%%%%%
 
 % Nesta seção é descrito o detalhamento da solução do módulo de interface/processamento, resultante das duas primeiras fases,
