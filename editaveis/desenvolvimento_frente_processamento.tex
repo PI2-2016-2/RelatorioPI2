@@ -67,6 +67,8 @@ A aplicação Web envia um requisição REST que passa pela internet para se com
 
 Na seção abaixo, temos uma breve explicação da disponibilização da \textit{Raspberry PI} como servidor, e o motivo disso se dá a necessidade que a Aplicação Web precisa de enxergar a Aplicação Server, pois é um \textit{Domain Name Server} definido a \textit{Raspberry PI} para garantir que mesmo com o IP Dinâmico da Raspberry, a aplicação Web posssa enxergar a aplicação server na \textit{Raspberry Pi}. É apresentado também detalhes da aplicação Web e Server que serão a ponta de comunicação \& integração entre usuário e bancada. E por fim é explicado na última seção o protocolo de comunicação que está atualmente sendo utilizado na comunicação entre a central de controle (frente eletroeletrônica) e a \textit{Raspberry PI} (frente Interface \& Processamento).
 
+Lembrando que é possível trabalhar numa rede local, mas caso o usuário queira trabalhar com a aplicação online, é necessário seguir os passos estabelecidos na seção abaixo.
+
 \subsection{Disponibilização da \textit{raspberry pi} como servidor}
 
 Com uma \textit{raspberry Pi} é possível disponibilizar serviços em rede, estabelecer esquemas de computação em nuvem, configurar servidor FTP (\textit{File Transfer Protocol}) etc. Portanto, faz-se necessário configurá-la para que possa ser acessível de qualquer ponto da internet. No caso deste projeto, foi construída uma aplicação \textit{REST} que, por sua vez, será hospedada em uma \textit{raspberry pi}.
