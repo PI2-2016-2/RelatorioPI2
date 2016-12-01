@@ -8,6 +8,7 @@ entrega do produto final previsto na Fase 04.
 
 Nesta seção são resumidos os principais pontos do módulo de Interface e Processamento, focando na Parte 3 (Projeto e Construção da Solução)
 de forma a sumarizar todo o trabalho que foi realizado até o momento da iniciação da Parte 4 (Integração).
+Detalhes sobre a solução proposta e possíveis conceitos aqui apresentados podem ser vistos nos Relatórios anteriores, 1 e 2.
 
 A frente de Interface e Processamento é a frente de Engenharia de Software que possuiu as seguintes preocupações:
 
@@ -63,15 +64,79 @@ Com o fim da parte 3, a frente de interface e processamento terminou de produzir
 
 \subsection{Detalhamento da Integração Final}
 
-A Aplicação Web envia um requisição REST que passa pela internet para se comunicar com a Aplicação Server, que por sua vez realiza o tratamento do comando e chama a rotina de envio de dado para enviar o dado para a central de controle. Uma vez o comando enviado, a bancada irá iniciar suas atividades, os sensores começarão a captar dados, e a central de controle irá enviar esses dados que serão capturados pela rotina de comunicação e serão repassados a Aplicação Server. A aplicação server por sua vez aguarda a requisição REST da Aplicação Web para envio dos dados serializados em JSON. Uma vez esses dados na aplicação web, eles serão guardados no banco de dados da aplicação Web e em seguida são tratados pelas rotinas de processamento de dados, que realizam cálculos em cima destes dados para obter a curva aproximada, e então por fim a aplicação plota todos os gráficos referentes aos dados obtidos e processados, apresentados ao cliente.
+A aplicação Web envia um requisição REST que passa pela internet para se comunicar com o Servidor de Controle,
+que por sua vez realiza o tratamento do comando e chama a rotina de envio de dado para enviar o dado para a
+central de controle. Uma vez o comando enviado, a bancada irá iniciar suas atividades, os sensores começarão
+a captar dados, e a central de controle irá enviar esses dados que serão capturados pela rotina de comunicação 
+e serão repassados ao servidor de controle. O servidor de controle por sua vez aguarda a requisição REST da 
+Aplicação Web para envio dos dados serializados em JSON. Uma vez esses dados na aplicação web, eles serão
+guardados no banco de dados da aplicação Web e em seguida são tratados pelas rotinas de processamento de dados,
+que realizam cálculos em cima destes dados para obter a curva aproximada, e então por fim a aplicação plota
+todos os gráficos referentes aos dados obtidos e processados, apresentados ao cliente.
 
-Na seção abaixo, temos uma breve explicação da disponibilização da \textit{Raspberry PI} como servidor, e o motivo disso se dá a necessidade que a Aplicação Web precisa de enxergar a Aplicação Server, pois é um \textit{Domain Name Server} definido a \textit{Raspberry PI} para garantir que mesmo com o IP Dinâmico da Raspberry, a aplicação Web posssa enxergar a aplicação server na \textit{Raspberry Pi}. É apresentado também detalhes da aplicação Web e Server que serão a ponta de comunicação \& integração entre usuário e bancada. E por fim é explicado na última seção o protocolo de comunicação que está atualmente sendo utilizado na comunicação entre a central de controle (frente eletroeletrônica) e a \textit{Raspberry PI} (frente Interface \& Processamento).
+Na seção \ref{servidor_controle} são apresentados. Na subseção \ref{rasp_server}, é apresentada uma breve explicação da disponibilização da \textit{Raspberry Pi} como um servidor \textit{online}.
+O motivo disso se dá pela necessidade que a Aplicação Web tem de enxergar o servidor de controle  para fazer as devidas requisições.
+Para tal, é preciso um \textit{Dynamic Domain Name Server} (DDNS) definido a \textit{Raspberry Pi} para garantir que mesmo com 
+o IP Dinâmico da Raspberry, a Aplicação Web possa encontrar o servidor de controle na \textit{Raspberry Pi} na rede mundial de computadores.
+(lembrando que é possível utilizar o servidor de controle em uma rede local, mas a solução é suficientemente escalável
+ao ponto de ser disponibilizada \textit{online}, porém é necessário seguir as orientações contidas na seção \ref{rasp_server}).
 
-Lembrando que é possível trabalhar numa rede local, mas caso o usuário queira trabalhar com a aplicação online, é necessário seguir os passos estabelecidos na seção abaixo.
+São apresentados também detalhes da Aplicação Web e do Servidor de Controle que serão a ponta de comunicação e integração entre usuário e bancada.
+Por fim é explicado na seção \ref{protocolo_com} o protocolo de comunicação que está atualmente sendo utilizado na comunicação entre a
+central de controle (frente de Eletroeletrônica) e o \textit{Servidor de Controle} (frente de Interface e Processamento).
 
-\subsection{Disponibilização da \textit{raspberry pi} como servidor}
+\subsection{Aplicação Web - BEViM Web}
 
-Com uma \textit{raspberry Pi} é possível disponibilizar serviços em rede, estabelecer esquemas de computação em nuvem, configurar servidor FTP (\textit{File Transfer Protocol}) etc. Portanto, faz-se necessário configurá-la para que possa ser acessível de qualquer ponto da internet. No caso deste projeto, foi construída uma aplicação \textit{REST} que, por sua vez, será hospedada em uma \textit{raspberry pi}.
+A Aplicação Web é a interface de comunicação entre o usuário e a bancada. Para prover os serviços de controle e
+visualização dos resultados dos ensaios, a Aplicação Web tem que se comunicar com o Servidor de Controle, este que intermedia
+a comunicação entre a Aplicação Web e o sistema de controle eletrônico.
+
+A integração que foi desenvolvida entre esses dois subsistemas (Aplicação Web e o Servidor de Controle) que compõem o módulo
+de interface/processamento e deste módulo com o sistema todo, funciona da seguinte forma, entre a aplicação Web/ aplicação
+do Servidor e a Comunicação via Serial:
+
+\begin{enumerate}
+ \item O usuário cadastrado autentica-se no sistema (caso o usuário não seja cadastrado basta ele se cadastrar);
+ \item O usuário monta um ensaio com seus respectivos \textit{jobs};
+ \item O usuário confere os sensores ativos identificados pelo sistema e inicia o experimento;
+    \subitem O usuário tem a possibilidade de atualizar os sensores ativos, caso perceba erro na leitura dos sensores;
+    \subitem Quando o usuário solicita a identificação dos sensores ativos, a aplicação web envia uma requisição de identificação dos sensores ativos ao Servidor de Controle, seguindo o protocolo definido.
+ \item A aplicação web envia uma requisição ao Servidor de Controle informando os dados dos \textit{jobs} e sinalizando que o experimento começou;
+       \subitem A cada novo \textit{job} que deve começar (mudança de frequência da mesa) a aplicação web envia uma requisição de solicitação de alteração de frequência da mesa, seguindo o protocolo definido.
+ \item O Servidor de Controle, então, envia uma mensagem ao sistema de controle (via rotinas de comunicação, informando o início do experimento e a frequência desejada (frequência do \textit{job} corrente) e inicia uma \textit{thread} para a coleta dos dados lidos dos sensores;
+ \item Quando o último \textit{job} chegar ao fim, a aplicação web envia uma requisição ao Servidor de Controle informando que o ensaio acabou, o que significa que o sistema de controle não precisa mais coletar dados dos sensores;
+ \item Quando o Servidor de Controle recebe essa requisição, este envia uma mensagem ao sistema de controle (via rotinas de comunicação) informando a parada da coleta dos dados dos sensores, seguindo o protocolo definido;
+ \item A aplicação web informa ao usuário que está aguardando o término da coleta e processamento dos dados enquanto o Servidor de Controle coleta o restante dos dados dos sensores e a aplicação web processa os dados coletados;
+ \item Quando todos os dados amostrados forem coletados, o Servidor de Controle repassa esses dados para a aplicação web e destes serão derivados os outros dados necessários para a aplicação, seguindo o método do trapézio acumulado. O processamento dos dados aqui mencionado se refere aos cálculos da frequência, velocidade e amplitude a partir da aceleração fornecida pelos sensores;
+ \item Com todos os dados calculados, a aplicação web monta os gráficos e apresenta os resultados do ensaio ao usuário.
+\end{enumerate}
+
+Todas as funcionalidades enumeradas acima foram desenvolvidas contando com os adicionais como,
+gráficos dos resultados por \textit{job} e o sistema de pausa do experimento para aguardar a mesa atingir a frequência correta.
+Vale ressaltar que o sistema também conta com um tratamento de exceções efetivo para contornar problemas de responsividade do
+sistema eletrônico.
+
+O processamento foi realizado utilizando a biblioteca do Python Scipy \footnotemark, uma biblioteca matemática para
+diversos cálculos baseada no linguagem C. Com isso, foi utilizado para realizar o processamento dos dados
+o método dos trapézios acumulados para se obter a curva aproximada dos pontos, conforme apresentado no Relatório 2.
+\footnotetext{https://www.scipy.org/}
+
+O sistema também irá contar com um manual de ativação da bancada desde ligar as tomadas trifásicas,
+à ativação do inversor, até a inicialização do sistema da bancada para que o usuário possa utilizar. 
+Tudo isso explicado passo a passo na aplicação Web que o usuário irá acessar.
+
+\subsection{Servidor de Controle - Raspberry} \label{servidor_controle}
+
+O servidor de controle teve uma mudança significativa, que foi o abandono do Banco de Dados, e a utilização direta de um JSON serializado para diminuição do tempo de envio dos dados, pois esses dados irão subir diretamente via API REST para a camada de aplicação e serão processados de acordo com os respectivos dados a serem obtidos. Serão 1200 dados por segundo de 6 sensores pré-estabelecido, logo a taxa de transmissão de dados é muito alta, foi tomado todo o cuidado para que esse dado chegasse com sua integridade na camada de aplicação do usuário.
+Além disso, refatorações no código do servidor foram realizadas para obter maior performance e coesão.
+
+A integração entre a frente Eletroeletrônica e Interface e Processamento está formalizada com o protocolo funcional (apresentado na seção \ref{rasp_server}) que permite o envio e o recebimento de dados do sistema de baixo nível para alto nível. Com o protocolo implementado na frente de Eletroeletrônica, a frente de Interface/Processamento conseguiu consolidar o envio e o recebimento de dados via portas UART (Tx/Rx) comunicação Serial.
+
+O sistema está todo previamente testado e pronto garantindo a integridade do módulo como um todo, também integrado ao produto, assim, controlando o motor de acordo com as especificações dos \textit{jobs} de um ensaio total, e recebendo os dados dos sensores conforme combinado, apresentando-os na forma de gráficos.
+
+\subsubsection{Disponibilização da \textit{Raspberry Pi} como servidor \textit{online}} \label{rasp_server}
+
+Com uma \textit{Raspberry Pi} é possível disponibilizar serviços em rede, estabelecer esquemas de computação em nuvem, configurar servidor FTP (\textit{File Transfer Protocol}) etc. Portanto, faz-se necessário configurá-la para que possa ser acessível de qualquer ponto da internet. No caso deste projeto, foi construída uma aplicação \textit{REST} que, por sua vez, será hospedada em uma \textit{raspberry pi}.
 
 A figura a seguir ilustra de maneira esquemática a comunicação da \textit{Raspberry Pi} com a rede mundial, ou seja, a internet.
 
@@ -109,7 +174,7 @@ A maior parte dos roteadores atualmente suportam tanto o recurso \textit{Port Fo
 
 \begin{itemize}
   \item Executar o comando \textit{upnpc -1}: Esse comando irá enumerar todos os dispositivos UPnP disponíveis na rede local; irá exibir os endereços IP internos e externos dos dispositivos e por fim, irá listar as regras correntes para \textit{port forwarding} existentes.
-  \item Caso o roteador suporte UPnP, é possível adicionar \textit{port forwarding} para protocolo SSH por meio do seguinte comando: \textit{upnpc -e \textbf{nome da regra} -r 22}.
+  \item Caso o roteador suporte UPnP, é possível adicionar \textit{port forwarding} para protocolo SSH, por exemplo, por meio do seguinte comando: \textit{upnpc -e \textbf{nome da regra} -r 22}.
   \item Para fins de conferência, é possível executar novamente o mesmo comando indicado no primeiro passo do procedimento e assim, será possível contemplar a regra para a porta 22 atrelada ao endereço IP.
 \end{itemize}
 
@@ -130,47 +195,16 @@ O último aspecto que deve ser notado é o quesito segurança. Embora possibilit
 
 Com a descrição desta disponibilização, é possível mostrar que a solução projetada em termos de aplicações para operação da bancada de vibrações mecânicas é escalável, tendo em vista que precisam de rede para funcionar.
 
-\subsection{Aplicação Web}
+\subsection{Protocolo de Comunicação} \label{protocolo_com}
 
-Da aplicação Web, a sua integração se fez em garantir a integridade do dado que chega pelo protocolo de comunicação entre a central de comando até ao usuário final.
+O protocolo de comunicação antigo ficou inutilizado tendo em vista que serviu apenas para testar inicialmente a comunicação com o sistema eletrônico.
+Para isso a frente de Eletroeletrônica juntamente com a frente de Interface e Processamento, produziram um novo protocolo de comunicação
+que garante a integridade dos dados bem como a leitura mais performatica com menos utilização de Bytes na taxa de transmissão.
 
-A integração que foi desenvolvida entre esses dois subsistemas que compõem o módulo de interface/processamento e deste módulo com o sistema todo, funciona da seguinte forma, entre a aplicação Web/ aplicação do Servidor e a Comunicação via Serial:
-
-\begin{enumerate}
- \item O usuário cadastrado autentica-se no sistema (caso o usuário não seja cadastrado basta ele se cadastrar);
- \item O usuário monta um ensaio com seus respectivos \textit{jobs};
- \item O usuário confere os sensores ativos identificados pelo sistema e inicia o experimento;
-    \subitem O usuário tem a possibilidade de atualizar os sensores ativos, caso perceba erro na leitura dos sensores;
-    \subitem Quando o usuário solicita a identificação dos sensores ativos, a aplicação web envia uma requisição de identificação dos sensores ativos ao Servidor de Controle, seguindo o protocolo definido.
- \item A aplicação web envia uma requisição ao Servidor de Controle informando os dados dos \textit{jobs} e sinalizando que o experimento começou;
-       \subitem A cada novo \textit{job} que deve começar (mudança de frequência da mesa) a aplicação web envia uma requisição de solicitação de alteração de frequência da mesa, seguindo o protocolo definido.
- \item O Servidor de Controle, então, envia uma mensagem ao sistema de controle (via rotinas de comunicação, informando o início do experimento e a frequência desejada (frequência do \textit{job} corrente) e inicia uma \textit{thread} para a coleta dos dados lidos dos sensores;
- \item Quando o último \textit{job} chegar ao fim, a aplicação web envia uma requisição ao Servidor de Controle informando que o ensaio acabou, o que significa que o sistema de controle não precisa mais coletar dados dos sensores;
- \item Quando o Servidor de Controle recebe essa requisição, este envia uma mensagem ao sistema de controle (via rotinas de comunicação) informando a parada da coleta dos dados dos sensores, seguindo o protocolo definido;
- \item A aplicação web informa ao usuário que está aguardando o término da coleta e processamento dos dados enquanto o Servidor de Controle coleta o restante dos dados dos sensores e a aplicação web processa os dados coletados;
- \item Quando todos os dados amostrados forem coletados, o Servidor de Controle repassa esses dados para a aplicação web e destes serão derivados os outros dados necessários para a aplicação, seguindo o método do trapézio acumulado. O processamento dos dados aqui mencionado se refere aos cálculos da frequência, velocidade e amplitude a partir da aceleração fornecida pelos sensores;
- \item Com todos os dados calculados, a aplicação web monta os gráficos e apresenta os resultados do ensaio ao usuário.
-\end{enumerate}
-
-Por fim, todas essas funcionalidades enumeradas acima foram desenvolvidas, contando com os adicionais como, gráficos por Job e o sistema de pausas. O sistema conta também com um sistema de tratamento de exceções para que nenhuma seja exibida a nível de usuário.
-
-O processamento foi realizado utilizando a biblioteca do Python Scipy, uma biblioteca matemática para diversos calculos com base no próprio C. Com isso foi utilizado para realizar o processamento dos dados utilizando trapézio acumulado para se obter a curva aproximada dos pontos.
-
-O sistema também irá contar com um manual de ativação da bancada desde ligar as tomadas trifásicas, à ativação do inversor, até a inicialização do sistema da bancada para que o usuário possa utilizar. Tudo isso explicado passo a passo na aplicação Web que o usuário irá acessar.
-
-\subsection{Aplicação Server - Raspberry}
-
-A aplicação de servidor da Raspberry teve uma mudança signifcativa, que foi o abandono do Banco de Dados, e a utilização direta de um JSON serializado para diminuição do tempo de envio dos dados, pois esses dados irão subir diretamente via REST para a camada de aplicação e serão processados de acordo com os respectivos dados a serem obtidos. Serão 1200 dados por segundo de 6 sensores pré-estabelecido, logo a taxa de transmissão de dados é muito alta, foi tomado todo o cuidado para que esse dado chegasse com sua integridade na camada de aplicação do usuário.
-
-A integração frente Eletroeletrônica e Interface/Processamente está formalizada com o Protocolo funcional que permite o envio e o recebimento de dados do sistema de baixo nível para alto nível. Com o protocolo implementado na frente de Eletroeletrônica, a frente de Interface/Processamento conseguiu consolidar o envio e o recebimento de dados via portas UART (Tx/Rx) comunicação Serial.
-
-O sistema está todo previamente testado e pronto garantindo a integridade do módulo como um todo, também integrado ao produto, assim, controlando o motor de acordo com as especificações dos Jobs de um Ensaio total, e recebendo os dados dos sensores conforme combinado, apresentando-os na forma de gráficos.
-
-\subsection{Protocolo de Comunicação}
-
-O protocolo de comunicação antigo ficou inutilizado tendo em vista que serviu para testarmos a perfomatica dos dados chegando no sistema. Para isso a frente de Eletroeletrônica juntamente com a frente de Interface \& Processamento, produziram um novo protocolo de comunicação que garante a integridade dos dados bem como a leitura mais performatica com menos utilização de Bytes na taxa de transmissão.
-
-Este protocolo foi desenvolvido de forma a tentar otimizar a comunicação entre MSP e o servidor de dados que irá enviar as informações para a aplicação em alto nível. O design deste protocolo levou-se em consideração o mapeamento de flags, metadados e dados de forma a obter o melhor desempenho de comunicação possível, sem gargalar entre taxa de transmissão dos hardwares. Nesta seção será explicado o design adotado para o protocolo de envio e recebimento de informações dentro da comunicação serial via UART.
+Este protocolo foi desenvolvido de forma a tentar otimizar a comunicação entre MSP e o servidor de dados que irá enviar as
+informações para a aplicação em alto nível. O design deste protocolo levou-se em consideração o mapeamento de flags,
+metadados e dados de forma a obter um desempenho de comunicação plausível.
+Nesta seção será explicado o design adotado para o protocolo de envio e recebimento de informações dentro da comunicação serial via UART.
 
 \subsubsection*{Input de Comandos}
 
@@ -236,9 +270,30 @@ Na tabela abaixo temos um exemplo da ordem do OUTPUT dos dados que serão enviad
 \caption{Ordem de chegada do Output de dados parte 2 - Fonte: Autores}
 \end{figure}
 
+\subsection{Casos de teste realizados}
 
+Até o presente momento, devido aos recursos disponíveis, foram executados apenas os casos de teste apresentados
+na tabela \ref{casos_testes_realizados}. Os casos de teste podem ser vistos no Apêndice \ref{documento_teste}.
 
+\begin{table}[h]
+\centering
+\caption{Resultado dos casos de testes realizados}
+\label{casos_testes_realizados}
+\begin{tabular}{|l|c|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Caso de teste}} & \textbf{Status}                                   \\ \hline
+CT- 01                                       & \cellcolor[HTML]{009901}{\color[HTML]{000000} OK} \\ \hline
+CT- 02                                       & \cellcolor[HTML]{009901}{\color[HTML]{000000} OK} \\ \hline
+CT- 03                                       & \cellcolor[HTML]{009901}{\color[HTML]{000000} OK} \\ \hline
+CT- 04                                       & \cellcolor[HTML]{009901}{\color[HTML]{000000} OK} \\ \hline
+CT- 05                                       & \cellcolor[HTML]{009901}{\color[HTML]{000000} OK} \\ \hline
+CT- 06                                       & -                                                 \\ \hline
+CT- 07                                       & -                                                 \\ \hline
+\end{tabular}
+\end{table}
 
+Apesar dos casos de teste da integração total não terem sido realizados por completo até o presente momento,
+a frente de Interface e Processamento realizou testes automatizados de seus subsistemas.
 
 
 %%%%%%%%%% REALIZAR DETALHAMENTO DO TRABALHO DE INTEGRAÇÃO FINAL %%%%%%%%%%%%%%%

@@ -80,7 +80,6 @@ realizados, os subsistemas participantes e os resultados esperados.
             \multicolumn{2}{|c|}{\textbf{Cenários de Teste}} \\ \hline
                 \textbf{Objetivo Específico}                      & \textbf{Saídas Esperadas} \\ \hline
                 Tratar caso a conexão com o banco de dados não seja estabelecida & Sistema deverá informar que o banco de dados local está corrompido devido algum problema de hardware/software que venha a ter prejudicado a integridade dos dados \\ \hline
-                Tratar caso aconteça estouro de memória para evitar que o sistema trave devido a quantidade de informações transitando & Sistema deverá informar o percentual de uso da memória interna, do disco rígido e de processamento, e quando as 3 variáveis chegarem a um limite o sistema deverá lançar um anuncio ao usuário informando o risco de possível travamento do sistema.  \\ \hline
         \end{tabular}
     \end{center}
     \caption[Caso de Teste - CT03]{Caso de Teste - CT03
@@ -88,21 +87,42 @@ realizados, os subsistemas participantes e os resultados esperados.
     \label{CT-03}
 \end{table}
 
+% \begin{table}[H]
+%     \begin{center}
+%         \begin{tabular}{|p{5cm}|p{12cm}|}
+%             \hline
+%             \multicolumn{2}{|c|}{\textbf{Especificação de Caso de Teste}} \\ \hline
+%                 \textbf{Subsistemas}                               & Interface/Processamento\\ \hline
+%                 \textbf{Caso de Teste}                             & CT-04 \\ \hline
+%                 \textbf{Propósito}                                     & Testar conexão, envio e leitura de dados com o Banco de Dados Django \\ \hline
+%                 \textbf{Descrição Geral}                           & Este teste tem como objetivo validar a conexão com o banco de dados da Raspberry, bem como escrita e leitura desses dados. \\ \hline
+%                 \textbf{Insumos para o caso de Teste}    & O servidor Django Raspberry tem que estar ativo. \\ \hline
+%                 \textbf{Roteiro para realização do Teste}&  1. Subir o servidor Django da raspberry, 2.Utilizando o Parser, realizar a conexão com o banco de dados local, 3. Realizar a inserção de um dado em uma tabela, 4. Realizar a leitura deste mesmo dado na tabela, 5. Averiguar se o dado guardado é o mesmo lido  \\ \hline
+%             \multicolumn{2}{|c|}{\textbf{Cenários de Teste}} \\ \hline
+%                 \textbf{Objetivo Específico}                      & \textbf{Saídas Esperadas} \\ \hline
+%                Executar inserções no banco			& Dados inseridos \\ \hline
+%                Tratar caso a conexão com o banco de dados não seja estabelecida & Sistema deverá informar que o banco de dados local está corrompido devido algum problema de hardware/software que venha a ter prejudicado a integridade dos dados \\ \hline
+%         \end{tabular}
+%     \end{center}
+%     \caption[Caso de Teste - CT04]{Caso de Teste - CT04
+%     \protect Fonte: Autor}
+%     \label{CT-04}
+% \end{table}
+
 \begin{table}[H]
     \begin{center}
         \begin{tabular}{|p{5cm}|p{12cm}|}
             \hline
             \multicolumn{2}{|c|}{\textbf{Especificação de Caso de Teste}} \\ \hline
-                \textbf{Subsistemas}                               & Interface/Processamento\\ \hline
+                \textbf{Subsistemas}                               & Interface/Processamento e Eletroeletrônica \\ \hline
                 \textbf{Caso de Teste}                             & CT-04 \\ \hline
-                \textbf{Propósito}                                     & Testar conexão, envio e leitura de dados com o Banco de Dados Django \\ \hline
-                \textbf{Descrição Geral}                           & Este teste tem como objetivo validar a conexão com o banco de dados da Raspberry, bem como escrita e leitura desses dados. \\ \hline
-                \textbf{Insumos para o caso de Teste}    & O servidor Django Raspberry tem que estar ativo. \\ \hline
-                \textbf{Roteiro para realização do Teste}&  1. Subir o servidor Django da raspberry, 2.Utilizando o Parser, realizar a conexão com o banco de dados local, 3. Realizar a inserção de um dado em uma tabela, 4. Realizar a leitura deste mesmo dado na tabela, 5. Averiguar se o dado guardado é o mesmo lido  \\ \hline
+                \textbf{Propósito}                                     & Testar conexão, escrita e leitura dos dados da simulação do sistema, comunicação entre microcontrolador e Raspberry \\ \hline
+                \textbf{Descrição Geral}                           & Este teste tem como objetivo realizar teste de conexão via porta serial entre Raspberry e microcontrolador, utilizando a rotina de comunicação desenvolvida em Python. O sistema deve realizar a leitura e escrita dos dados de forma íntegra. \\ \hline
+                \textbf{Insumos para o caso de Teste}    & Subir uma instância de leitura e uma instância de escrita em terminais diferentes, escrever o input da simulação e iniciar um experimento. \\ \hline
+                \textbf{Roteiro para realização do Teste}&  1. Subir uma instância de pyserial em modo de leitura, 2. Subir uma instância de pyserial em modo de escrita, 3. Iniciar o experimento com -1 e logo em seguida com a frequência 10, 4. Observa o output do modo de leitura para saber se está de acordo com o que se espera da simulação. \\ \hline
             \multicolumn{2}{|c|}{\textbf{Cenários de Teste}} \\ \hline
                 \textbf{Objetivo Específico}                      & \textbf{Saídas Esperadas} \\ \hline
-               Executar inserções no banco			& Dados inseridos \\ \hline
-               Tratar caso a conexão com o banco de dados não seja estabelecida & Sistema deverá informar que o banco de dados local está corrompido devido algum problema de hardware/software que venha a ter prejudicado a integridade dos dados \\ \hline
+                Executar conexão, escrita e leitura dos dados a partir do microcontrolador & O sistema deverá salvar no banco de dados os dados lidos \\ \hline
         \end{tabular}
     \end{center}
     \caption[Caso de Teste - CT04]{Caso de Teste - CT04
@@ -117,15 +137,13 @@ realizados, os subsistemas participantes e os resultados esperados.
             \multicolumn{2}{|c|}{\textbf{Especificação de Caso de Teste}} \\ \hline
                 \textbf{Subsistemas}                               & Interface/Processamento e Eletroeletrônica \\ \hline
                 \textbf{Caso de Teste}                             & CT-05 \\ \hline
-                \textbf{Propósito}                                     & Testar conexão, escrita e leitura dos dados da simulação do sistema, comunicação entre microcontrolador e Raspberry \\ \hline
-                \textbf{Descrição Geral}                           & Este teste tem como objetivo realizar teste de conexão via porta serial entre Raspberry e microcontrolador, utilizando a rotina de comunicação desenvolvida em Python. O sistema deve realizar a leitura e escrita dos dados de forma íntegra. \\ \hline
-                \textbf{Insumos para o caso de Teste}    & Subir uma instância de leitura e uma instância de escrita em terminais diferentes, escrever o input da simulação e iniciar um experimento. \\ \hline
-                \textbf{Roteiro para realização do Teste}&  1. Subir uma instância de pyserial em modo de leitura, 2. Subir uma instância de pyserial em modo de escrita, 3. Iniciar o experimento com -1 e logo em seguida com a frequência 10, 4. Observa o output do modo de leitura para saber se está de acordo com o que se espera da simulação. \\ \hline
+                \textbf{Propósito}                                     & Realizar o teste da rotina de requerimento dos sensores ativos no sistema para repasse na aplicação Web \\ \hline
+                \textbf{Descrição Geral}                           & Este teste possui uma integridade de alto nível, requerendo um maior cuidado. O objetivo é que a aplicação Web, faça uma requisição dos sensores ativos no sistema, essa requisição será repassada por internet ao BEViM-Rasp até as Rotinas de comunicação que irão iniciar escrita do comando para envio e a leitura dos sensores ativos, que serão lidos pelos métodos do Parser para escrita no banco de dados e por fim buscados por um GET da aplicação Web no banco de dados da Raspberry e atualizados no sistema que o usuário acessa. \\ \hline
+                \textbf{Insumos para o caso de Teste}    & Subir os Djangos da Raspberry e da aplicação Web, e preparar a estrutura de comunicação com o Arduino ativo e conectado a Raspberry \\ \hline
+                \textbf{Roteiro para realização do Teste}&  1. Subir djangos Web e Raspberry, 2. Ligar Arduino a Raspberry, 3. Repassar a requisição dos sensores ativos via aplicação Web, 4. Verificar se os sensores ativos batem com o que a simulação realmente enviou \\ \hline
             \multicolumn{2}{|c|}{\textbf{Cenários de Teste}} \\ \hline
                 \textbf{Objetivo Específico}                      & \textbf{Saídas Esperadas} \\ \hline
-                Executar conexão, escrita e leitura dos dados a partir do microcontrolador & O sistema deverá salvar no banco de dados os dados lidos \\ \hline
-                Tratar a perca de dados caso o sistema tenha package loss durante a comunicação & O sistema deverá pedir para o sistema enviar o pacote perdido novamente para leitura e assegurar que o dado chegado é o que se esperava da simuĺação \\ \hline
-                Tratar da integridade dos dados obtidos  & O sistema deverá garantir uma integridade contínua dos dados de modo que estes dados tenham confiabilidade. \\ \hline
+                Garantir a funcionaldiade na totalidade das rotinas e do sistema integrado & O sistema deverá responder com os sensores ativos na bancada\\ \hline
         \end{tabular}
     \end{center}
     \caption[Caso de Teste - CT05]{Caso de Teste - CT05
@@ -138,15 +156,15 @@ realizados, os subsistemas participantes e os resultados esperados.
         \begin{tabular}{|p{5cm}|p{12cm}|}
             \hline
             \multicolumn{2}{|c|}{\textbf{Especificação de Caso de Teste}} \\ \hline
-                \textbf{Subsistemas}                               & Interface/Processamento e Eletroeletrônica \\ \hline
+                \textbf{Subsistemas}                               &  Interface/Processamento, Eletroeletrônica, Eletroeletrônica e Estrutura \\ \hline
                 \textbf{Caso de Teste}                             & CT-06 \\ \hline
-                \textbf{Propósito}                                     & Realizar o teste da rotina de requerimento dos sensores ativos no sistema para repasse na aplicação Web \\ \hline
-                \textbf{Descrição Geral}                           & Este teste possui uma integridade de alto nível, requerendo um maior cuidado. O objetivo é que a aplicação Web, faça uma requisição dos sensores ativos no sistema, essa requisição será repassada por internet ao BEViM-Rasp até as Rotinas de comunicação que irão iniciar escrita do comando para envio e a leitura dos sensores ativos, que serão lidos pelos métodos do Parser para escrita no banco de dados e por fim buscados por um GET da aplicação Web no banco de dados da Raspberry e atualizados no sistema que o usuário acessa. \\ \hline
-                \textbf{Insumos para o caso de Teste}    & Subir os Djangos da Raspberry e da aplicação Web, e preparar a estrutura de comunicação com o Arduino ativo e conectado a Raspberry \\ \hline
-                \textbf{Roteiro para realização do Teste}&  1. Subir djangos Web e Raspberry, 2. Ligar Arduino a Raspberry, 3. Repassar a requisição dos sensores ativos via aplicação Web, 4. Verificar se os sensores ativos batem com o que a simulação realmente enviou \\ \hline
+                \textbf{Propósito}                                     & Realizar o teste de 10 segundos de um job a uma frequência de 50hz e visualizar seu resultados nos gráficos \\ \hline
+                \textbf{Descrição Geral}                           & Este teste têm como objetivo testar a principal função de envio de um comando, aguardo da leitura dos dados no tempo estabelecido e visualização dos dados na interface gráfica. O sistema têm que estar pronto para o grande volume de dados que será enviado a Raspberry, esses dados deverão ser tratados, e guardados na base de dados local, e por fim deverão ser lidos pelo GET da aplicação Web e repassados a interface sobre quais sensores estão ativos. \\ \hline
+                \textbf{Insumos para o caso de Teste}    & Subir os Djangos da Raspberry e da aplicação Web, e preparar a estrutura de comunicação com o microcontrolador ativo e conectado a Raspberry e ter a bancada integrada\\ \hline
+                \textbf{Roteiro para realização do Teste}&  1. Subir djangos Web e Raspberry, 2. Integrar raspberry com o sistema de controle, 3. Criar 1 job com duração de 10 segundos a um a frequencia de 50hz, 4. Averiguar os dados recebidos e os gráficos que foram montados  \\ \hline
             \multicolumn{2}{|c|}{\textbf{Cenários de Teste}} \\ \hline
                 \textbf{Objetivo Específico}                      & \textbf{Saídas Esperadas} \\ \hline
-                Garantir a funcionaldiade na totalidade das rotinas e do sistema integrado & O sistema deverá responder com os sensores ativos na bancada\\ \hline
+                Tratar a exibição dos dados resultantes do experimento & O sistema web deverá preencher a base de dados com os dados resultantes e a aplicação deverá exibir o gráfico desses dados, bem como realizar o processamento desses dados e exibi-los logo em seguida.  Além disso, a bancada deverá vibrar na frequência estabelecida e o inversor deverá mostrar a frequência. Além disso, será observado se haverá o escorregamento da correia. \\ \hline
         \end{tabular}
     \end{center}
     \caption[Caso de Teste - CT06]{Caso de Teste - CT06
@@ -161,27 +179,6 @@ realizados, os subsistemas participantes e os resultados esperados.
             \multicolumn{2}{|c|}{\textbf{Especificação de Caso de Teste}} \\ \hline
                 \textbf{Subsistemas}                               &  Interface/Processamento, Eletroeletrônica, Eletroeletrônica e Estrutura \\ \hline
                 \textbf{Caso de Teste}                             & CT-07 \\ \hline
-                \textbf{Propósito}                                     & Realizar o teste de 10 segundos de um job a uma frequência de 50hz e visualizar seu resultados nos gráficos \\ \hline
-                \textbf{Descrição Geral}                           & Este teste têm como objetivo testar a principal função de envio de um comando, aguardo da leitura dos dados no tempo estabelecido e visualização dos dados na interface gráfica. O sistema têm que estar pronto para o grande volume de dados que será enviado a Raspberry, esses dados deverão ser tratados, e guardados na base de dados local, e por fim deverão ser lidos pelo GET da aplicação Web e repassados a interface sobre quais sensores estão ativos. \\ \hline
-                \textbf{Insumos para o caso de Teste}    & Subir os Djangos da Raspberry e da aplicação Web, e preparar a estrutura de comunicação com o microcontrolador ativo e conectado a Raspberry e ter a bancada integrada\\ \hline
-                \textbf{Roteiro para realização do Teste}&  1. Subir djangos Web e Raspberry, 2. Integrar raspberry com o sistema de controle, 3. Criar 1 job com duração de 10 segundos a um a frequencia de 50hz, 4. Averiguar os dados recebidos e os gráficos que foram montados  \\ \hline
-            \multicolumn{2}{|c|}{\textbf{Cenários de Teste}} \\ \hline
-                \textbf{Objetivo Específico}                      & \textbf{Saídas Esperadas} \\ \hline
-                Tratar a exibição dos dados resultantes do experimento & O sistema web deverá preencher a base de dados com os dados resultantes e a aplicação deverá exibir o gráfico desses dados, bem como realizar o processamento desses dados e exibi-los logo em seguida.  Além disso, a bancada deverá vibrar na frequência estabelecida e o inversor deverá mostrar a frequência. Além disso, será observado se haverá o escorregamento da correia. \\ \hline
-        \end{tabular}
-    \end{center}
-    \caption[Caso de Teste - CT07]{Caso de Teste - CT07
-    \protect Fonte: Autor}
-    \label{CT-07}
-\end{table}
-
-\begin{table}[H]
-    \begin{center}
-        \begin{tabular}{|p{5cm}|p{12cm}|}
-            \hline
-            \multicolumn{2}{|c|}{\textbf{Especificação de Caso de Teste}} \\ \hline
-                \textbf{Subsistemas}                               &  Interface/Processamento, Eletroeletrônica, Eletroeletrônica e Estrutura \\ \hline
-                \textbf{Caso de Teste}                             & CT-08 \\ \hline
                 \textbf{Tipo}                                             & Teste de Integração \\ \hline
                 \textbf{Propósito}                                     & Realizar teste de 5 jobs com diferentes frequências e diferentes tempos e observar os resultados nos gráficos \\ \hline
                 \textbf{Descrição Geral}                           & Este teste têm como objetivo realizar testes de multiplos jobs e frequências para saber se a Raspberry vai aguentar a quantidade de dados, memória e processamento das operações de input  e output em conjunto com a aplicação Web e o sistema de controle simulado pelo Arduino. \\ \hline
@@ -192,8 +189,8 @@ realizados, os subsistemas participantes e os resultados esperados.
                 Tratar a exibição dos dados resultantes do experimento & O sistema web deverá preencher a base de dados com os dados resultantes e a aplicação deverá exibir o gráfico desses dados, bem como realizar o processamento desses dados e exibi-los logo em seguida.  Além disso, a bancada deverá vibrar nas frequências estabelecidas e o inversor deverá mostrar as frequências. Além disso, será observado se haverá o escorregamento da correia. \\ \hline
         \end{tabular}
     \end{center}
-    \caption[Caso de Teste - CT08]{Caso de Teste - CT08
+    \caption[Caso de Teste - CT07]{Caso de Teste - CT07
     \protect Fonte: Autor}
-    \label{CT-08}
+    \label{CT-07}
 \end{table}
 
